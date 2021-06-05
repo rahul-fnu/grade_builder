@@ -29,7 +29,7 @@ const question_schema = new Schema({
     },
     is_MCQ: {
         type: Boolean,
-        required: false
+        required: true
     },
     content: {
         type: [String], 
