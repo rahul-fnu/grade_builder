@@ -1,5 +1,5 @@
 import dbConnect from '../../../utils/dbConnect';
-import Question from '../../../models/Question';
+import UserData from '../../../models/UserData';
 
 dbConnect();
 
@@ -8,16 +8,16 @@ export default async (req, res) => {
     switch (method) {
         case 'GET':
             try {
-                const questions = await Question.find(req.body)
-                res.status(200).json({success: true, data: questions})
+                const users = await UserData.find(req.body)
+                res.status(200).json({success: true, data: users})
             } catch (error) {
                 res.status(400).json({success: false});
             }
             break;
         case 'POST':
             try {
-                const question = await Question.create(req.body);
-                res.status(200).json({success: true, data: question});
+                const user = await UserData.create(req.body);
+                res.status(200).json({success: true, data: user});
             } catch (error) {
                 res.status(400).json({success: false});
             }

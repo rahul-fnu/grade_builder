@@ -8,7 +8,7 @@ export default async (req, res) => {
     switch (method) {
         case 'GET':
             try {
-                const subjects = await Subject.find({})
+                const subjects = await Subject.find(req.body)
                 res.status(200).json({success: true, data: subjects})
             } catch (error) {
                 res.status(400).json({success: false});

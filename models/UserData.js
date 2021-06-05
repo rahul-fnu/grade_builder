@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema;
-const SolvedQuestion = require('./SolvedQuestion');
-const Question = require('./Question');
+//const SolvedQuestion = require('SolvedQuestion');
+//const Question = require('Question');
 
 const user_data_schema = new Schema({
     email: {
@@ -22,18 +22,18 @@ const user_data_schema = new Schema({
         required: true
     },
     questions_solved: {
-        type: [SolvedQuestion],
+        type: [String],
         required: false
     },
     years_solved: {
-        type: [SolvedQuestion],
+        type: [String],
         required: false
     },
     questions_todo: {
-        type : [Question],
+        type : [String],
         required: false
     }
 });
 
-const UserData = mongoose.models.UserData || mongoose.model('User', user_data_schema);
+const UserData = mongoose.models.UserData || mongoose.model('UserData', user_data_schema);
 module.exports = UserData;
