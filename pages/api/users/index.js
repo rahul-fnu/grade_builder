@@ -22,6 +22,14 @@ export default async (req, res) => {
                 res.status(400).json({success: false});
             }
             break;
+        case 'PUT':
+            try {
+                const user = await UserData.updateOne(req.body.user, {"$set" : req.body.updated});
+                res.status(200).json({success: true, data: user});
+            } catch (error) {
+                res.status(400).json({success: false});
+            }
+            break;
         default:
             res.status(400).json({success: false});
             break;
