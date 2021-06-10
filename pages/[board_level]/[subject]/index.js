@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../../../styles/Subject.module.css'
 import { useRouter } from 'next/router'
-
+import QuestionCard from './question_card';
 
 function get_questions() {
 
@@ -22,11 +22,7 @@ export default function Subject() {
                 <h1 className={styles.title}>Subject page</h1>
                 <br />
                 <div className={styles.grid}>
-                    {sample_questions.map(q => <div className={styles.card}>
-                        <h2>{`${q.exam_period}, Question ${q.question_number}`}</h2>
-                        <p>{`Topics: ${q.topics.join(', ')}`}</p>
-                        <p>{`Marks: ${q.marks}`}</p>
-                    </div>)}
+                    {sample_questions.map(question => <QuestionCard q={question} />)}
                 </div>
             </main>
         </div>
