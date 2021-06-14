@@ -4,11 +4,8 @@ import styles from '../../../styles/Subject.module.css'
 import { useRouter } from 'next/router'
 import QuestionCard from './question_card';
 
-function get_questions() {
 
-}
-
-export default function Subject() {
+export default function Subject({ questions }) {
     const router = useRouter();
     const { subject_name, board_level } = router.query;
     return (
@@ -22,13 +19,21 @@ export default function Subject() {
                 <h1 className={styles.title}>Subject page</h1>
                 <br />
                 <div className={styles.grid}>
-                    {sample_questions.map(question => <QuestionCard q={question} />)}
+                    {questions.map(question => <QuestionCard q={question} />)}
                 </div>
             </main>
         </div>
     );
 }
 
+Subject.getInitialProps = async (ctx) => {
+    const res = await fetch('http://localhost:3000/api/questions');
+    const questions = (await res.json()).data
+
+    return {
+        questions: questions
+    }
+}
 
 // Temporary place holder questions until we link to api - Saif
 var sample_questions = [
