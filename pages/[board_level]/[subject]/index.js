@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../../../styles/Subject.module.css'
 import { useRouter } from 'next/router'
 import QuestionCard from './question_card';
@@ -25,80 +24,13 @@ export default function Subject({ questions }) {
         </div>
     );
 }
+    
 
 Subject.getInitialProps = async (ctx) => {
-    const res = await fetch('http://localhost:3000/api/questions');
+    const res = await fetch(`http://${ctx.req.headers.host}/api/questions`);
     const questions = (await res.json()).data
 
     return {
         questions: questions
     }
 }
-
-// Temporary place holder questions until we link to api - Saif
-var sample_questions = [
-    {
-        question_number:1,
-        marks:10,
-        is_MCQ:false,
-        year:2020,
-        component_region:13,
-        exam_period:"June 2021",
-        content:["First line of content", "Second line of content"],
-        topics:["First topic", "Second topic", "Third topic"],
-        options:["Yes", "No"],
-        answer:["Maybe"]
-    },
-
-    {
-        question_number:2,
-        marks:10,
-        is_MCQ:false,
-        year:2020,
-        component_region:13,
-        exam_period:"June 2021",
-        content:["First line of content", "Second line of content"],
-        topics:["First topic", "Second topic", "Third topic"],
-        options:["Yes", "No"],
-        answer:["Maybe"]
-    },
-
-    {
-        question_number:3,
-        marks:10,
-        is_MCQ:false,
-        year:2020,
-        component_region:13,
-        exam_period:"June 2021",
-        content:["First line of content", "Second line of content"],
-        topics:["First topic", "Second topic", "Third topic"],
-        options:["Yes", "No"],
-        answer:["Maybe"]
-    },
-
-    {
-        question_number:4,
-        marks:10,
-        is_MCQ:false,
-        year:2020,
-        component_region:13,
-        exam_period:"June 2021",
-        content:["First line of content", "Second line of content"],
-        topics:["First topic", "Second topic", "Third topic"],
-        options:["Yes", "No"],
-        answer:["Maybe"]
-    },
-
-    {
-        question_number:5,
-        marks:10,
-        is_MCQ:false,
-        year:2020,
-        component_region:13,
-        exam_period:"June 2021",
-        content:["First line of content", "Second line of content"],
-        topics:["First topic", "Second topic", "Third topic"],
-        options:["Yes", "No"],
-        answer:["Maybe"]
-    },
-];
