@@ -9,7 +9,13 @@ export default async (req, res) => {
         case 'GET':
             try {
                 let questions;
-                questions = await Question.find({})
+                if (req.query) {
+                    // TODO pre-process the query
+                    questions = await Question.find(req.query)
+                } else {
+                    questions = await Question.find({})
+                }
+                console.log(req.query)
                 res.status(200).json({success: true, data: questions})
             } catch (error) {
                 res.status(400).json({success: false});
