@@ -1,6 +1,5 @@
 import Header from '../../../../react_components/question_components/header_card';
-import Prompt from '../../../../react_components/question_components/prompt_card';
-import QuestionHeader from '../../../../react_components/question_components/question_header';
+import NavTabs from '../../../../react_components/question_components/question_header';
 "www.gradebuilder.com/caie-a-levels/maths/2020/1234567"
 
 // pass in question argument 
@@ -14,10 +13,7 @@ export default function Question() {
     return (
         <>
             <Header q = {que[0]}></Header>
-            <QuestionHeader></QuestionHeader>
-            <div>
-                {que[0].content.map(prompt => <Prompt p = {prompt} />)}
-            </div>
+            <NavTabs ques = {que[0]}></NavTabs>
         </>
     );
 }
@@ -36,6 +32,7 @@ var que = [
         ],
         topics:["First topic", "Second topic", "Third topic"],
         options:["Yes", "No"],
-        answer:["Maybe"]
+        expert_solution:["frjefvjkegvkvjkfkfvbkfgbgkfbkfgkfgvbfkgbkfv kfb kfvkfvdfjkvkdfvkfgkfgvbjkfbkfgvkfrbjkf vkdernvrkvkfvkfrgvikfrgnknr nvkdrnvkvbnfrkvkfrgvndfkvdf vkfvnkdfvbfkbikfgf vkdvnkdfvnikvbhnkfgbvfgjkbb nfjk frkvn dfrkvikervkerf  bnfkverkfvefrkvkv f fmvbdfkvbndefkvdfkvfkvb nfjkbvikdfvjikfgb nfgjk fjk jkfgvnjkdfvnjkfvnjkdfvnjkdfvbnjfkdvnjkdfvnfjkdvbnjkdfbndfjkvbnjkdfnvbjkdfvnbfjdk vknefrkvnfjkdvbnjfdv jefrvbnfjkeivbnjfkdm v fiovhfkelvnfr rjkvcbnrfjkevbfjkv cvriekcvhrkwefvn jfnerjkfcvnrkcv fkvnfrkvn fjkvnkfrs kerjfhjkfvbj fwerhjikfhfik ifhjikerhfirhfg ojfgorjfor iojoeijdikedjn fihrifhri ifhikrhfr fihrikfhr firehfikr fierhfkre jenfbjkerfb ifhierfbn ifhrifhr fierhifr fjibrifbr firhifr fhri"],
+        marking_scheme: ["(2) Oh yeah daddy", "(2) Oh yeahhhhhhhhhh", "(1) spread itttt"]
     }
 ];
