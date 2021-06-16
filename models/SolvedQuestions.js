@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
-const Question = require('./Questions');
+const Question = require('./Question');
 
 const solved_question_schema = new Schema({
     question: {
@@ -8,7 +8,7 @@ const solved_question_schema = new Schema({
         required: true
     },
     answer: {
-        type: String,
+        type: [Object],
         required: true
     },
     marks_obtained: {
