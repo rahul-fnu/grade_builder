@@ -29,7 +29,7 @@ var que = [
         exam_period:"March 2019",
         content:[
             {prompt: "The ampere, metre and second are SI base units.\n State two other SI base units.", part: 'a', marks: 2, text_area: true , subparts: []}, 
-            {prompt: "The average drift speed v of electrons moving through a metal conductor is given by the equation: \n $$/emph{v = /mu /frac{F}{e}}$$ \n where $/emph{e}$ is the charge on an electron \n $/emph{F}$ is a force acting on the electron \n and $/emph{/mu}$ is a connstant. \n Determine the SI base units on the electron", part: 'b', marks: 5, text_area: false, subparts: []}
+            {prompt: "The average drift speed v of electrons moving through a metal conductor is given by the equation: \n $\\textit{v = $\\frac{\\mu * F}{e}$}$ \n where $\\textit{e}$ is the charge on an electron \n $\\textit{F}$ is a force acting on the electron \n and $\\textit{$\\mu$}$ is a connstant. \n Determine the SI base units on the electron", part: 'b', marks: 5, text_area: false, subparts: []}
         ],
         topics:["SI units"],
         options:[],
