@@ -1,5 +1,6 @@
 import Header from '../../../../react_components/question_components/header_card';
 import NavTabs from '../../../../react_components/question_components/question_header';
+import {latexParser} from '../../../../node_modules/latex-parser';
 "www.gradebuilder.com/caie-a-levels/maths/2020/1234567"
 
 // pass in question argument 
@@ -21,18 +22,18 @@ export default function Question() {
 var que = [
     {
         question_number:1,
-        marks:10,
-        is_MCQ:false,
-        year:2020,
-        component_region:13,
-        exam_period:"June 2021",
+        marks:7,
+        //is_MCQ:false,
+        year:2019,
+        component_region:22,
+        exam_period:"March 2019",
         content:[
-            {prompt: "First line of content", part: 'a', marks: 5, text_area: true , subparts: [{prompt: "First line of content", part: 'a', marks: 420},{prompt: "sex line of content", part: 'a', marks: 69}]}, 
-            {prompt: "Second line of content", part: 'b', marks: 69, text_area: false, subparts: []}
+            {prompt: "The ampere, metre and second are SI base units.\n State two other SI base units.", part: 'a', marks: 2, text_area: true , subparts: []}, 
+            {prompt: "The average drift speed v of electrons moving through a metal conductor is given by the equation: \n /emph{v = /mu /frac{F}{e}} \n where /emph{e} is the charge on an electron \n /emph{F} is a force acting on the electron \n and /emph{/mu} is a connstant. \n Determine the SI base units on the electron", part: 'b', marks: 5, text_area: false, subparts: []}
         ],
-        topics:["First topic", "Second topic", "Third topic"],
-        options:["Yes", "No"],
-        expert_solution:["frjefvjkegvkvjkfkfvbkfgbgkfbkfgkfgvbfkgbkfv kfb kfvkfvdfjkvkdfvkfgkfgvbjkfbkfgvkfrbjkf vkdernvrkvkfvkfrgvikfrgnknr nvkdrnvkvbnfrkvkfrgvndfkvdf vkfvnkdfvbfkbikfgf vkdvnkdfvnikvbhnkfgbvfgjkbb nfjk frkvn dfrkvikervkerf  bnfkverkfvefrkvkv f fmvbdfkvbndefkvdfkvfkvb nfjkbvikdfvjikfgb nfgjk fjk jkfgvnjkdfvnjkfvnjkdfvnjkdfvbnjfkdvnjkdfvnfjkdvbnjkdfbndfjkvbnjkdfnvbjkdfvnbfjdk vknefrkvnfjkdvbnjfdv jefrvbnfjkeivbnjfkdm v fiovhfkelvnfr rjkvcbnrfjkevbfjkv cvriekcvhrkwefvn jfnerjkfcvnrkcv fkvnfrkvn fjkvnkfrs kerjfhjkfvbj fwerhjikfhfik ifhjikerhfirhfg ojfgorjfor iojoeijdikedjn fihrifhri ifhikrhfr fihrikfhr firehfikr fierhfkre jenfbjkerfb ifhierfbn ifhrifhr fierhifr fjibrifbr firhifr fhri"],
-        marking_scheme: ["(2) Oh yeah daddy", "(2) Oh yeahhhhhhhhhh", "(1) spread itttt"]
+        topics:["SI units"],
+        options:[],
+        expert_solution:[],
+        marking_scheme: [""]
     }
 ];
