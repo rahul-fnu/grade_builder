@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import styles from '../../styles/Question.module.css';
 import Subpart from './subpart_card';
-import 'katex/dist/katex.min.css'
-import Latex from 'react-latex-next'
+import TextRenderer from './text_renderer';
+
 export default class Prompt extends Component {
     render() {
         return (
             <div className = {styles.container}>
                 <div className={styles.prompt_card}>
                     <p>{`Part ${this.props.p.part}`}</p>
-                    <Latex displayMode={true}>{this.props.p.prompt}</Latex>
+                    <TextRenderer text={this.props.p.prompt}/>
                     <p>{`Points: ${this.props.p.marks}`}</p>
-                    {this.props.p.text && <textarea></textarea>}
-                    {(this.props.p.subparts.length) > 0 && 
+                    {(this.props.p.subparts.length) == 0 ? <textarea></textarea> :
                         <div>
                             {this.props.p.subparts.map(prompt => <Subpart s={prompt}/>)}
                         </div>
