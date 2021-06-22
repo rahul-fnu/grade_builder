@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styles from '../../styles/Question.module.css';
 import Subpart from './subpart_card';
 import TextRenderer from './text_renderer';
+//import Editor from './text_editor';
 
 export default class Prompt extends Component {
     render() {

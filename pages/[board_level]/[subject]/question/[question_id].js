@@ -14,7 +14,7 @@ export default function Question() {
     return (
         <>
             <Header q = {que[1]}></Header>
-            <NavTabs ques = {que[1]}></NavTabs>
+            <NavTabs ques = {que[0]}></NavTabs>
         </>
     );
 }
@@ -54,11 +54,12 @@ var que = [
         expert_solution:[],
         marking_scheme: [{part: 'a', answer:[], subparts: [{part: 'i', answer:['distance in a specified direction (from a point) (1)'], subparts: []}, {part: 'ii', answer:['distance in a specified direction (from a point) (1)'], subparts: []}]},
                         {part: 'b', answer:[], subparts: [{part: 'i', answer:['constant velocity so no resultant force (1)', 'no resultant force so in equilibrium(1)'], subparts: []}, 
-                            {part: 'ii', answer:['47 × 2.8 × 60 × $\\sin(24)$ = 3200 m (1)'], subparts: []}]},
+                            {part: 'ii', answer:['47 × 2.8 × 60 × $\\sin(24)$ = 3200 m (1)'], subparts: []},
                             {part: 'iii', answer:[ '$\\delta$ E = mg$\\delta$h= 85 × 9.81 × 3200 (1)', '= 2.7 × $10^6$ J (1)', 'In terms of energy: \n work done = 2.7 × $10^6$ J \n force = 2.7 × $10^6$ \n / (47 × 2.8 × 60) \n Or \\linebreak In terms of forces: component of weight along path = force due to air resistance force = 85 × 9.81 × $\\sin(24)$ (1)', '= 340 N (1)'], subparts: []},
                             {part: 'iv', answer:['\\Delta p = $\\rho$ x g x $\\Delta$ h = (92 – 63) × 103 = $\\rho$ × 9.81 × 3200 (1)', '$\\rho$ = 0.92 kg$m^–3$ (1)'], subparts: []}                  
+                        
                         ]
-        },
+        }]},
     {
         question_number: 3,
         marks: 6,
@@ -74,7 +75,7 @@ var que = [
         topics:["momentum"],
         options:[],
         expert_solution:[],
-        marking_scheme:[""]
+        marking_scheme:[]
     },
     {
         question_number: 4,
@@ -98,7 +99,7 @@ var que = [
         topics:["elecrtricty"],
         options:[],
         expert_solution:[],
-        marking_scheme:[""]
+        marking_scheme:[]
     },
     {
         question_number: 5,

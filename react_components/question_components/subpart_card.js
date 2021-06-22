@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styles from '../../styles/Question.module.css';
 import TextRenderer from './text_renderer'
-
+//import Editor from './text_editor';
 export default class Subpart extends Component {
     render() {
         return (

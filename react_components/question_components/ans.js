@@ -6,7 +6,7 @@ import TextRenderer from './text_renderer';
 export default class MarkSchemeComponent extends Component {
     render() {
         return (
-            <div className = {styles.container}>
+            <div className = {styles.prompt_card}>
                 <p>{this.props.msq.part}</p>
                 {(this.props.msq.subparts.length) == 0 ? 
                     <div> 
