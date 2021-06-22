@@ -1,22 +1,22 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
-const Subject = require('../models/Subject');
+//const Subject = require('../models/Subject');
 
 const question_schema = new Schema({
     board_level: {
         type: String,
         required: true
     },
+    subject: {
+        type: String,
+        required: true
+    },
     exam_period: {
-        type: Date,
+        type: String,
         required: true
     },
     component_region: { 
         type: Number,
-        required: true
-    },
-    subject: {
-        type: String,
         required: true
     },
     question_number: { 
@@ -27,12 +27,8 @@ const question_schema = new Schema({
         type: Number,
         required: true
     },
-    is_MCQ: {
-        type: Boolean,
-        required: true
-    },
     content: {
-        type: [String], 
+        type: [Object], 
         required: true
     },
     topics: {
@@ -43,12 +39,12 @@ const question_schema = new Schema({
         type: [String],
         required: false
     },
-    marking_scheme: {
-        type: [String],
+    expert_solution: {
+        type: [Object],
         required: true
     },
-    answer: {
-        type: [String],
+    marking_scheme: {
+        type: [Object],
         required: true
     }
 });

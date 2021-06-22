@@ -1,16 +1,12 @@
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema;
-//const SolvedQuestion = require('SolvedQuestion');
-//const Question = require('Question');
+// const Question = require('./Question');
+// const SolvedQuestion = require('./SolvedQuestions');
 
 const user_data_schema = new Schema({
     email: {
         type: String,
         unique: true,
-        required: true
-    },
-    password_hash: {
-        type: String,
         required: true
     },
     first_name: {
