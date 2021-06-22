@@ -1,24 +1,44 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {Component} from 'react';
 import { PieChart } from 'react-minimal-pie-chart';
+import NavigationBar from '../Components/navigation_bar.js';
 
 export class HomePage extends Component {
     constructor(props) {
         super(props);
-    }    
-
+        this.bio = this.props.q.filter(e => e.subject === 'biology');
+        this.chem = this.props.q.filter(e => e.subject === 'chemistry');
+        this.phy = this.props.q.filter(e => e.subject === 'physics');
+        this.econ = this.props.q.filter(e => e.subject === 'economics');
+    }
+    
     render(){
       return (
         <div>
+            <NavigationBar></NavigationBar>
           <p>Welcome.</p>
           <p>You have attempted these questions from the ones available</p>
-          <PieChart id='Chemistry' size={30}
-            data={[
-                { title: 'One', value: this.props.q.length, color: '#E38627' },
-                { title: 'Two', value: 1, color: '#C13C37' },
-            ]}
-            
+
+            <h2>Biology</h2>
+            <PieChart id='Biology'
+                data={[
+                    { title: this.props.q.length, value: this.props.q.length, color: 'green' },
+                    { title: this.bio.length, value: this.bio.length, color: 'cyan' }
+                ]}
+            />;
+
+            <PieChart id='Chemistry'
+                data={[
+                    { title: this.chem.length, value: this.chem.length, color: 'grey' },
+                    { title: this.props.q.length, value: this.props.q.length, color: 'blue' }
+                ]}
+            />;
+
+            <PieChart id='Physics'
+                data={[
+                    { title: this.phy.length, value: this.phy.length, color: 'brown' },
+                    { title: this.props.q.length, value: this.props.q.length, color: 'yellow' }
+                ]}
             />;
         </div>
       );
