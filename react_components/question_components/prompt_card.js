@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styles from '../../styles/Question.module.css';
 import Subpart from './subpart_card';
-require("//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css")
+// require("//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css")
 var Latex = require('react-latex');
 export default class Prompt extends Component {
     render() {

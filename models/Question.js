@@ -23,6 +23,10 @@ const question_schema = new Schema({
         type: Number,
         required: true   
     },
+    text: {
+        type: String,
+        required: false
+    },
     marks: {
         type: Number,
         required: true
