@@ -6,9 +6,17 @@ dbConnect();
 export default async (req, res) => {
     const { method } = req;
     switch (method) {
+        // case 'GET':
+        //     try {
+        //         const users = await UserData.find(req.body)
+        //         res.status(200).json({success: true, data: users})
+        //     } catch (error) {
+        //         res.status(400).json({success: false});
+        //     }
+        //     break;
         case 'GET':
             try {
-                const users = await UserData.find(req.body)
+                const users = await UserData.find({})
                 res.status(200).json({success: true, data: users})
             } catch (error) {
                 res.status(400).json({success: false});
