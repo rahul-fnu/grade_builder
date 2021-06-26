@@ -14,9 +14,6 @@ export default function Question({ question }) {
 Question.getInitialProps = async (ctx) => {
     const res = await fetch(`http://${ctx.req.headers.host}/api/questions?_id=${ctx.query.question_id}`);
     const question = (await res.json()).data[0] // Make this an array in the future for better functionality
-
-    console.log(question)
-
     return {
         question: question
     }
