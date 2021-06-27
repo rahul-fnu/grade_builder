@@ -21,14 +21,15 @@ function ImageUploader () {
     // };
     const upload = async () =>{
         const formData = new FormData();
-        formData.append('File', selectedFile);
-        return await axios({
+        formData.append('image', selectedFile);
+        const res = await axios({
             method: 'POST',
             url: 'https://api.imgur.com/3/image',
-            headers: {"Content-type": "application/x-www-form-urlencoded",
-            Authorization: "Client-ID b711eeeb15456d5",
-            data: formData}, 
+            headers: {"Authorization": "Client-ID b711eeeb15456d5"}, 
+            data: formData
         })
+        // TODO: Handle response by pushing image link to db
+        console.log(res.data.data.link)
     }
 
     return (
