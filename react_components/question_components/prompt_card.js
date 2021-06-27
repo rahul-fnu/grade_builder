@@ -3,7 +3,7 @@ import styles from '../../styles/Question.module.css';
 import Subpart from './subpart_card';
 import TextRenderer from './text_renderer';
 //import Editor from './text_editor';
-//import ImageUploader from '../image_upload/image_upload'
+import ImageUploader from '../image_upload/image_upload'
 import TextEditor from '../text_editor/text_editor';
 export default class Prompt extends Component {
     render() {
@@ -18,7 +18,7 @@ export default class Prompt extends Component {
                             {this.props.p.subparts.map(prompt => <Subpart s={prompt}/>)}
                         </div>
                     }
-                    {/* <ImageUploader /> */}
+                    <ImageUploader />
                 </div>
             </div>
         );
