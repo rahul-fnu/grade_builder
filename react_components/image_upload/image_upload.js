@@ -25,7 +25,7 @@ function ImageUploader () {
         const res = await axios({
             method: 'POST',
             url: 'https://api.imgur.com/3/image',
-            headers: {"Authorization": "Client-ID b711eeeb15456d5"}, 
+            headers: {"Authorization": "Client-ID 4ae60b2646e7020"}, 
             data: formData
         })
         // TODO: Handle response by pushing image link to db

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, Component } from "react";
+import React, { useRef, useState, Component } from "react";
 //import SunEditor from '../../node_modules/suneditor-react';
 import '../../node_modules/suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import dynamic from "next/dynamic";
@@ -11,23 +11,30 @@ const plugins = dynamic(import("../../node_modules/suneditor-react"),{
     ssr: false,
   });
 export default function TextEditor () {
-       const editor = useRef();
-       // The sunEditor parameter will be set to the core suneditor instance when this function is called
-       const getSunEditorInstance = (sunEditor) => {
-           editor.current = sunEditor;
-       };
-       katex.ParseError = false;
-       return (
-        <div>
-            <SunEditor getSunEditorInstance={getSunEditorInstance} setOptions={{
-                plugins: plugins,
-                height: 200,
-                katex: katex,
-                buttonList: [
-                    ['undo', 'redo', 'bold', 'underline', 'italic', 'subscript', 'superscript', 'outdent', 'indent', 'align', 'list', 'math']
-                ]
-            }}/>
-        </div>
+    function handleSubmission() {
+        console.log(editor.current.getContents())
+    }
+
+    const editor = useRef();
+    // The sunEditor parameter will be set to the core suneditor instance when this function is called
+    const getSunEditorInstance = (sunEditor) => {
+       editor.current = sunEditor;
+       //this.handleChange = this.handleChange.bind(this);
+    };
+    return (
+        <>
+            <div>
+                <SunEditor getSunEditorInstance={getSunEditorInstance} setOptions={{
+                    plugins: plugins,
+                    height: 200,
+                    katex: katex,
+                    buttonList: [
+                        ['bold', 'underline', 'italic', 'subscript', 'superscript', 'outdent', 'indent','math']
+                    ]
+                }}/>
+            </div>
+            <button onClick={handleSubmission}>Save</button>
+        </>
     );
 };
 
