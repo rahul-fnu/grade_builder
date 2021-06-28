@@ -10,6 +10,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "mongoose": "^5.12.13",
+    "multiselect-react-dropdown": "^2.0.1",
     "next": "10.2.3",
     "react": "17.0.2",
     "react-bootstrap": "^1.6.1",
