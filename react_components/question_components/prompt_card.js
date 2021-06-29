@@ -5,6 +5,7 @@ import TextRenderer from './text_renderer';
 //import Editor from './text_editor';
 import ImageUploader from '../image_upload/image_upload'
 import TextEditor from '../text_editor/text_editor';
+import NewTextRenderer from './text_renderer_new'
 export default class Prompt extends Component {
     constructor(props) {
         super(props);
