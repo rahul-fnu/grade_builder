@@ -17,9 +17,8 @@ export default class Prompt extends Component {
                     <p>{`Points: ${this.props.p.marks}`}</p>
                     {(this.props.p.subparts.length) == 0 ?
                         <div>
-                            <TextEditor />
-                            
-                            
+                            <TextEditor data = {ans}/>
+                            <button onClick={console.log(ans)}>prinn</button>
                         </div>
                         :
                         <div>

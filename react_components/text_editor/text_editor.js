@@ -10,11 +10,12 @@ const SunEditor = dynamic(import("../../node_modules/suneditor-react"), {
 const plugins = dynamic(import("../../node_modules/suneditor-react"),{
     ssr: false,
   });
-export default function TextEditor () {
-    function handleSubmission() {
-        console.log(editor.current.getContents())
+export default function TextEditor (props) {
+    function onTrigger (event) {
+        // console.log(editor.current.getContents());
+        props.parentCallback(editor.current.getContents());
+        event.preventDefault();
     }
-
     const editor = useRef();
     // The sunEditor parameter will be set to the core suneditor instance when this function is called
     const getSunEditorInstance = (sunEditor) => {
@@ -33,7 +34,7 @@ export default function TextEditor () {
                     ]
                 }}/>
             </div>
-            <button onClick={handleSubmission}>Save</button>
+            <button onClick={onTrigger}>Save</button>
         </>
     );
 };
