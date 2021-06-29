@@ -13,11 +13,16 @@ export default class Prompt extends Component {
         }
     }
 
-    updateAnswer = (part, answer) => {
-        this.state.answers[part] = answer;
-        // console.log(part, answer)
+    updateAnswer = (part) => {
+        if (!this.state.answers[this.props.p.part]) {
+            this.state.answers[this.props.p.part] = new Set()
+        }
+        this.state.answers[this.props.p.part].add(part);
     }
-
+    onTrigger = (event) => {
+        this.props.parentCallback({part: this.props.p.part, answer: this.state.answers})
+        event.preventDefault();
+    }
     render() {
         var i = 0;
         var ans = "";
@@ -29,16 +34,14 @@ export default class Prompt extends Component {
                     <p>{`Points: ${this.props.p.marks}`}</p>
                     {(this.props.p.subparts.length) == 0 ?
                         <div>
-                            <TextEditor part = {this.props.p.part} parentCallback = {(part, answer) => this.updateAnswer(part, answer)} />
-                            <button onClick={console.log(ans)}>prinn</button>
+                            <TextEditor part = {this.props.p.part} parentCallback = {(part) => this.updateAnswer(part)} />
                         </div>
                         :
                         <div>
-                            {/* {this.props.p.subparts.map(prompt => data[1].push([prompt.part, [], ""]))} */}
-                            {this.props.p.subparts.map(prompt => <Subpart parentCallback = {(part, answer) => this.updateAnswer(part, answer)} s={prompt}/>)}
+                            {this.props.p.subparts.map(prompt => <Subpart parentCallback = {(part) => this.updateAnswer(part)} s={prompt}/>)}
                         </div>
                     }
-                    <button onClick={() => console.log(this.state.answers)}>ehuehuhifieiweheuis</button>
+                    <button onClick = {this.onTrigger}>ehuehuhifieiweheuis</button>
                 </div>
             </div>
         );

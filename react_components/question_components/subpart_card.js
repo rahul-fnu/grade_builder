@@ -8,24 +8,16 @@ export default class Subpart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data:null,
-            subparts:[]
+            answers:{}
         }
     }
-    handleCallbackOne = (childData) => {
-        this.setState({partNumber:this.props.s.part,
-            point: this.props.s.marks,
-            ans: childData})
-    }
-    handleCallbackTwo = (childData) => {
-        this.setState({partNumber:this.props.s.part,
-            point: this.props.s.marks,
-            subparts: this.state.subparts.push(childData)});
-    }
-    onTrigger = (event) => {
-        console.log(this.state)
-        event.preventDefault();
-    }
+    updateAns = (part) => {
+        if (!this.state.answers[this.props.s.part]) {
+            this.state.answers[this.props.s.part] = new Set()
+        }
+        this.state.answers[this.props.s.part].add(part);
+        this.props.parentCallback(this.state)
+    };
     render() {
         const {data} = this.state;
         var ans = 0;
@@ -37,13 +29,12 @@ export default class Subpart extends Component {
                     <p>{`Points: ${this.props.s.marks}`}</p>
                     {(this.props.s.subparts.length) == 0 ?
                         <div>
-                            <TextEditor part = {this.props.s.part} parentCallback = {(part, answer) => this.props.parentCallback(part, answer)} />
-                            {/* {console.log(this.state.ans)} */}
+                            <TextEditor part = {this.props.s.part} parentCallback = {this.updateAns} />
+                            <button onClick={this.onTrigger}>cnjdncjc</button>
                         </div>
                         : 
                         <div>
-                            {this.props.s.subparts.map(prompt => <Subpart parentCallback = {this.props.parentCallback} s={prompt}/>)}
-                            <button onClick={this.onTrigger}>cnjdncjc</button>
+                            {this.props.s.subparts.map(prompt => <Subpart parentCallback = {this.updateAns} s={prompt}/>)}
                         </div>
                     }
                 </div>

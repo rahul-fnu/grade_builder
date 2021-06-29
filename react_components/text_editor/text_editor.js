@@ -12,7 +12,7 @@ const plugins = dynamic(import("../../node_modules/suneditor-react"),{
   });
 export default function TextEditor (props) {
     function onTrigger (event) {
-        props.parentCallback(props.part, editor.current.getContents());
+        props.parentCallback(editor.current.getContents());
         event.preventDefault();
     }
     const editor = useRef();
