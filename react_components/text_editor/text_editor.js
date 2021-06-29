@@ -1,4 +1,4 @@
-import React, { useRef, useState, Component } from "react";
+import React, { useRef } from "react";
 //import SunEditor from '../../node_modules/suneditor-react';
 import '../../node_modules/suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import dynamic from "next/dynamic";
@@ -12,7 +12,6 @@ const plugins = dynamic(import("../../node_modules/suneditor-react"),{
   });
 export default function TextEditor (props) {
     function onTrigger (event) {
-        // console.log(editor.current.getContents());
         props.parentCallback(editor.current.getContents());
         event.preventDefault();
     }

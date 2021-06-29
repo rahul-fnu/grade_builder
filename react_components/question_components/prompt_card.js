@@ -23,7 +23,7 @@ export default class Prompt extends Component {
                         :
                         <div>
                             {/* {this.props.p.subparts.map(prompt => data[1].push([prompt.part, [], ""]))} */}
-                            {this.props.p.subparts.map(prompt => <Subpart s={prompt}/>)}
+                            {this.props.p.subparts.map(prompt => <Subpart parentCallback = {console.log(this.state)} s={prompt}/>)}
                         </div>
                     }
                     <ImageUploader />
