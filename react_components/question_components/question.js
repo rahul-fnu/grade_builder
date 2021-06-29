@@ -29,6 +29,11 @@ export default class QuestionC extends Component {
         this.state.answers[ans.part] = ans.answer
     }
     pri = () => {
+        for (var i = 0; i < this.state.prompts.length; i++) {
+            this.state.prompts[i].props.p.answers = this.state.answers[this.state.prompts[i].props.p.part];
+            console.log(1);
+        }
+        delete this.state.answers
         console.log(this.state)
     }
     render() {
