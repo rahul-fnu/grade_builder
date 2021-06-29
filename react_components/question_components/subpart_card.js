@@ -3,6 +3,7 @@ import styles from '../../styles/Question.module.css';
 import TextRenderer from './text_renderer'
 //import Editor from './text_editor';
 import TextEditor from '../text_editor/text_editor';
+
 export default class Subpart extends Component {
     constructor(props) {
         super(props);
@@ -22,10 +23,9 @@ export default class Subpart extends Component {
             subparts: this.state.subparts.push(childData)});
     }
     onTrigger = (event) => {
-        this.props.parentCallback(this.state);
+        console.log(this.state)
         event.preventDefault();
     }
-    
     render() {
         const {data} = this.state;
         var ans = 0;
@@ -37,15 +37,15 @@ export default class Subpart extends Component {
                     <p>{`Points: ${this.props.s.marks}`}</p>
                     {(this.props.s.subparts.length) == 0 ?
                         <div>
-                            <TextEditor parentCallback = {this.handleCallbackOne}/>
+                            <TextEditor part = {this.props.s.part} parentCallback = {(part, answer) => this.props.parentCallback(part, answer)} />
+                            {/* {console.log(this.state.ans)} */}
                         </div>
                         : 
                         <div>
-                            {this.props.s.subparts.map(prompt => <Subpart parentCallback = {this.handleCallbackTwo} s={prompt}/>)}
+                            {this.props.s.subparts.map(prompt => <Subpart parentCallback = {this.props.parentCallback} s={prompt}/>)}
                             <button onClick={this.onTrigger}>cnjdncjc</button>
                         </div>
                     }
-                    {console.log(this.state)}
                 </div>
             </div>
         );

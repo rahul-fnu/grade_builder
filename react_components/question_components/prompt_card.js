@@ -6,6 +6,18 @@ import TextRenderer from './text_renderer';
 import ImageUploader from '../image_upload/image_upload'
 import TextEditor from '../text_editor/text_editor';
 export default class Prompt extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            answers: {}
+        }
+    }
+
+    updateAnswer = (part, answer) => {
+        this.state.answers[part] = answer;
+        // console.log(part, answer)
+    }
+
     render() {
         var i = 0;
         var ans = "";
@@ -17,16 +29,16 @@ export default class Prompt extends Component {
                     <p>{`Points: ${this.props.p.marks}`}</p>
                     {(this.props.p.subparts.length) == 0 ?
                         <div>
-                            <TextEditor data = {ans}/>
+                            <TextEditor part = {this.props.p.part} parentCallback = {(part, answer) => this.updateAnswer(part, answer)} />
                             <button onClick={console.log(ans)}>prinn</button>
                         </div>
                         :
                         <div>
                             {/* {this.props.p.subparts.map(prompt => data[1].push([prompt.part, [], ""]))} */}
-                            {this.props.p.subparts.map(prompt => <Subpart parentCallback = {console.log(this.state)} s={prompt}/>)}
+                            {this.props.p.subparts.map(prompt => <Subpart parentCallback = {(part, answer) => this.updateAnswer(part, answer)} s={prompt}/>)}
                         </div>
                     }
-                    <ImageUploader />
+                    <button onClick={() => console.log(this.state.answers)}>ehuehuhifieiweheuis</button>
                 </div>
             </div>
         );

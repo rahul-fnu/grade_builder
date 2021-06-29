@@ -3,8 +3,31 @@ import Prompt from './prompt_card';
 import TextRenderer from './text_renderer';
 var ans = [];
 export default class QuestionC extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            prompts: []
+        }
+    }
+
+    submitAnswers = () => {
+        // Connect to db and save answer
+        let answers = {}
+        for (let i = 0; i < this.state.prompts.length; ++i) {
+            // console.log(this.state.prompts[i])
+            if (!this.state.prompts[i].state) {
+                continue;
+            }
+            answers[this.state.prompts[i].part] = this.state.prompts[i].state.answers;
+        }
+        console.log(answers);
+
+        // fetch ("api link", put)
+    }
+
     render() {
-        var i = 0;
+        this.state.prompts = this.props.q.content.map(prompt => <Prompt p = {prompt} />);
+
         return (
             <>
                 <div>
@@ -16,10 +39,10 @@ export default class QuestionC extends Component {
                     {data['answer'] = []} */}
                     {(this.props.q.text) ? <TextRenderer text={this.props.q.text}/> : ""}
                     {/* {this.props.q.content.map(prompt => data['answer'].push([prompt.part, [], ""]))} */}
-                    {this.props.q.content.map(prompt => <Prompt p = {prompt} />)}
+                    {this.state.prompts}
                     {/* <KatexRenderer /> */}
                 </div>
-                <button >Submit</button>
+                <button onClick={this.submitAnswers}>Submit</button>
             </>
             // <div>{JSON.stringify(this.props.q)}</div>
         )
