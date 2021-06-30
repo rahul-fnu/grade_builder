@@ -16,7 +16,7 @@ export default class Subpart extends Component {
             this.state.answers[this.props.s.part] = new Set()
         }
         this.state.answers[this.props.s.part].add(part);
-        this.props.parentCallback(this.state)
+        this.props.parentCallback(this.state) 
     };
     render() {
         const {data} = this.state;
