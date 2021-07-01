@@ -41,7 +41,6 @@ export default class QuestionC extends Component {
             return ip;
         }
         var keys = Object.keys(this.state.answers)
-        var ans = {}
         for (let i = 0; i < keys.length; i++) {
             this.state.answers[keys[i]] = this.state.answers[keys[i]][keys[i]];
             if (this.state.answers[keys[i]] instanceof Set) {
@@ -52,8 +51,13 @@ export default class QuestionC extends Component {
         for (var i = 0; i < this.state.prompts.length; i++) {
             this.state.prompts[i].props.p.answers = this.state.answers[this.state.prompts[i].props.p.part];
         }
-        delete this.state.answers
         console.log(this.state)
+        const attempt = {
+            question: question_id,
+            answer: this.state.answers,
+            marks_obtained: -1,
+            last_solved: Date.now()
+        }
     }
 
     render() {
@@ -69,5 +73,13 @@ export default class QuestionC extends Component {
             </>
             // <div>{JSON.stringify(this.props.q)}</div>
         )
+    }
+}
+
+QuestionC.getInitialProps = async (ctx) => {
+    const res = await fetch(`http://${ctx.req.headers.host}/api/attempts?_id=${ctx.query.question_id}`);
+    const question = (await res.json()).data[0] // Make this an array in the future for better functionality
+    return {
+        question: question
     }
 }

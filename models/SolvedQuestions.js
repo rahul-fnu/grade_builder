@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
-const Question = require('./Question');
+//const Question = require('./Question');
 
 const solved_question_schema = new Schema({
     question: {
-        type: Question,
+        type: String,
         required: true
     },
     answer: {
