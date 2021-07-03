@@ -5,7 +5,12 @@ import Multiselect from 'multiselect-react-dropdown';
 export class AddQuestionPage extends Component {
     constructor(props) {
         super(props);   
+        this.state = {
+            options: [{name: 'Chemistry', id: 'chemistry'},{name: 'Physics', id: 'physics'}, {name: 'Maths', id: 'maths'}]
+        };
     }
+
+    
 
     render(){
       return (
@@ -23,7 +28,13 @@ export class AddQuestionPage extends Component {
                 
                 <label>
                     Topics: 
-                    <Multiselect options={'physics'}/>
+                    <Multiselect
+                        options={this.state.options} // Options to display in the dropdown
+                        selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
+                        onSelect={this.onSelect} // Function will trigger on select event
+                        onRemove={this.onRemove} // Function will trigger on remove event
+                        displayValue="name" // Property name to display in the dropdown options
+                    />
                     <input type="text" id="topics" />
                 </label><br/>
 

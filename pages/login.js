@@ -9,7 +9,7 @@ const responseGoogle = (response) => {
 }
 
 
-class HomePage extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
     }    
@@ -22,15 +22,15 @@ class HomePage extends Component {
           <GoogleLogin
             clientId= "1070055233643-68seh13ja0pr5ddo7sb5g9futj71ivoe.apps.googleusercontent.com"
             buttonText="Login"
+            uxMode='redirect'
+            redirectUri="http://localhost:3000/dashboard"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             cookiePolicy={'single_host_origin'}
           />
-
-
         </div>
       );
     }
 }
 
-export default HomePage;
+export default Login;
