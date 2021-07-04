@@ -5,8 +5,39 @@ import QuestionCard from './question_card';
 import { Component } from 'react';
 
 export class SubjectPage extends Component {
+    constructor(props) {
+        super(props)
+        this.questions = this.props.qs
+        this.questionList = <Component></Component>
+    }
+
+    sortQuestions = (type) => {
+        this.questions = this.props.qs.sort((a, b) => {
+            if (a[type] > b[type]) {
+                return 1;
+            } else if (a[type] < b[type]) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
+
+        this.setState({state: this.state})  // This line forces React to rerender the page
+    }
 
     render() {
+        
+        this.questionList = <div className={styles.grid}>
+            {/* If question list is empty display not found message */}
+            {!this.questions ? 
+            <h2>No questions found</h2> : 
+            this.questions.map(question => {
+                return <a href={`/question/${question._id}`}>
+                    <QuestionCard q={question} key={question._id} />
+                </a>
+            })}
+        </div>
+
         return (
             <div className={styles.container}>
                 <Head>
@@ -17,12 +48,14 @@ export class SubjectPage extends Component {
                 <main className={styles.main}>
                     <h1 className={styles.title}>Subject page</h1>
                     <br />
-                    <div className={styles.grid}>
-                        {/* If question list is empty display not found message */}
-                        {!this.props.qs ? 
-                        <h2>No questions found</h2> : 
-                        this.props.qs.map(question => <QuestionCard q={question} key={question._id} />)}
-                    </div>
+                    <span>
+                        Sort by:&nbsp;
+                        <button onClick={() => this.sortQuestions("date")}>Date</button>
+                        <button onClick={() => this.sortQuestions("subject")}>Subject</button>
+                        <button onClick={() => this.sortQuestions("difficulty")}>Difficulty</button>
+                        <button onClick={() => this.sortQuestions("question_number")}>Question Number</button>
+                    </span>
+                    {this.questionList}
                 </main>
             </div>
         );

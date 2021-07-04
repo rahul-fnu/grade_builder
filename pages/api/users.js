@@ -1,5 +1,5 @@
-import dbConnect from '../../../utils/dbConnect';
-import Subject from '../../../models/Subject';
+import dbConnect from '../../utils/dbConnect';
+import UserData from '../../models/UserData';
 
 dbConnect();
 
@@ -8,24 +8,24 @@ export default async (req, res) => {
     switch (method) {
         case 'GET':
             try {
-                const subjects = await Subject.find(req.body)
-                res.status(200).json({success: true, data: subjects})
+                const users = await UserData.find(req.body)
+                res.status(200).json({success: true, data: users})
             } catch (error) {
                 res.status(400).json({success: false});
             }
             break;
         case 'POST':
             try {
-                const subject = await Subject.create(req.body);
-                res.status(200).json({success: true, data: subject});
+                const user = await UserData.create(req.body);
+                res.status(200).json({success: true, data: user});
             } catch (error) {
                 res.status(400).json({success: false});
             }
             break;
         case 'PUT':
             try {
-                const subject = await Subject.updateOne(req.body.subject, {"$set" : req.body.updated});
-                res.status(200).json({success: true, data: subject});
+                const user = await UserData.updateOne(req.body.user, {"$set" : req.body.updated});
+                res.status(200).json({success: true, data: user});
             } catch (error) {
                 res.status(400).json({success: false});
             }

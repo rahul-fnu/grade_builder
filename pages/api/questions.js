@@ -1,5 +1,5 @@
-import dbConnect from '../../../utils/dbConnect';
-import SolvedQuestion from '../../../models/SolvedQuestions';
+import dbConnect from '../../utils/dbConnect';
+import Question from '../../models/Question';
 
 dbConnect();
 
@@ -8,25 +8,30 @@ export default async (req, res) => {
     switch (method) {
         case 'GET':
             try {
-                let attempts;
+                let questions;
                 if (req.query) {
                     // TODO pre-process the query
-                    attempts = await SolvedQuestion.find(req.query)
+                    questions = await Question.find(req.query)
                 } else {
-                    attempts = await SolvedQuestion.find({})
+                    questions = await Question.find({})
                 }
                 // console.log(req.query)
-                res.status(200).json({success: true, data: attempts})
+                res.status(200).json({success: true, data: questions})
             } catch (error) {
                 res.status(400).json({success: false});
             }
             break;
         case 'POST':
             try {
-                const attempt = await SolvedQuestion.create(req.body);
-                res.status(200).json({success: true, data: attempt});
+                if (req.body.length) {
+                    const questions = await Question.insertMany(req.body);
+                    res.status(200).json({success: true, data: questions});
+                } else {
+                    const question = await Question.create(req.body);
+                    res.status(200).json({success: true, data: question});
+                }
             } catch (error) {
-                // console.log(error)
+                console.log(error)
                 res.status(400).json({success: false});
             }
             break;

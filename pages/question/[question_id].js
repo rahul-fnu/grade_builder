@@ -1,5 +1,5 @@
-import Header from '../../../../react_components/question_components/header_card';
-import NavTabs from '../../../../react_components/question_components/question_header';
+import Header from '../../react_components/question_components/header_card';
+import NavTabs from '../../react_components/question_components/question_header';
 
 export default function Question({ question }) {
     return (
