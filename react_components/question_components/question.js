@@ -1,6 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import Prompt from './prompt_card';
 import TextRenderer from './text_renderer';
+import Modal from './modal'
+import Popup from '../../node_modules/reactjs-popup'
+import '../../node_modules/reactjs-popup/dist/index.css'
 var ans = [];
 export default class QuestionC extends Component {
     constructor(props) {
@@ -10,66 +13,112 @@ export default class QuestionC extends Component {
             answers:{}
         }
     }
-    anserts = (ans) => {
+    answers = (ans) => {
         this.state.answers[ans.part] = ans.answer
     }
-    pri = () => {
+    filterAnswer = () => {
         for (var i = 0; i < this.state.prompts.length; i++) {
             this.state.prompts[i].props.p.answers = this.state.answers[this.state.prompts[i].props.p.part];
         }
-        function convert (avs) {
-            var lis = []
-            for (let item of avs) {
+        function convertAnswers (recordedAnswer) {
+            var list = []
+            for (let item of recordedAnswer) {
                 if (item.answers) {
-                    lis.push(item.answers)
+                    list.push(item.answers)
                 } else {
-                    lis.push(item)
+                    list.push(item)
                 }
             }
-            var ip = {}
-            for (let item of lis) {
+            var map = {}
+            for (let item of list) {
                 if (typeof item == 'string') {
-                    ip = item;
+                    map = item;
                     break
                 }
                 var key = Object.keys(item);
-                ip[key[0]] = item[key[0]];
-                if (ip[key[0]] instanceof Set) {
-                    ip[key[0]] = convert(ip[key[0]])
+                map[key[0]] = item[key[0]];
+                if (map[key[0]] instanceof Set) {
+                    map[key[0]] = convertAnswers(map[key[0]])
                 }
             }
-            return ip;
+            return map;
+        }
+        function convertMarkingScheme (markingScheme) { 
+            var map = {};
+            for (let item of markingScheme) {
+                if (item.subparts) {
+                    map[item.part] = item.subparts;
+                    console.log(1)
+                } else {
+                    map[item.part] = item.answer;
+                    console.log(2)
+                }
+            }
+            console.log(map)
+            for (let item of map) {
+                if (Object.prototype.toString.call( item ) === '[object Array]' ) {
+                    //console.log(123);
+                }
+            }
+
         }
         var keys = Object.keys(this.state.answers)
         for (let i = 0; i < keys.length; i++) {
             this.state.answers[keys[i]] = this.state.answers[keys[i]][keys[i]];
             if (this.state.answers[keys[i]] instanceof Set) {
-                var lis = convert(this.state.answers[keys[i]])
-                this.state.answers[keys[i]] = lis
+                var list = convertAnswers(this.state.answers[keys[i]])
+                this.state.answers[keys[i]] = list
             }
+            //console.log(this.state)
         }
         for (var i = 0; i < this.state.prompts.length; i++) {
             this.state.prompts[i].props.p.answers = this.state.answers[this.state.prompts[i].props.p.part];
         }
-        console.log(this.state)
         const attempt = {
-            question: question_id,
+            //question: question_id,
             answer: this.state.answers,
             marks_obtained: -1,
             last_solved: Date.now()
         }
+        // var ms = this.state.marking_scheme;
+        // var temp = {};
+        // for (var i = 0; i < ms.length; i++) {
+        //     const obj = {}
+        //     obj.subparts = ms[i].subparts;
+        //     obj.answer = ms[i].answer;
+        //     temp[ms[i].part] = obj
+        // }
+        //console.log(this.state)
+        // this.state.marking_scheme = temp;
+        // //console.log(this.state.marking_scheme);
+        // ans = temp
+        // //console.log(1)
+        // keys = Object.keys(ans)
+        // // console.log(keys)
+        // for (i = 0; i < keys.length; i++) {
+            //console.log(keys[i])
+            //console.log(ans[keys[i]])
+            //console.log(temp)
+            // if (this.marking_scheme[keys[i]])
+            //this.marking_scheme[keys[i]] = convertMarkingScheme(this.marking_scheme[keys[i]]);
+            //console.log(2);
+        //}
     }
+    // funtion modal = new Modal();
 
     render() {
-        this.state.prompts = this.props.q.content.map(prompt => <Prompt parentCallback = {this.anserts} p = {prompt} />);
-
+        this.state.marking_scheme = this.props.q.marking_scheme;
+        this.state.prompts = this.props.q.content.map(prompt => <Prompt parentCallback = {this.answers} p = {prompt}/>);
+        //onst [open, setIsOpen] = useState(false);
+        //const modal = new Modal(open, setIsOpen);
         return (
             <>
                 <div>
                     {(this.props.q.text) ? <TextRenderer text={this.props.q.text}/> : ""}
                     {this.state.prompts}
                 </div>
-                <button onClick= {this.pri}>Submit</button>
+                <button onClick= {this.filterAnswer}>Save</button>
+                <Modal />
             </>
             // <div>{JSON.stringify(this.props.q)}</div>
         )

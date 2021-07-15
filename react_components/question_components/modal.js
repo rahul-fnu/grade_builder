@@ -1,39 +1,46 @@
-import React, { useRef, useCallback, useEffect } from "react";
-import ReactModal from "react-modal";
+import { style } from "@material-ui/system";
+import React, { Component} from "react";
+import Popup from '../../node_modules/reactjs-popup'
+import '../../node_modules/reactjs-popup/dist/index.css'
+import styles from  '../../styles/Question.module.css';
 
-export default function Modal ({isOpen, setIsOpen, content}) {
-    const modalRef = useRef();
-    const closeModal = e => {
-        if (modalRef.current === e.target) {
-          setIsOpen(false);
-        }
-    };
-    const keyPress = useCallback(
-        e => {
-          if (e.key === 'Escape' && showModal) {
-            setShowModal(false);
-            console.log('I pressed');
-          }
-        },
-        [setShowModal, showModal]
-    );
-    useEffect(
-        () => {
-          document.addEventListener('keydown', keyPress);
-          return () => document.removeEventListener('keydown', keyPress);
-        },
-        [keyPress]
-    );
-    return(
-        <>
-            {isOpen ? (
-                <ReactModal>
-                    <div>
-                        {}
-                    </div>
-                </ReactModal>
-            ):null}
-        </>
-    )
-
+export default class Modal extends Component {
+    render() {
+        return (
+            <Popup
+            trigger={<button className="button"> Open Modal </button>}
+            modal
+            nested
+          >
+            {close => (
+              <div className={styles.modal}>
+                <button className={styles.modal_close} onClick={close}>
+                  &times;
+                </button>
+                <div className={styles.modal_header}> Modal Title </div>
+                <div className={styles.modal_content}>
+                  
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, a nostrum.
+                  Dolorem, repellat quidem ut, minima sint vel eveniet quibusdam voluptates
+                  delectus doloremque, explicabo tempore dicta adipisci fugit amet dignissimos?
+                  <br />
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur sit
+                  commodi beatae optio voluptatum sed eius cumque, delectus saepe repudiandae
+                  explicabo nemo nam libero ad, doloribus, voluptas rem alias. Vitae?
+                </div>
+                <div className={styles.modal_actions}>
+                  <button
+                    className="button"
+                    onClick={() => {
+                      close();
+                    }}
+                  >
+                    close modal
+                  </button>
+                </div>
+              </div>
+            )}
+          </Popup>
+        );
+    }
 }
