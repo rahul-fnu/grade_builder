@@ -30,7 +30,6 @@ export default class Subpart extends Component {
                     {(this.props.s.subparts.length) == 0 ?
                         <div>
                             <TextEditor part = {this.props.s.part} parentCallback = {this.updateAns} />
-                            <button onClick={this.onTrigger}>cnjdncjc</button>
                         </div>
                         : 
                         <div>

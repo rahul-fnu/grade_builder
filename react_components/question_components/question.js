@@ -4,21 +4,27 @@ import TextRenderer from './text_renderer';
 import Modal from './modal'
 import Popup from '../../node_modules/reactjs-popup'
 import '../../node_modules/reactjs-popup/dist/index.css'
+import { useSelector, useDispatch } from 'react-redux';
+import { saveInput } from '../../store/user_input/action';
 var ans = [];
-export default class QuestionC extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            prompts: [],
-            answers:{}
-        }
+// const globalState = useSelector((st))
+
+export default function QuestionC(props) {
+    const state = {
+        prompts: [],
+        answers:{}
     }
-    answers = (ans) => {
-        this.state.answers[ans.part] = ans.answer
+    const globalState = useSelector((state) => state.answers)
+    const dispatch = useDispatch();
+    const answers = (ans) => {
+        state.answers[ans.part] = ans.answer
+        dispatch(saveInput(globalState));
+
     }
-    filterAnswer = () => {
-        for (var i = 0; i < this.state.prompts.length; i++) {
-            this.state.prompts[i].props.p.answers = this.state.answers[this.state.prompts[i].props.p.part];
+    const filterAnswer = () => {
+
+        for (var i = 0; i < state.prompts.length; i++) {
+            state.prompts[i].props.p.answers = state.answers[state.prompts[i].props.p.part];
         }
         function convertAnswers (recordedAnswer) {
             var list = []
@@ -62,35 +68,35 @@ export default class QuestionC extends Component {
             }
 
         }
-        var keys = Object.keys(this.state.answers)
+        var keys = Object.keys(state.answers)
         for (let i = 0; i < keys.length; i++) {
-            this.state.answers[keys[i]] = this.state.answers[keys[i]][keys[i]];
-            if (this.state.answers[keys[i]] instanceof Set) {
-                var list = convertAnswers(this.state.answers[keys[i]])
-                this.state.answers[keys[i]] = list
+            state.answers[keys[i]] = state.answers[keys[i]][keys[i]];
+            if (state.answers[keys[i]] instanceof Set) {
+                var list = convertAnswers(state.answers[keys[i]])
+                state.answers[keys[i]] = list
             }
             //console.log(this.state)
         }
-        for (var i = 0; i < this.state.prompts.length; i++) {
-            this.state.prompts[i].props.p.answers = this.state.answers[this.state.prompts[i].props.p.part];
+        for (var i = 0; i < state.prompts.length; i++) {
+            state.prompts[i].props.p.answers = state.answers[state.prompts[i].props.p.part];
         }
         const attempt = {
             //question: question_id,
-            answer: this.state.answers,
+            answer: state.answers,
             marks_obtained: -1,
             last_solved: Date.now()
         }
-        // var ms = this.state.marking_scheme;
-        // var temp = {};
-        // for (var i = 0; i < ms.length; i++) {
-        //     const obj = {}
-        //     obj.subparts = ms[i].subparts;
-        //     obj.answer = ms[i].answer;
-        //     temp[ms[i].part] = obj
-        // }
-        //console.log(this.state)
-        // this.state.marking_scheme = temp;
-        // //console.log(this.state.marking_scheme);
+        var ms = state.marking_scheme;
+        var temp = {};
+        for (var i = 0; i < ms.length; i++) {
+            const obj = {}
+            obj.subparts = ms[i].subparts;
+            obj.answer = ms[i].answer;
+            temp[ms[i].part] = obj
+        }
+        console.log(state)
+        state.marking_scheme = temp;
+        console.log(state.marking_scheme);
         // ans = temp
         // //console.log(1)
         // keys = Object.keys(ans)
@@ -105,30 +111,28 @@ export default class QuestionC extends Component {
         //}
     }
     // funtion modal = new Modal();
-
-    render() {
-        this.state.marking_scheme = this.props.q.marking_scheme;
-        this.state.prompts = this.props.q.content.map(prompt => <Prompt parentCallback = {this.answers} p = {prompt}/>);
+    state.marking_scheme = props.q.marking_scheme;
+    state.prompts = props.q.content.map(prompt => <Prompt parentCallback = {answers} p = {prompt}/>);
         //onst [open, setIsOpen] = useState(false);
         //const modal = new Modal(open, setIsOpen);
-        return (
-            <>
-                <div>
-                    {(this.props.q.text) ? <TextRenderer text={this.props.q.text}/> : ""}
-                    {this.state.prompts}
-                </div>
-                <button onClick= {this.filterAnswer}>Save</button>
-                <Modal />
-            </>
+    return (
+        <>
+            <div>
+                    {(props.q.text) ? <TextRenderer text={props.q.text}/> : ""}
+                    {state.prompts}
+            </div>
+            <button onClick= {filterAnswer}>Save</button>
+            <Modal />
+        </>
             // <div>{JSON.stringify(this.props.q)}</div>
-        )
-    }
+    )
 }
 
-QuestionC.getInitialProps = async (ctx) => {
-    const res = await fetch(`http://${ctx.req.headers.host}/api/attempts?_id=${ctx.query.question_id}`);
-    const question = (await res.json()).data[0] // Make this an array in the future for better functionality
-    return {
-        question: question
-    }
-}
+
+// QuestionC.getInitialProps = async (ctx) => {
+//     const res = await fetch(`http://${ctx.req.headers.host}/api/attempts?_id=${ctx.query.question_id}`);
+//     const question = (await res.json()).data[0] // Make this an array in the future for better functionality
+//     return {
+//         question: question
+//     }
+// }
