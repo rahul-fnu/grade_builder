@@ -6,10 +6,11 @@ import Popup from '../../node_modules/reactjs-popup'
 import '../../node_modules/reactjs-popup/dist/index.css'
 // import { useSelector, useDispatch } from 'react-redux';
 // import { saveInput } from '../../store/user_input/action';
-import cookies from 'next-cookies'
+import cookie from 'cookie'
 
 var ans = [];
 // const globalState = useSelector((st))
+
 
 export default class QuestionC extends Component {
     // static async getInitialProps(ctx) {
@@ -32,7 +33,9 @@ export default class QuestionC extends Component {
             // answers: JSON.parse(props.initialAns) || {}
         }
     }
-
+    parseCookies = (ctx) => {
+        return cookie.parse(ctx ? ctx.headers.cookie || {} : document.cookie);
+    }
     answers = (ans) => {
         this.state.answers[ans.part] = ans.answer
         // dispatch(saveInput(this.state.answers));
