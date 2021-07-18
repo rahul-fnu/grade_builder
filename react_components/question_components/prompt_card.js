@@ -6,6 +6,7 @@ import TextRenderer from './text_renderer';
 import ImageUploader from '../image_upload/image_upload'
 import TextEditor from '../text_editor/text_editor';
 import NewTextRenderer from './text_renderer_new'
+import cookies from 'next-cookies'
 export default class Prompt extends Component {
     constructor(props) {
         super(props);
@@ -19,9 +20,11 @@ export default class Prompt extends Component {
             this.state.answers[this.props.p.part] = new Set()
         }
         this.state.answers[this.props.p.part].add(part);
+        document.cookie  = JSON.stringify(this.state.answers)
     }
     onTrigger = (event) => {
         this.props.parentCallback({part: this.props.p.part, answer: this.state.answers})
+
         event.preventDefault();
     }
     render() {
