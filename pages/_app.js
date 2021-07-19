@@ -1,15 +1,15 @@
 import '../styles/globals.css'
-import {wrapper} from '../store/store';
-import {useStore} from "react-redux";
-import {PersistGate} from "redux-persist/integration/react"
+// import {wrapper} from '../store/store';
+// import {useStore} from "react-redux";
+// import {PersistGate} from "redux-persist/integration/react"
 
 function MyApp({ Component, pageProps }) {
-  const store = useStore((state) => state);
+  // const store = useStore((state) => state);
   return (
-    <PersistGate persistor={store.__persistor} loading = {<div>Loading</div>}>
+    // <PersistGate persistor={store.__persistor} loading = {<div>Loading</div>}>
       <Component {...pageProps} />
-    </PersistGate>
+    // </PersistGate>
   )
 }
-
-export default wrapper.withRedux(MyApp)
+export default MyApp;
+// export default wrapper.withRedux(MyApp)

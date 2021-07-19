@@ -17,10 +17,10 @@ export default class Prompt extends Component {
 
     updateAnswer = (part) => {
         if (!this.state.answers[this.props.p.part]) {
-            this.state.answers[this.props.p.part] = new Set()
+            this.state.answers[this.props.p.part] = []
         }
-        this.state.answers[this.props.p.part].add(part);
-        document.cookie  = JSON.stringify(this.state.answers)
+        this.state.answers[this.props.p.part].push(part);
+        // document.cookie  = JSON.stringify(this.state.answers)
     }
     onTrigger = (event) => {
         this.props.parentCallback({part: this.props.p.part, answer: this.state.answers})

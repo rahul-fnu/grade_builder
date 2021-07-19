@@ -9,7 +9,6 @@ import '../../node_modules/reactjs-popup/dist/index.css'
 export default class QuestionC extends Component {
     constructor(props) {
         super(props);
-        // console.log(document.cookie)
         this.state = {
             prompts: [],
             answers: {}
@@ -35,13 +34,15 @@ export default class QuestionC extends Component {
             }
             var map = {}
             for (let item of list) {
+                // cons
                 if (typeof item == 'string') {
-                    map = item;
+                    map = list[list.length - 1];
                     break
                 }
                 var key = Object.keys(item);
                 map[key[0]] = item[key[0]];
-                if (map[key[0]] instanceof Set) {
+                // Array.isArray(variable)
+                if (Array.isArray(map[key[0]])) {
                     map[key[0]] = convertAnswers(map[key[0]])
                 }
             }
@@ -50,7 +51,7 @@ export default class QuestionC extends Component {
         var keys = Object.keys(this.state.filteredAns)
         for (let i = 0; i < keys.length; i++) {
             this.state.filteredAns[keys[i]] = this.state.filteredAns[keys[i]][keys[i]];
-            if (this.state.filteredAns[keys[i]] instanceof Set) {
+            if (Array.isArray(this.state.filteredAns[keys[i]])) {
                 var list = convertAnswers(this.state.filteredAns[keys[i]])
                 this.state.filteredAns[keys[i]] = list
             }
@@ -65,17 +66,40 @@ export default class QuestionC extends Component {
             marks_obtained: -1,
             last_solved: Date.now()
         }
-        var ms = this.state.marking_scheme;
-        var temp = {};
-        for (var i = 0; i < ms.length; i++) {
-            const obj = {}
-            obj.subparts = ms[i].subparts;
-            obj.answer = ms[i].answer;
-            temp[ms[i].part] = obj
+        
+    }
+    filterMarkingScheme = () => {
+        const filtered_ans = {};
+        var i = 0;
+        function mark(data) {
+            var list = {};
+            for (let item of data) {
+                if (item['answer'].length) {
+                    // list = [];
+                    console.log(item['answer'])
+
+                    list[item['part']] = item['answer']
+                } else {
+                    console.log(1)
+                    list[item['part']] = item.subparts;
+                }
+            }
+            console.log(list)
+            var keys  = Object.keys(list);
+            // const ma
+            for (let i of keys) {
+                if (list[i] && (typeof list[i][0] == 'string')) {
+                    // cons
+                    list[i] = list[i]
+                } else {
+                    console.log(list[i])
+                    list[i] = mark(list[i]);
+                }
+            }
+            return list;
         }
+        this.state.filteredMS = mark(this.state.marking_scheme)
         console.log(this.state)
-        this.state.marking_scheme = temp;
-        console.log(this.state.marking_scheme);
     }
     render() {
         this.state.marking_scheme = this.props.q.marking_scheme;
@@ -88,7 +112,7 @@ export default class QuestionC extends Component {
                     {(this.props.q.text) ? <TextRenderer text={this.props.q.text}/> : ""}
                     {this.state.prompts}
                 </div>
-                <button onClick= {console.log(this.state)}>Save</button>
+                <button onClick= {this.filterMarkingScheme}>Save</button>
                 <Modal />
             </>
             // <div>{JSON.stringify(this.props.q)}</div>

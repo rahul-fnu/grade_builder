@@ -13,9 +13,9 @@ export default class Subpart extends Component {
     }
     updateAns = (part) => {
         if (!this.state.answers[this.props.s.part]) {
-            this.state.answers[this.props.s.part] = new Set()
+            this.state.answers[this.props.s.part] = []
         }
-        this.state.answers[this.props.s.part].add(part);
+        this.state.answers[this.props.s.part].push(part);
         this.props.parentCallback(this.state) 
     };
     render() {
