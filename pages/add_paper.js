@@ -1,7 +1,8 @@
 import React from 'react';
 import {Component} from 'react';
-
-export class AddPaperPage extends Component {
+import AddQuestionPage from './new_question'
+import styles from '../styles/Admin.module.css';
+export default class AddPaperPage extends Component {
     constructor(props) {
         super(props);   
         this.state = {
@@ -9,9 +10,10 @@ export class AddPaperPage extends Component {
             subject: "",
             exam_period: "",
             content : [],
-            time : "",
+            session : "",
             year : "",
-            mcq: false
+            mcq: false,
+
         }
     }
     handleChang = (e) => {
@@ -20,12 +22,16 @@ export class AddPaperPage extends Component {
     mcqHandler = () => {
         this.state.mcq = !this.state.mcq;
     }
-    printState = () => {
-        console.log(this.state)
+    addQuestion = () => {
+        this.setState({
+            content: [...this.state.content, 
+            <AddQuestionPage subject = {this.state.subject} board_level ={this.state.board_level} exam_period = {this.state.time + this.state.session}/>
+        ]
+        })
     }
     render(){
       return (
-        <div>
+        <div class = {styles.page_card}>
             <form>
                 <label>
                     Board Level:
@@ -41,14 +47,14 @@ export class AddPaperPage extends Component {
                         <option value="" disabled selected>Select Subject</option>
                         <option value="physics">Physics</option>
                         <option value="chemistry">Chemistry</option>
-                        <option value="maths">Maths</option>
+                        <option value="mathematics">Maths</option>
                         <option value="economics">Economics</option>
                     </select>         
                 </label><br/>
 
                 <label>
-                    Exam Period:
-                    <select id="time" value = {this.state.time} onChange={(e) => this.handleChang(e)}>
+                    Exam Session:
+                    <select id="session" value = {this.state.time} onChange={(e) => this.handleChang(e)}>
                         <option value="" disabled selected>Select Exam Period</option>
                         <option value="March ">March</option>
                         <option value="May ">May</option>
@@ -97,23 +103,23 @@ export class AddPaperPage extends Component {
 
                 {/* <input type="submit" value="Submit" /> */}
             </form>
-            <button onClick={this.printState}>jkfrkrf</button>
-
+            {this.state.content}
+            <button onClick={this.addQuestion}>jkfrkrf</button>
         </div>
       );
     }
 }
 
-export default function AddPaper({data}){
-    return <AddPaperPage q={data.questions} u= {data.users}></AddPaperPage>
-}
+// export default function AddPaper({data}){
+//     return <AddPaperPage q={data.questions} u= {data.users}></AddPaperPage>
+// }
 
-AddPaper.getInitialProps = async (context) => {
-    const res1 = await fetch('http://localhost:3000/api/questions');
-    const res2 = await fetch('http://localhost:3000/api/users');
-    const questions = (await res1.json()).data
-    const users = (await res2.json()).data
-    return {
-        data: {questions: questions, users: users} 
-    }
-}
+// AddPaper.getInitialProps = async (context) => {
+//     const res1 = await fetch('http://localhost:3000/api/questions');
+//     const res2 = await fetch('http://localhost:3000/api/users');
+//     const questions = (await res1.json()).data
+//     const users = (await res2.json()).data
+//     return {
+//         data: {questions: questions, users: users} 
+//     }
+// }
