@@ -3,12 +3,12 @@ import React, { Component} from "react";
 import Popup from '../../node_modules/reactjs-popup'
 import '../../node_modules/reactjs-popup/dist/index.css'
 import styles from  '../../styles/Question.module.css';
-
+import GradingPanel from "./grading_panel";
 export default class Modal extends Component {
     render() {
         return (
             <Popup
-            trigger={<button className="button"> Open Modal </button>}
+            trigger={<button className="button"> Submit </button>}
             modal
             nested
           >
@@ -19,14 +19,8 @@ export default class Modal extends Component {
                 </button>
                 <div className={styles.modal_header}> Modal Title </div>
                 <div className={styles.modal_content}>
-                  
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, a nostrum.
-                  Dolorem, repellat quidem ut, minima sint vel eveniet quibusdam voluptates
-                  delectus doloremque, explicabo tempore dicta adipisci fugit amet dignissimos?
-                  <br />
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur sit
-                  commodi beatae optio voluptatum sed eius cumque, delectus saepe repudiandae
-                  explicabo nemo nam libero ad, doloribus, voluptas rem alias. Vitae?
+                  {console.log(this.props)}
+                  <GradingPanel ms = {this.props.ms} part = {this.props.part} ans = {this.props.ans} />
                 </div>
                 <div className={styles.modal_actions}>
                   <button

@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import Prompt from './prompt_card';
 import TextRenderer from './text_renderer';
 import Modal from './modal'
@@ -11,7 +11,9 @@ export default class QuestionC extends Component {
         super(props);
         this.state = {
             prompts: [],
-            answers: {}
+            answers: {},
+            filteredAns: {"A" : {}},
+            filteredMS: {"cds" : {}}
         }
     }
     answers = (ans) => {
@@ -75,30 +77,23 @@ export default class QuestionC extends Component {
             var list = {};
             for (let item of data) {
                 if (item['answer'].length) {
-                    // list = [];
-                    console.log(item['answer'])
-
                     list[item['part']] = item['answer']
                 } else {
-                    console.log(1)
                     list[item['part']] = item.subparts;
                 }
             }
-            console.log(list)
             var keys  = Object.keys(list);
-            // const ma
             for (let i of keys) {
                 if (list[i] && (typeof list[i][0] == 'string')) {
-                    // cons
                     list[i] = list[i]
                 } else {
-                    console.log(list[i])
                     list[i] = mark(list[i]);
                 }
             }
             return list;
         }
-        this.state.filteredMS = mark(this.state.marking_scheme)
+        // this.state.filteredMS = mark(this.state.marking_scheme)
+        this.state.filteredMS = mark(this.state.marking_scheme);
         console.log(this.state)
     }
     render() {
@@ -113,7 +108,8 @@ export default class QuestionC extends Component {
                     {this.state.prompts}
                 </div>
                 <button onClick= {this.filterMarkingScheme}>Save</button>
-                <Modal />
+                {/* {console.log(this.state.data)} */}
+                <Modal ms = {this.state.filteredAns} part = {1} ans = {this.state.filteredMS}/>
             </>
             // <div>{JSON.stringify(this.props.q)}</div>
         )
