@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import Prompt from './prompt_card';
 import TextRenderer from './text_renderer';
-import Modal from './modal'
+import Modal from 'react-responsive-modal';
+import GradingPanel from './grading_panel'
 import Popup from '../../node_modules/reactjs-popup'
 import '../../node_modules/reactjs-popup/dist/index.css'
 // import { useSelector, useDispatch } from 'react-redux';
@@ -13,9 +14,17 @@ export default class QuestionC extends Component {
             prompts: [],
             answers: {},
             filteredAns: {"A" : {}},
-            filteredMS: {"cds" : {}}
+            filteredMS: {"cds" : {}},
+            open: false
         }
     }
+
+      onOpenModal = () => {
+        this.setState({open: true});
+      }
+      onCloseModal = () => {
+        this.setState({open: false});
+      }
     answers = (ans) => {
         this.state.answers[ans.part] = ans.answer
         this.filterAnswer();
@@ -61,14 +70,14 @@ export default class QuestionC extends Component {
         for (var i = 0; i < this.state.prompts.length; i++) {
             this.state.prompts[i].props.p.answers = this.state.filteredAns[this.state.prompts[i].props.p.part];
         }
-        document.cookie  = JSON.stringify(this.state.filteredAns)
+        // document.cookie  = JSON.stringify(this.state.filteredAns)
         const attempt = {
             //question: question_id,
             answer: this.state.answers,
             marks_obtained: -1,
             last_solved: Date.now()
         }
-        
+        return this.state.filteredAns
     }
     filterMarkingScheme = () => {
         const filtered_ans = {};
@@ -92,9 +101,20 @@ export default class QuestionC extends Component {
             }
             return list;
         }
-        // this.state.filteredMS = mark(this.state.marking_scheme)
-        this.state.filteredMS = mark(this.state.marking_scheme);
+        this.state.filteredMS = mark(this.state.marking_scheme)
+        // this.setState({filteredMS : mark(this.state.marking_scheme)});
+        this.state.ans = true;
+        //return <Modal ms = {this.state.filteredMS} part = {1} ans = {this.filterAnswer()}/>
         console.log(this.state)
+        
+        return this.state.filteredMS
+        
+    }
+    modal = () => {
+        var ab =  this.filterAnswer();
+        var bc = this.filterMarkingScheme();
+        console.log(ab);
+        return <Modal ans = {ab} part = {1} ms = {bc} />
     }
     render() {
         this.state.marking_scheme = this.props.q.marking_scheme;
@@ -109,7 +129,11 @@ export default class QuestionC extends Component {
                 </div>
                 <button onClick= {this.filterMarkingScheme}>Save</button>
                 {/* {console.log(this.state.data)} */}
-                <Modal ms = {this.state.filteredAns} part = {1} ans = {this.state.filteredMS}/>
+                {/* <button onClick = {() => this.modal && console.log(this.state)}>udheudheu</button> */}
+                <button onClick={this.onOpenModal}>Submit</button>
+                <Modal open={this.state.open} onClose={this.onCloseModal}>
+                    <GradingPanel ans = {this.state.filteredAns} part = {1} ms = {this.state.filteredMS} />
+                </Modal>
             </>
             // <div>{JSON.stringify(this.props.q)}</div>
         )

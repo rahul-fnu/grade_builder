@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Checkbox from './checkbox';
+import styles from '../../styles/Question.module.css'
 export default class CheckboxBlock extends Component {
     constructor(props) {
         super(props);
