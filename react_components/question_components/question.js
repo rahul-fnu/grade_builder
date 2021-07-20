@@ -5,6 +5,7 @@ import Modal from 'react-responsive-modal';
 import GradingPanel from './grading_panel'
 import Popup from '../../node_modules/reactjs-popup'
 import '../../node_modules/reactjs-popup/dist/index.css'
+import styles from '../../styles/Question.module.css'
 // import { useSelector, useDispatch } from 'react-redux';
 // import { saveInput } from '../../store/user_input/action';
 export default class QuestionC extends Component {
@@ -13,21 +14,25 @@ export default class QuestionC extends Component {
         this.state = {
             prompts: [],
             answers: {},
-            filteredAns: {"A" : {}},
-            filteredMS: {"cds" : {}},
+            filteredAns: {},
+            filteredMS: {},
             open: false
         }
     }
-
-      onOpenModal = () => {
+    onOpenModal = () => {
         this.setState({open: true});
-      }
-      onCloseModal = () => {
+    }
+    onCloseModal = () => {
         this.setState({open: false});
-      }
+    }
     answers = (ans) => {
         this.state.answers[ans.part] = ans.answer
         this.filterAnswer();
+    }
+    onTrigger = (event) => {
+        this.filterMarkingScheme()
+        this.props.parentCallback({ms: this.state.filteredMS, ans: this.state.filteredAns})
+        event.preventDefault();
     }
     filterAnswer = () => {
         this.state.filteredAns = {...this.state.answers}
@@ -106,34 +111,21 @@ export default class QuestionC extends Component {
         this.state.ans = true;
         //return <Modal ms = {this.state.filteredMS} part = {1} ans = {this.filterAnswer()}/>
         console.log(this.state)
-        
         return this.state.filteredMS
-        
-    }
-    modal = () => {
-        var ab =  this.filterAnswer();
-        var bc = this.filterMarkingScheme();
-        console.log(ab);
-        return <Modal ans = {ab} part = {1} ms = {bc} />
     }
     render() {
         this.state.marking_scheme = this.props.q.marking_scheme;
         this.state.prompts = this.props.q.content.map(prompt => <Prompt parentCallback = {this.answers} p = {prompt}/>);
         //onst [open, setIsOpen] = useState(false);
         //const modal = new Modal(open, setIsOpen);
+        const { open } = this.state;
         return (
             <>
                 <div>
                     {(this.props.q.text) ? <TextRenderer text={this.props.q.text}/> : ""}
                     {this.state.prompts}
                 </div>
-                <button onClick= {this.filterMarkingScheme}>Save</button>
-                {/* {console.log(this.state.data)} */}
-                {/* <button onClick = {() => this.modal && console.log(this.state)}>udheudheu</button> */}
-                <button onClick={this.onOpenModal}>Submit</button>
-                <Modal open={this.state.open} onClose={this.onCloseModal}>
-                    <GradingPanel ans = {this.state.filteredAns} part = {1} ms = {this.state.filteredMS} />
-                </Modal>
+                <button onClick= {this.onTrigger}>Save</button>
             </>
             // <div>{JSON.stringify(this.props.q)}</div>
         )
