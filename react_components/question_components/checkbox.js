@@ -9,11 +9,13 @@ export default class Checkbox extends Component {
         };
         this.handleClick = this.handleClick.bind(this);
     }
-    handleClick(e) {
-        this.setState({
-            checked: !this.state.checked
-        });
+    handleClick(event) {
+        this.state.checked = !this.state.checked;
+
+        this.props.parentCallback(this.state.checked ? 1 : 0);
+        event.preventDefault();
     }
+    
     render() {
         // this.state.checkList= this.props.list;
         let text = <NewTextRenderer content = {this.props.message} />

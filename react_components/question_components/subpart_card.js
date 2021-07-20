@@ -3,7 +3,7 @@ import styles from '../../styles/Question.module.css';
 import TextRenderer from './text_renderer'
 //import Editor from './text_editor';
 import TextEditor from '../text_editor/text_editor';
-
+import NewTextRenderer from './text_renderer_new';
 export default class Subpart extends Component {
     constructor(props) {
         super(props);
@@ -25,7 +25,7 @@ export default class Subpart extends Component {
             <div className = {styles.container}>
                 <div className={styles.subpart_card}>
                     <p>{`Part ${this.props.s.part}:`}</p>
-                    <TextRenderer text={this.props.s.prompt}/>
+                    <NewTextRenderer content={this.props.s.prompt}/>
                     <p>{`Points: ${this.props.s.marks}`}</p>
                     {(this.props.s.subparts.length) == 0 ?
                         <div>

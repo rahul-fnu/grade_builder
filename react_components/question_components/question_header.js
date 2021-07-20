@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -8,7 +8,7 @@ import Box from '@material-ui/core/Box';
 import QuestionC from './question';
 import MarkingScheme from './mark_scheme';
 // import ExpertSolution from './expert_solution';
-import GradingPanel from './grading_panel'
+import GradingPage from './grading_page'
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
   return (
@@ -78,15 +78,24 @@ export default function NavTabs(props) {
     return abc;
   }
   filterMarkingScheme()
-  console.log(ms)
-  const state = {ans : {'a': {'i' : "dedewd", "ii": "dewdwed"}, 'b': {"i": "<p>vdfvdfvdfvdvdffvd</p>" , "iV": "<p>dfvfvdfvddfvvdf</p>", "ii": "<p>fvdfvdvdfvdfvdf</p>",
-        "iii": {"1": "<p>dfvvdffvdfvdvdfdfv<br></p>", "2": "<p>dfvvdfvdfvdfvfvdf</p>"}}}, ms: ms, part: {}}
+  // console.log(ms)
+  const cur = {ans : {}, ms: ms, part: {}, done:false}
+  const [val, setVal] = useState(cur);
+  var done = false;
   const grade = (ans) => {
-    state.ans = ans.ans;
-    console.log(state);
-    gra = <GradingPanel ans = {state.ans} ms = {state.ms} part = {1} />
+    const temp = {...cur};
+    temp.ans = ans.ans
+    temp.done = true;
+    // done = true;
+    // console.log(temp.ans)
+    setVal(temp)
+    // console.log(val.ans)
+    //gra = <GradingPanel ans = {state.ans} ms = {state.ms} part = {1} />
   }
-  let gra = <GradingPanel ans = {state.ans} ms = {state.ms} part = {1} />
+  // useEffect(() => {
+  //   gra = <GradingPanel ans = {state.ans} ms = {state.ms} part = {1} />
+  // })
+  let gra = val.done ? <GradingPage ans = {val.ans} ms = {val.ms}/> : <p>Please submit your answers first</p>
   return (
     <div>
       <AppBar position="static">

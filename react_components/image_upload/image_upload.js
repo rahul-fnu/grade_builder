@@ -8,17 +8,9 @@ function ImageUploader () {
         setSelectedFile(event.target.files[0]);
         setIsSelected(true);
     };
-    // const handleSubmission = () => {
-    //     const formData = new FormData();
-    //     formData.append('File', selectedFile);
-    //     fetch('https://api.imgur.com/3/image', {
-    //         method: 'POST',
-    //         headers: {
-    //             Authorization: "Client-ID b711eeeb15456d5"
-    //         },
-    //         body: formData
-    //     }).then(data => console.log(data))
-    // };
+    const onTrigger = (link) => {
+        
+    } 
     const upload = async () =>{
         const formData = new FormData();
         formData.append('image', selectedFile);
