@@ -9,9 +9,6 @@ export class AddQuestionPage extends Component {
             options: [{name: 'Chemistry', id: 'chemistry'},{name: 'Physics', id: 'physics'}, {name: 'Maths', id: 'maths'}]
         };
     }
-
-    
-
     render(){
       return (
         <div>
