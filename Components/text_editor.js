@@ -11,10 +11,10 @@ const plugins = dynamic(import("../node_modules/suneditor-react"),{
     ssr: false,
   });
 export default function TextEditor (props) {
-    // function onTrigger (event) {
-    //     props.parentCallback(editor.current.getContents());
-    //     // event.preventDefault();
-    // }
+    function onTrigger (event) {
+        props.parentCallback(editor.current.getContents());
+        // event.preventDefault();
+    }
     const editor = useRef();
     // The sunEditor parameter will be set to the core suneditor instance when this function is called
     const getSunEditorInstance = (sunEditor) => {
@@ -31,7 +31,7 @@ export default function TextEditor (props) {
                     buttonList: [
                         ['bold', 'underline', 'italic', 'subscript', 'superscript', 'outdent', 'indent','math']
                     ]
-                }} /*onChange={onTrigger}*//>
+                }} onChange={onTrigger}/>
             </div>
             {/* <button onClick={onTrigger}>Save</button> */}
         </>

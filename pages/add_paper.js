@@ -9,10 +9,12 @@ export default class AddPaperPage extends Component {
             board_level: "",
             subject: "",
             exam_period: "",
+            component_region: "",
             content : [],
             session : "",
             year : "",
             mcq: false,
+            questions: []
 
         }
     }
@@ -23,14 +25,22 @@ export default class AddPaperPage extends Component {
         this.state.mcq = !this.state.mcq;
     }
     addQuestion = () => {
+        console.log(this.state)
         this.setState({
             content: [...this.state.content, 
-            <AddQuestionPage subject = {this.state.subject} board_level ={this.state.board_level} exam_period = {this.state.time + this.state.session}/>
+            <AddQuestionPage subject = {this.state.subject} board_level ={this.state.board_level} exam_period = {this.state.session + this.state.year} component_region = {this.state.component_region} parentCallback = {(ques) => this.updateQuestion(ques)}/>
         ]
         })
     }
+    updateQuestion = (ques) => {
+        this.setState({questions: [...this.state.questions, ques]})
+    }
+    temp = ()=> {
+        console.log(this.state);
+    }
     render(){
       return (
+          <>
         <div class = {styles.page_card}>
             <form>
                 <label>
@@ -104,8 +114,17 @@ export default class AddPaperPage extends Component {
                 {/* <input type="submit" value="Submit" /> */}
             </form>
             {this.state.content}
-            <button onClick={this.addQuestion}>jkfrkrf</button>
+            <button onClick={this.addQuestion}>Add Question</button>
         </div>
+        <div>
+            <label>
+                    Mark Scheme: 
+                    <input type="text" id="mark_scheme" />
+                </label><br/>
+                <button onClick = {this.temp}> kbcdj</button>
+
+        </div>
+        </>
       );
     }
 }

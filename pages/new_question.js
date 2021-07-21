@@ -3,6 +3,7 @@ import {Component} from 'react';
 import Multiselect from 'multiselect-react-dropdown';
 import TextEditor from '../Components/text_editor';
 import styles from '../styles/Admin.module.css';
+import AddSubpart from './add_subpart'
 export default class AddQuestionPage extends Component {
     constructor(props) {
         super(props);   
@@ -17,65 +18,99 @@ export default class AddQuestionPage extends Component {
                                     {name: 'Functions', id: 'Functions'}, {name: 'Coordinate geometry', id: 'Coordinate geometry'},
                                     {name: 'Circular measure', id: 'Circular measure'}, {name: 'Trigonometry', id: 'Trigonometry'}]
             },
-            question_number: -1,
+            question_number: "",
             text: "",
-            marks: -1,
+            marks: "",
             exam_period: this.props.exam_period,
             board_level: this.props.board_level,
             subject: this.props.subject,
+            component_region: this.props.component_region,
             topics:[],
             options: {},
             content:[],
-            marking_scheme:[]
+            marking_scheme:[],
+            interim:[],
+            images:[],
+            options:[],
         };
     }
-    handleChang = (e) => {
+    handleChange = (e) => {
         this.setState({[e.target.id]: e.target.value});
+    }
+    handlePrompt = (part) => {
+        this.setState({text : part});
+    }
+    addPart = () => {
+        this.setState({
+            interim: [...this.state.interim, 
+            <AddSubpart parentCallback = {(part) => this.addSubpart(part)} />
+        ]
+        })
+    }
+    addSubpart = (subpart) => {
+        this.setState({content: [...this.state.content, subpart]})
+    }
+    temp = () => {
+        const ret = {
+            question_number: this.state.question_number,
+            board_level: this.state.board_level,
+            content: this.state.content,
+            exam_period: this.state.exam_period,
+            marking_scheme: this.state.marking_scheme,
+            marks: this.state.marks,
+            text: this.state.text,
+            images: this.state.images,
+            topics: this.state.topics,
+            component_region: this.state.component_region,
+            options: this.state.options,
+            subject: this.state.subject,
+
+        }
+        this.props.parentCallback(ret);
     }
     render(){
       return (
-        <div className={styles.question_card}>
-            <form>
-                <label>
-                    Question No.
-                    <input type="text" value = {this.state.question_number} onChange={(e) => this.handleChang(e)}/>
-                </label><br/>
+        <>
+            <div className={styles.question_card}>
+                <form>
+                    <label>
+                        Question No.
+                        <input type="text" value = {this.state.qquestion_number} onChange={(e) => this.handleChange(e)}/>
+                    </label><br/>
 
-                <label>
-                    Marks: 
-                    <input type="text" id="marks"  value = {this.state.marks} onChange={(e) => this.handleChang(e)}/>
-                </label><br/>
-                
-                <label>
-                    Topics: 
-                    <Multiselect
-                        options={this.state.subjects[this.props.subject]} // Options to display in the dropdown
-                        selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
-                        onSelect={this.onSelect} // Function will trigger on select event
-                        onRemove={this.onRemove} // Function will trigger on remove event
-                        displayValue="name" // Property name to display in the dropdown options
-                        isObject = {true}
-                    />
-                </label><br/>
+                    <label>
+                        Marks: 
+                        <input type="text" id="marks"  value = {this.state.marks} onChange={(e) => this.handleChange(e)}/>
+                    </label><br/>
+                    
+                    <label>
+                        Topics: 
+                        <Multiselect
+                            options={this.state.subjects[this.props.subject]} // Options to display in the dropdown
+                            selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
+                            onSelect={this.onSelect} // Function will trigger on select event
+                            onRemove={this.onRemove} // Function will trigger on remove event
+                            displayValue="name" // Property name to display in the dropdown options
+                            isObject = {true}
+                        />
+                    </label><br/>
 
-                <label>
-                    Text: 
-                    <TextEditor />
-                </label><br/>
+                    <label>
+                        Text: 
+                        <TextEditor parentCallback = {(part) => this.handlePrompt(part)} />
+                    </label><br/>
+                    <label>
+                        Upload image: 
+                        <input type="file" id="image" />
+                    </label><br/>
+                </form >
+                {this.state.interim}
+                <button onClick={this.addPart}>Add Subpart</button>
+                <button onClick={this.temp}>Add to the database has to be connected to the API</button>
+            </div>
 
-                <label>
-                    Mark Scheme: 
-                    <input type="text" id="mark_scheme" />
-                </label><br/>
-
-                <label>
-                    Upload image: 
-                    <input type="file" id="image" />
-                </label><br/>
-
-                <input type="button" value="Add subpart" onClick={'#'}/><br/>
-            </form >
-        </div>
+            
+        </>
       );
     }
 }
