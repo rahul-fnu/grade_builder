@@ -4,6 +4,7 @@ import Multiselect from 'multiselect-react-dropdown';
 import TextEditor from '../Components/text_editor';
 import styles from '../styles/Admin.module.css';
 import AddSubpart from './add_subpart'
+import ImageUploader from '../Components/images_upload';
 export default class AddQuestionPage extends Component {
     constructor(props) {
         super(props);   
@@ -102,7 +103,7 @@ export default class AddQuestionPage extends Component {
                     </label><br/>
                     <label>
                         Upload image: 
-                        <input type="file" id="image" />
+                        <ImageUploader />
                     </label><br/>
                 </form >
                 {this.state.interim}
