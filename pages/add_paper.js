@@ -33,7 +33,8 @@ export default class AddPaperPage extends Component {
         })
     }
     updateQuestion = (ques) => {
-        this.setState({questions: [...this.state.questions, ques]})
+        this.state.questions[ques.question_number] = ques
+        // this.setState({questions: [...this.state.questions, ques]})
     }
     temp = ()=> {
         console.log(this.state);

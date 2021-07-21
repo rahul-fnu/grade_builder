@@ -48,7 +48,8 @@ export default class AddQuestionPage extends Component {
         })
     }
     addSubpart = (subpart) => {
-        this.setState({content: [...this.state.content, subpart]})
+        this.state.content[subpart.part] = subpart
+        // this.setState({content: [...this.state.content, subpart]})
     }
     temp = () => {
         const ret = {
@@ -75,7 +76,7 @@ export default class AddQuestionPage extends Component {
                 <form>
                     <label>
                         Question No.
-                        <input type="text" value = {this.state.qquestion_number} onChange={(e) => this.handleChange(e)}/>
+                        <input type="text" id="question_number"  value = {this.state.question_number} onChange={(e) => this.handleChange(e)}/>
                     </label><br/>
 
                     <label>

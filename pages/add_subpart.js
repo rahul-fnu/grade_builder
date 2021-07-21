@@ -9,7 +9,7 @@ export default class AddSubpart extends Component {
             part: "",
             prompt: "",
             marks: "",
-            subparts:[],
+            subparts:{},
             interim:[]
         }
     }
@@ -25,8 +25,8 @@ export default class AddSubpart extends Component {
             <AddSubpart  parentCallback= {(part) => this.addSubpart(part)}/>]
         })
     }
-    addSubpart = (part) => {
-        this.setState({subparts: [...this.state.subparts, part]});
+    addSubpart = (sub) => {
+        this.state.subparts[sub.part] = sub;
     }
     save = () => {
         const ret = {
