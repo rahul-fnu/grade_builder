@@ -11,7 +11,8 @@ function ImageUploader () {
     const onTrigger = (link) => {
         
     } 
-    const upload = async () =>{
+    const upload = async (e) =>{
+        e.preventDefault()
         const formData = new FormData();
         formData.append('image', selectedFile);
         const res = await axios({
@@ -35,7 +36,7 @@ function ImageUploader () {
 			    <p>Please select a file</p>
 		    )}
 			<div>
-				<button onClick={upload}>Upload</button>
+				<button onClick={e => upload(e)}>Upload</button>
 			</div>
         </div>
     )
