@@ -2,6 +2,7 @@ import React from 'react';
 import {Component} from 'react';
 import AddQuestionPage from './new_question'
 import styles from '../styles/Admin.module.css';
+import AddMS from '../components/new_ms'
 export default class AddPaperPage extends Component {
     constructor(props) {
         super(props);   
@@ -11,6 +12,7 @@ export default class AddPaperPage extends Component {
             exam_period: "",
             component_region: "",
             content : [],
+            ms : [],
             session : "",
             year : "",
             mcq: false,
@@ -32,13 +34,23 @@ export default class AddPaperPage extends Component {
         ]
         })
     }
+    addMS = () => {
+        console.log(this.state)
+        this.setState({
+            ms: [...this.state.ms,
+                <AddMS parentCallback = {(ms) => this.updateMS(ms)} />
+            ]
+        })
+    }
     updateQuestion = (ques) => {
         this.state.questions[ques.question_number] = ques
         // this.setState({questions: [...this.state.questions, ques]})
     }
-    temp = ()=> {
+    updateMS = (ms) => {
         console.log(this.state);
+        console.log(ms);
     }
+
     render(){
       return (
           <>
@@ -114,16 +126,16 @@ export default class AddPaperPage extends Component {
 
                 {/* <input type="submit" value="Submit" /> */}
             </form>
-            {this.state.content}
-            <button onClick={this.addQuestion}>Add Question</button>
-        </div>
-        <div>
-            <label>
-                    Mark Scheme: 
-                    <input type="text" id="mark_scheme" />
-                </label><br/>
-                <button onClick = {this.temp}> kbcdj</button>
-
+            <div className = {styles.question_card}>
+                <p>Add Questions</p>
+                {this.state.content}
+                <button onClick={this.addQuestion}>New Question</button>
+            </div>
+            <div className = {styles.question_card}>
+                <p>Add Marking Scheme</p>
+                {this.state.ms}
+                <button onClick={this.addMS}>New MS Ques</button>
+            </div>
         </div>
         </>
       );

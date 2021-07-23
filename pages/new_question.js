@@ -31,7 +31,7 @@ export default class AddQuestionPage extends Component {
             content:[],
             marking_scheme:[],
             interim:[],
-            images:[],
+            images:{},
             options:[],
         };
     }
@@ -70,6 +70,10 @@ export default class AddQuestionPage extends Component {
         }
         this.props.parentCallback(ret);
     }
+    handleImagae = (image) => {
+        var key = this.state.images ? this.state.images + 1 : 1;
+        this.state.images[key] = image;
+    }
     render(){
       return (
         <>
@@ -103,7 +107,7 @@ export default class AddQuestionPage extends Component {
                     </label><br/>
                     <label>
                         Upload image: 
-                        <ImageUploader />
+                        <ImageUploader parentCallback = {(image) => this.handleImagae(image)} />
                     </label><br/>
                 </form >
                 {this.state.interim}
