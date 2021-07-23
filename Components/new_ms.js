@@ -1,7 +1,8 @@
 import React, { Component, useState} from 'react';
 import styles from '../styles/Admin.module.css';
 import TextEditor from '../Components/text_editor';
-import ImageUploader from './images_upload';
+import MSRubric from './ms_rubric';
+// import ImageUploader from './images_upload';
 import AddMSSubpart from './ms_subpart';
 export default class AddMS extends Component {
     constructor(props) {
@@ -9,9 +10,11 @@ export default class AddMS extends Component {
         this.state= {
             question_number: "",
             marks: "",
-            answer: "",
+            answer: {},
             content: [],
+            interim:[],
             ms: [],
+            subpart:{},
             images: {}
         }
     }
@@ -28,9 +31,23 @@ export default class AddMS extends Component {
     addPart = () => {
         this.setState({
             content: [...this.state.content, 
-            <AddMSSubpart parentCallback = {(part) => this.state.content.push(part)}/>
+            <AddMSSubpart parentCallback = {(part) => this.handlePart(part)}/>
         ]
         })
+    }
+    handlePart = (part) => {
+        this.state.subpart[part.part] = part;
+    } 
+    addRubric = () => {
+        this.setState({interim: [...this.state.interim,
+            <MSRubric parentCallback = {(rub) => this.handleRubric(rub)}/>
+        ]})
+    }
+    handleRubric = (rub) => {
+        this.state.answer[rub.point_number] = rub;
+    }
+    temp = () => {
+        console.log(this.state)
     }
     render() {
         return (
@@ -47,9 +64,14 @@ export default class AddMS extends Component {
                         </label><br/>
 
                     </form>
+                    <label>
+                        Ans: 
+                        {this.state.interim}
+                        <button onClick={this.addRubric}>Add Rubric</button>
+                    </label><br/>
                     {this.state.content}
                     <button onClick={this.addPart}>Add Subpart</button>
-
+                    <button onClick={this.temp}>kvjhifv</button>
                 </div>
             </>
         )

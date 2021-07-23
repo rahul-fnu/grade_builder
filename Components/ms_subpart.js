@@ -9,7 +9,8 @@ export default class AddMSSubpart extends Component {
         this.state= {
             part: "",
             marks: "",
-            answer: [],
+            answer: {},
+            subpart:{},
             interim:[],
             content: [],
             ms: [],
@@ -25,7 +26,7 @@ export default class AddMSSubpart extends Component {
     addPart = () => {
         this.setState({
             content: [...this.state.content, 
-            <AddMSSubpart />
+            <AddMSSubpart parentCallback = {(part) => this.handleSubpart(part)}/>
         ]
         })
     }
@@ -35,7 +36,22 @@ export default class AddMSSubpart extends Component {
         ]})
     }
     handleRubric = (rub) => {
-        this.setState({answer : [...this.state.answer, rub]});
+        this.state.answer[rub.point_number] = rub;
+    }
+    handleSubpart = (part) => {
+        this.state.subpart[part.part] = part;
+        console.log(this.state)
+    }
+    handleSave = () => {
+        console.log(this.state)
+        const ret = {
+            part: this.state.part,
+            marks: this.state.marks,
+            answer: this.state.answer,
+            subpart: this.state.subpart,
+            images: this.state.images
+        }
+        this.props.parentCallback(ret);
     }
     render() {
         return (
@@ -56,10 +72,11 @@ export default class AddMSSubpart extends Component {
               <label>
                       Ans: 
                       {this.state.interim}
-                      <button onClick={this.addRubric()}>dcdc</button>
+                      <button onClick={this.addRubric}>Add Rubric</button>
                   </label><br/>
                 {this.state.content}
                 <button onClick={this.addPart}>Add Subpart</button>
+                <button onClick={this.handleSave}>save</button>
           </div>
         )
     }

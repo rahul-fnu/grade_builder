@@ -38,7 +38,7 @@ export default class MSRubric extends Component {
   
                   {/* <input type="button" value="Add subpart" onClick={'#'}/><br/> */}
               </form >
-              <button onClick={this.handleSave()}>Save</button>
+              <button onClick={this.handleSave}>Save</button>
           </div>
         )
     }

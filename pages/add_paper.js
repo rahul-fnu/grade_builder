@@ -27,7 +27,6 @@ export default class AddPaperPage extends Component {
         this.state.mcq = !this.state.mcq;
     }
     addQuestion = () => {
-        console.log(this.state)
         this.setState({
             content: [...this.state.content, 
             <AddQuestionPage subject = {this.state.subject} board_level ={this.state.board_level} exam_period = {this.state.session + this.state.year} component_region = {this.state.component_region} parentCallback = {(ques) => this.updateQuestion(ques)}/>
@@ -50,7 +49,9 @@ export default class AddPaperPage extends Component {
         console.log(this.state);
         console.log(ms);
     }
-
+    temp = () => {
+        console.log(this.state);
+    }
     render(){
       return (
           <>
@@ -136,6 +137,7 @@ export default class AddPaperPage extends Component {
                 {this.state.ms}
                 <button onClick={this.addMS}>New MS Ques</button>
             </div>
+            <button onClick={this.temp}>fewfwerf</button>
         </div>
         </>
       );

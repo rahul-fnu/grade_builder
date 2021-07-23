@@ -4,7 +4,7 @@ import Multiselect from 'multiselect-react-dropdown';
 import TextEditor from '../Components/text_editor';
 import styles from '../styles/Admin.module.css';
 import AddSubpart from './add_subpart'
-import ImageUploader from '../Components/images_upload';
+// import ImageUploader from '../Components/images_upload';
 export default class AddQuestionPage extends Component {
     constructor(props) {
         super(props);   
@@ -105,10 +105,10 @@ export default class AddQuestionPage extends Component {
                         Text: 
                         <TextEditor parentCallback = {(part) => this.handlePrompt(part)} />
                     </label><br/>
-                    <label>
+                    {/* <label>
                         Upload image: 
                         <ImageUploader parentCallback = {(image) => this.handleImagae(image)} />
-                    </label><br/>
+                    </label><br/> */}
                 </form >
                 {this.state.interim}
                 <button onClick={this.addPart}>Add Subpart</button>
