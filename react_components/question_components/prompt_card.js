@@ -35,8 +35,11 @@ export default class Prompt extends Component {
             <div className = {styles.container}>
                 <div className={styles.prompt_card}> 
                     <div className = "row">
-                    <p> {`Part ${this.props.p.part}`}</p>   
-                    <p>{`Points ${this.props.p.marks}`}</p>               
+                    <span > {`Part ${this.props.p.part}`}</span>   
+                    <div className={`pull-right ${styles['right']}`}>
+                        <span> {`Points: ${this.props.p.marks}`}</span>
+                    </div><br/><br/>
+                                  
                     </div>
                     <NewTextRenderer content={this.props.p.prompt}/>
                     {(this.props.p.subparts.length) == 0 ?

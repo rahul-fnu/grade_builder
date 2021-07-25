@@ -1,42 +1,44 @@
-.container {
-    margin: 20px 40px 20px 40px;
+.container{
+    font-family: "Times New Roman", Times, serif;
 }
-
-
-.title {
-    margin: 0;
-    line-height: 1.15;
-    font-size: 3.5rem;
-    text-align: center;
-}
-.title_question {
-    margin: 5;
-    line-height: 1;
-    font-size: 2rem;
-    text-align: center;
-}
-
 .header_card {
-    margin: 1rem;
-    padding: 1.5rem;
-    text-align: left;
+    font-weight: bold;
+    font-size: x-large;
+    text-align: center;
     color: inherit;
-    text-decoration: none;
-    border: 1px solid #eaeaea;
     border-radius: 10px;
-    transition: color 0.15s ease, border-color 0.15s ease;
-    /* width: 45%; */
 }
 
 .prompt_card {
     margin: 1rem;
-    padding: 1.5rem;
+    padding: 1.6rem;
     text-align: left;
     color: inherit;
     text-decoration: none;
-    border: 1px solid #eaeaea;
+    border: 0.5px solid #eaeaea;
     border-radius: 10px;
     transition: color 0.15s ease, border-color 0.15s ease;
+    
+}
+
+.right {
+    float: right;
+    border: 1px solid #c7c7c7;
+    text-align: center;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.tab {
+    float: right;
+    background-color: rgb(216, 131, 21);
+    border: 2px solid #000000;
+    text-align: center;
+    padding: 3px;
+    border-radius: 10px;
+}
+.card{
+    border: 2px solid ;
 }
 
 .subpart_card {
@@ -72,32 +74,3 @@
     transition: color 0.15s ease, border-color 0.15s ease;
 }
 
-.modal {
-    max-height: calc(100vh - 210px);
-    overflow-y: auto;
-  }
-.modal_header {
-    width: 100%;
-    border-bottom: 1px solid gray;
-    font-size: 18px;
-    text-align: center;
-    padding: 5px;
-  }
-.modal_content {
-    width: 100%;
-    padding: 10px 5px;
-}
-
-.modal_close {
-    cursor: pointer;
-    position: absolute;
-    display: block;
-    padding: 2px 5px;
-    line-height: 20px;
-    right: -10px;
-    top: -10px;
-    font-size: 24px;
-    background: #ffffff;
-    border-radius: 18px;
-    border: 1px solid #cfcece;
-  }

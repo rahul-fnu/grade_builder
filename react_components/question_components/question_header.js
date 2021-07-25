@@ -8,7 +8,10 @@ import Box from '@material-ui/core/Box';
 import QuestionC from './question';
 import MarkingScheme from './mark_scheme';
 // import ExpertSolution from './expert_solution';
-import GradingPage from './grading_page'
+import GradingPage from './grading_page';
+import styles from '../../styles/Question.module.css';
+
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
   return (
@@ -104,10 +107,11 @@ export default function NavTabs(props) {
           value={value}
           onChange={handleChange}
           aria-label="nav tabs example"
+          //className={styles.tab}
         >
-          <Tab label="Question"{...index(0)} />
-          <Tab label="Grade Here" {...index(1)} />
-          <Tab label="Marking Scheme"{...index(2)} />
+          <Tab style={{border: "1.5px solid black"} } label="Question"{...index(0)} />
+          <Tab style={{border: "1.5px solid black"} } label="Grade Here" {...index(1)} />
+          <Tab style={{border: "1.5px solid black"} } label="Marking Scheme"{...index(2)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>

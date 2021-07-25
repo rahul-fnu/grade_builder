@@ -24,9 +24,12 @@ export default class Subpart extends Component {
         return (
             <div className = {styles.container}>
                 <div className={styles.subpart_card}>
-                    <p>{`Part ${this.props.s.part}:`}</p>
-                    <NewTextRenderer content={this.props.s.prompt}/>
-                    <p>{`Points: ${this.props.s.marks}`}</p>
+                    <span>{`Part ${this.props.s.part}:`}</span>
+                    <div className={`pull-right ${styles['right']}`}>
+                        <span> {`Points: ${this.props.s.marks}`}</span>
+                    </div><br/><br/>
+
+                    <NewTextRenderer content={this.props.s.prompt}/><br/>
                     {(this.props.s.subparts.length) == 0 ?
                         <div>
                             <TextEditor part = {this.props.s.part} parentCallback = {this.updateAns} />
