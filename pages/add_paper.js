@@ -41,6 +41,9 @@ export default class AddPaperPage extends Component {
             ]
         })
     }
+    allValid = () => {
+        return this.state.board_level && this.state.subject && this.state.session && this.state.year && this.state.component_region;
+    }
     updateQuestion = (ques) => {
         this.state.questions[ques.question_number] = ques
         // this.setState({questions: [...this.state.questions, ques]})
@@ -78,7 +81,7 @@ export default class AddPaperPage extends Component {
 
                 <label>
                     Exam Session:
-                    <select id="session" value = {this.state.time} onChange={(e) => this.handleChang(e)}>
+                    <select id="session" value = {this.state.session} onChange={(e) => this.handleChang(e)}>
                         <option value="" disabled selected>Select Exam Period</option>
                         <option value="March ">March</option>
                         <option value="May ">May</option>
@@ -130,12 +133,12 @@ export default class AddPaperPage extends Component {
             <div className = {styles.question_card}>
                 <p>Add Questions</p>
                 {this.state.content}
-                <button onClick={this.addQuestion}>New Question</button>
+                <button disabled = {!this.allValid} onClick={this.addQuestion}>New Question</button>
             </div>
             <div className = {styles.question_card}>
                 <p>Add Marking Scheme</p>
                 {this.state.ms}
-                <button onClick={this.addMS}>New MS Ques</button>
+                <button disabled = {!this.allValid} onClick={this.addMS}>New MS Ques</button>
             </div>
             <button onClick={this.temp}>fewfwerf</button>
         </div>

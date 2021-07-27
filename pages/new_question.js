@@ -4,6 +4,7 @@ import Multiselect from 'multiselect-react-dropdown';
 import TextEditor from '../Components/text_editor';
 import styles from '../styles/Admin.module.css';
 import AddSubpart from './add_subpart'
+const uuidv4 = require("uuid/v4");
 // import ImageUploader from '../Components/images_upload';
 export default class AddQuestionPage extends Component {
     constructor(props) {
@@ -42,15 +43,24 @@ export default class AddQuestionPage extends Component {
         this.setState({text : part});
     }
     addPart = () => {
+        var id = uuidv4()
         this.setState({
             interim: [...this.state.interim, 
-            <AddSubpart parentCallback = {(part) => this.addSubpart(part)} />
+            <AddSubpart id = {id} parentCallback = {(part) => this.addSubpart(part)} onDelete = {(id) => this.handleDelete(id)}/>
         ]
         })
     }
     addSubpart = (subpart) => {
         this.state.content[subpart.part] = subpart
         // this.setState({content: [...this.state.content, subpart]})
+    }
+    handleDelete = (id) => {
+        console.log(id)
+        var abc = this.state.interim.filter(function(obj) {
+            console.log(obj.props.id)
+            return obj.props.id != id;
+        })
+        this.setState({interim:abc})
     }
     temp = () => {
         const ret = {
@@ -68,12 +78,13 @@ export default class AddQuestionPage extends Component {
             subject: this.state.subject,
 
         }
+        console.log(this.state)
         this.props.parentCallback(ret);
     }
-    handleImagae = (image) => {
-        var key = this.state.images ? this.state.images + 1 : 1;
-        this.state.images[key] = image;
-    }
+    // handleImagae = (image) => {
+    //     var key = this.state.images ? this.state.images + 1 : 1;
+    //     this.state.images[key] = image;
+    // }
     render(){
       return (
         <>
