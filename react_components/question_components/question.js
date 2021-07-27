@@ -125,7 +125,7 @@ export default class QuestionC extends Component {
                     {(this.props.q.text) ? <TextRenderer text={this.props.q.text}/> : ""}
                     {this.state.prompts}
                 </div>
-                <button onClick= {this.onTrigger}>Save</button>
+                <button className={styles.button} onClick= {this.onTrigger}>Save</button>
             </>
             // <div>{JSON.stringify(this.props.q)}</div>
         )

@@ -51,7 +51,7 @@ export default class Prompt extends Component {
                             {this.props.p.subparts.map(prompt => <Subpart parentCallback = {(part) => this.updateAnswer(part)} s={prompt}/>)}
                         </div>
                     }
-                    <button onClick = {this.onTrigger}>Save</button>
+                    <button className={styles.button} onClick = {this.onTrigger}>Save</button>
                 </div>
             </div>
         );

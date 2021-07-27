@@ -37,8 +37,8 @@
     padding: 3px;
     border-radius: 10px;
 }
-.card{
-    border: 2px solid ;
+.button {
+    border-radius: 10px;
 }
 
 .subpart_card {

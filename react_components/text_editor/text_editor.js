@@ -29,7 +29,22 @@ export default function TextEditor (props) {
                     height: 200,
                     katex: katex,
                     buttonList: [
-                        ['bold', 'underline', 'italic', 'subscript', 'superscript', 'outdent', 'indent','math']
+                        ['bold', 'underline', 'italic', 'subscript', 'superscript', 'outdent', 'indent','math'],
+                        
+                        ['%750', [
+                            ['bold', 'underline', 'italic', 'subscript', 'superscript'],
+                            ['-right', ':i-More Misc-default.more_vertical', 'outdent', 'indent','math'],
+                        ]],
+
+                        ['%500', [
+                            ['bold', 'underline', 'italic'],
+                            ['-right', ':i-More Misc-default.more_vertical',  'subscript', 'superscript', 'outdent', 'indent','math'],
+                        ]],
+
+                        ['%250', [
+                            ['bold'],
+                            ['-right', ':i-More Misc-default.more_vertical', 'underline', 'italic', 'subscript', 'superscript', 'outdent', 'indent','math'],
+                        ]]
                     ]
                 }} onChange={onTrigger}/>
             </div>

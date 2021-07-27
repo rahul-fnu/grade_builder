@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import GradingPanel from './grading_panel'
+import GradingPanel from './grading_panel';
+import styles from '../../styles/Question.module.css';
 
 export default class GradingPage extends Component {
     constructor(props) {
@@ -24,7 +25,7 @@ export default class GradingPage extends Component {
                     {console.log(this.props.ans)}
                     {keys.map(key => <GradingPanel ms = {this.props.ms[key]} part={key} ans = {this.props.ans[key]} parentCallback = {this.score}/>)}
                 </div>
-                <button onClick= {this.onTrigger}>Save</button>
+                <button className = {styles.button} onClick= {this.onTrigger}>Save</button>
             </>
         )
     }
