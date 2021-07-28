@@ -16,20 +16,23 @@ export default class AddPaperPage extends Component {
             session : "",
             year : "",
             mcq: false,
-            questions: []
+            questions: {},
+            ms_final : {}
 
         }
     }
-    handleChang = (e) => {
+
+    handleChange = (e) => {
         this.setState({[e.target.id]: e.target.value});
     }
     mcqHandler = () => {
         this.state.mcq = !this.state.mcq;
     }
+    // ab = new Set();
     addQuestion = () => {
         this.setState({
             content: [...this.state.content, 
-            <AddQuestionPage subject = {this.state.subject} board_level ={this.state.board_level} exam_period = {this.state.session + this.state.year} component_region = {this.state.component_region} parentCallback = {(ques) => this.updateQuestion(ques)}/>
+            <AddQuestionPage subject = {this.state.subject} board_level ={this.state.board_level} exam_period = {this.state.session + this.state.year} component_region = {this.state.component_region} parentCallback = {(ques) => this.updateQuestion(ques)} /*onDelete = {() => this.handleDelete(id)}*//>
         ]
         })
     }
@@ -42,17 +45,23 @@ export default class AddPaperPage extends Component {
         })
     }
     allValid = () => {
-        return this.state.board_level && this.state.subject && this.state.session && this.state.year && this.state.component_region;
+        // console.log(this.state.)
+        return (this.state.subject && this.state.board_level && this.state.session && this.state.year && this.state.component_region);
     }
     updateQuestion = (ques) => {
         this.state.questions[ques.question_number] = ques
         // this.setState({questions: [...this.state.questions, ques]})
     }
     updateMS = (ms) => {
-        console.log(this.state);
-        console.log(ms);
+        this.state.ms_final[ms.question_number] = ms;
     }
     temp = () => {
+        var obj = Object.keys(this.state.questions)
+        for (var a of obj) {
+            if (a in this.state.ms_final && a in this.state.questions) {
+                this.state.questions[a].marking_scheme = this.state.ms_final[a];
+            }
+        }
         console.log(this.state);
     }
     render(){
@@ -62,7 +71,7 @@ export default class AddPaperPage extends Component {
             <form>
                 <label>
                     Board Level:
-                    <select id="board_level" value = {this.state.board_level} onChange={(e) => this.handleChang(e)}>
+                    <select id="board_level" value = {this.state.board_level} onChange={(e) => this.handleChange(e)}>
                         <option value="" disabled selected>Select board level</option>
                         <option value="caie-a-level">A levels</option>
                     </select>
@@ -70,7 +79,7 @@ export default class AddPaperPage extends Component {
 
                 <label>
                     Subject:
-                    <select id="subject" value = {this.state.subject} onChange={(e) => this.handleChang(e)}>
+                    <select id="subject" value = {this.state.subject} onChange={(e) => this.handleChange(e)}>
                         <option value="" disabled selected>Select Subject</option>
                         <option value="physics">Physics</option>
                         <option value="chemistry">Chemistry</option>
@@ -81,7 +90,7 @@ export default class AddPaperPage extends Component {
 
                 <label>
                     Exam Session:
-                    <select id="session" value = {this.state.session} onChange={(e) => this.handleChang(e)}>
+                    <select id="session" value = {this.state.session} onChange={(e) => this.handleChange(e)}>
                         <option value="" disabled selected>Select Exam Period</option>
                         <option value="March ">March</option>
                         <option value="May ">May</option>
@@ -90,7 +99,7 @@ export default class AddPaperPage extends Component {
                 </label><br/>
                 <label>
                     Year:
-                    <select id="year" value = {this.state.year} onChange={(e) => this.handleChang(e)}>
+                    <select id="year" value = {this.state.year} onChange={(e) => this.handleChange(e)}>
                         <option value="" disabled selected>Select Year</option>
                         <option value="2020">2020</option>
                         <option value="2019">2019</option>
@@ -109,7 +118,7 @@ export default class AddPaperPage extends Component {
                 </label><br/>
                 <label>
                     Component Region:
-                    <select id="component_region" value = {this.state.component_region} onChange={(e) => this.handleChang(e)}>
+                    <select id="component_region" value = {this.state.component_region} onChange={(e) => this.handleChange(e)}>
                         <option value="" disabled selected>Component Region</option>
                         <option value="11">11</option>
                         <option value="12">12</option>

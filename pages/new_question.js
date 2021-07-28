@@ -30,7 +30,7 @@ export default class AddQuestionPage extends Component {
             topics:[],
             options: {},
             content:[],
-            marking_scheme:[],
+            marking_scheme:{'dnejude':"dbeujbde"},
             interim:[],
             images:{},
             options:[],
@@ -62,6 +62,9 @@ export default class AddQuestionPage extends Component {
         })
         this.setState({interim:abc})
     }
+    // del = () => {
+    //     this.props.onDelete(this.props.id);
+    // }
     temp = () => {
         const ret = {
             question_number: this.state.question_number,

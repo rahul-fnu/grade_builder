@@ -46,8 +46,15 @@ export default class AddMS extends Component {
     handleRubric = (rub) => {
         this.state.answer[rub.point_number] = rub;
     }
-    temp = () => {
-        console.log(this.state)
+    Save = () => {
+        const ret = {
+            question_number: this.state.question_number,
+            marks: this.state.marks,
+            answer: this.state.answer,
+            subpart: this.state.subpart,
+            image: this.state.image
+        }
+        this.props.parentCallback(ret);
     }
     render() {
         return (
@@ -71,7 +78,7 @@ export default class AddMS extends Component {
                     </label><br/>
                     {this.state.content}
                     <button onClick={this.addPart}>Add Subpart</button>
-                    <button onClick={this.temp}>kvjhifv</button>
+                    <button onClick={this.Save}>Save</button>
                 </div>
             </>
         )
