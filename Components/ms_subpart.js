@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 // import TextEditor from '../Components/text_editor';
 import MSRubric from './ms_rubric'
-import styles from '../styles/Admin.module.css';
+import styles from '../styles/AddPaper.module.css';
 import ImageUploader from './images_upload';
 export default class AddMSSubpart extends Component {
     constructor(props) {
@@ -55,28 +55,29 @@ export default class AddMSSubpart extends Component {
     }
     render() {
         return (
-            <div className={styles.question_card}>
-              <form>
-                  <label>
-                      Part:
-                      <input type="text" id="part" value = {this.state.part} onChange={(e) => this.handleChange(e)}/>
-                  </label><br/>
-  
-                  <label>
-                      Marks: 
-                      <input type="text" id="marks" value = {this.state.marks} onChange={(e) => this.handleChange(e)}/>
-                  </label><br/>
-  
-                  {/* <input type="button" value="Add subpart" onClick={'#'}/><br/> */}
-              </form >
-              <label>
-                      Ans: 
-                      {this.state.interim}
-                      <button onClick={this.addRubric}>Add Rubric</button>
-                  </label><br/>
-                {this.state.content}
-                <button onClick={this.addPart}>Add Subpart</button>
-                <button onClick={this.handleSave}>save</button>
+            <div className = {styles.container}>
+                <div className={styles.question_card}>
+                    <form>
+                        <label>
+                            Part:
+                            <input className = {styles.input} type="text" id="part" value = {this.state.part} onChange={(e) => this.handleChange(e)}/>
+                        </label><br/>
+        
+                        <label>
+                            Marks: 
+                            <input className = {styles.input} type="text" id="marks" value = {this.state.marks} onChange={(e) => this.handleChange(e)}/>
+                        </label><br/>
+        
+                        {/* <input type="button" value="Add subpart" onClick={'#'}/><br/> */}
+                    </form >
+                    <label>Ans:  </label>
+                    {this.state.interim}
+                    <button className = {styles.button} onClick={this.addRubric}>Add Rubric</button>
+                    <br/>
+                    {this.state.content}
+                    <button className = {styles.button} onClick={this.addPart}>Add Subpart</button>
+                    <button className = {styles.rightButton} onClick={this.handleSave}>save</button>
+                </div>
           </div>
         )
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Component} from 'react';
 import AddQuestionPage from './new_question'
-import styles from '../styles/Admin.module.css';
+import styles from '../styles/AddPaper.module.css';
 import AddMS from '../components/new_ms'
 export default class AddPaperPage extends Component {
     constructor(props) {
@@ -57,90 +57,87 @@ export default class AddPaperPage extends Component {
     }
     render(){
       return (
-          <>
-        <div class = {styles.page_card}>
-            <form>
-                <label>
-                    Board Level:
-                    <select id="board_level" value = {this.state.board_level} onChange={(e) => this.handleChang(e)}>
-                        <option value="" disabled selected>Select board level</option>
-                        <option value="caie-a-level">A levels</option>
-                    </select>
-                </label><br/>
+        <>
+        <div className={styles.container}>
+            <div class = {styles.page_card}>
+                <form>
+                    <label>Board Level: </label>
+                        <select className={styles.options} id="board_level" value = {this.state.board_level} onChange={(e) => this.handleChang(e)}>
+                            <option value="" disabled selected>Select board level</option>
+                            <option value="caie-a-level">A levels</option>
+                        </select>
+                    <br/>
 
-                <label>
-                    Subject:
-                    <select id="subject" value = {this.state.subject} onChange={(e) => this.handleChang(e)}>
-                        <option value="" disabled selected>Select Subject</option>
-                        <option value="physics">Physics</option>
-                        <option value="chemistry">Chemistry</option>
-                        <option value="mathematics">Maths</option>
-                        <option value="economics">Economics</option>
-                    </select>         
-                </label><br/>
+                    <label>Subject: </label>
+                        <select className={styles.options} id="subject" value = {this.state.subject} onChange={(e) => this.handleChang(e)}>
+                            <option value="" disabled selected>Select Subject</option>
+                            <option value="physics">Physics</option>
+                            <option value="chemistry">Chemistry</option>
+                            <option value="mathematics">Maths</option>
+                            <option value="economics">Economics</option>
+                        </select>         
+                    <br/>
 
-                <label>
-                    Exam Session:
-                    <select id="session" value = {this.state.session} onChange={(e) => this.handleChang(e)}>
-                        <option value="" disabled selected>Select Exam Period</option>
-                        <option value="March ">March</option>
-                        <option value="May ">May</option>
-                        <option value="October">October</option>
-                    </select>  
-                </label><br/>
-                <label>
-                    Year:
-                    <select id="year" value = {this.state.year} onChange={(e) => this.handleChang(e)}>
-                        <option value="" disabled selected>Select Year</option>
-                        <option value="2020">2020</option>
-                        <option value="2019">2019</option>
-                        <option value="2018">2018</option>
-                        <option value="2017">2017</option>
-                        <option value="2016">2016</option>
-                        <option value="2015">2015</option>
-                        <option value="2014">2014</option>
-                        <option value="2013">2013</option>
-                        <option value="2012">2012</option>
-                        <option value="2011">2011</option>
-                        <option value="2010">2010</option>
-                        <option value="2009">2009</option>
-                        <option value="2008">2008</option>
-                    </select>  
-                </label><br/>
-                <label>
-                    Component Region:
-                    <select id="component_region" value = {this.state.component_region} onChange={(e) => this.handleChang(e)}>
-                        <option value="" disabled selected>Component Region</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="21">21</option>
-                        <option value="22">22</option>
-                        <option value="23">23</option>
-                        <option value="41">41</option>
-                        <option value="42">42</option>
-                        <option value="43">43</option>
-                    </select>
-                </label><br/>
-                <label>
-                    MCQ:
-                    <input id="mcq" type="checkbox" defaultChecked={false} onChange={this.mcqHandler}/>
-                </label><br/>
-                {/* <input type="button" value="Add question" onClick={'#'}/><br/> */}
+                    <label>Exam Session: </label>
+                        <select className={styles.options} id="session" value = {this.state.session} onChange={(e) => this.handleChang(e)}>
+                            <option value="" disabled selected>Select Exam Period</option>
+                            <option value="March ">March</option>
+                            <option value="May ">May</option>
+                            <option value="October">October</option>
+                        </select>  
+                    <br/>
 
-                {/* <input type="submit" value="Submit" /> */}
-            </form>
-            <div className = {styles.question_card}>
-                <p>Add Questions</p>
-                {this.state.content}
-                <button disabled = {!this.allValid} onClick={this.addQuestion}>New Question</button>
+                    <label>Year: </label>
+                        <select className={styles.options} id="year" value = {this.state.year} onChange={(e) => this.handleChang(e)}>
+                            <option value="" disabled selected>Select Year</option>
+                            <option value="2020">2020</option>
+                            <option value="2019">2019</option>
+                            <option value="2018">2018</option>
+                            <option value="2017">2017</option>
+                            <option value="2016">2016</option>
+                            <option value="2015">2015</option>
+                            <option value="2014">2014</option>
+                            <option value="2013">2013</option>
+                            <option value="2012">2012</option>
+                            <option value="2011">2011</option>
+                            <option value="2010">2010</option>
+                            <option value="2009">2009</option>
+                            <option value="2008">2008</option>
+                        </select>  
+                    <br/>
+                    <label>Component Region: </label>
+                        <select className={styles.options} id="component_region" value = {this.state.component_region} onChange={(e) => this.handleChang(e)}>
+                            <option value="" disabled selected>Component Region</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="41">41</option>
+                            <option value="42">42</option>
+                            <option value="43">43</option>
+                        </select>
+                    <br/>
+                    <label>MCQ: </label>
+                        <input id="mcq" type="checkbox" defaultChecked={false} onChange={this.mcqHandler}/>
+                    <br/>
+                    {/* <input type="button" value="Add question" onClick={'#'}/><br/> */}
+
+                    {/* <input type="submit" value="Submit" /> */}
+                </form>
+                <div className = {styles.question_card}>
+                    <p>Add Questions</p>
+                    {this.state.content}
+                    <button className = {styles.button} disabled = {!this.allValid} onClick={this.addQuestion}>New Question</button>
+                </div>
+                <div className = {styles.question_card}>
+                    <p>Add Marking Scheme</p>
+                    {this.state.ms}
+                    <button className = {styles.button} disabled = {!this.allValid} onClick={this.addMS}>New MS Question</button>
+                </div>
+                <button className = {styles.button} onClick={this.temp}>Submit</button>
             </div>
-            <div className = {styles.question_card}>
-                <p>Add Marking Scheme</p>
-                {this.state.ms}
-                <button disabled = {!this.allValid} onClick={this.addMS}>New MS Ques</button>
-            </div>
-            <button onClick={this.temp}>fewfwerf</button>
         </div>
         </>
       );

@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import TextEditor from '../Components/text_editor';
-import styles from '../styles/Admin.module.css';
+import styles from '../styles/AddPaper.module.css';
 export default class MSRubric extends Component {
     constructor(props) {
         super(props);
@@ -21,25 +21,27 @@ export default class MSRubric extends Component {
     }
     render() {
         return (
-            <div className={styles.question_card}>
-              <form>
-                    <label>
-                      Point Number: 
-                      <input type="text" id="point_number" value = {this.state.point_number} onChange={(e) => this.handleChange(e)}/>
-                  </label><br/>
-                  <label>
-                      Marks: 
-                      <input type="text" id="marks" value = {this.state.marks} onChange={(e) => this.handleChange(e)}/>
-                  </label><br/>
-                  <label>
-                      Ans: 
-                      <TextEditor parentCallback={(ans) => this.handleRubric(ans)}/>
-                  </label><br/>
-  
-                  {/* <input type="button" value="Add subpart" onClick={'#'}/><br/> */}
-              </form >
-              <button onClick={this.handleSave}>Save</button>
-          </div>
+            <div className = {styles.container}>
+                <div className={styles.question_card}>
+                    <form>
+                            <label>
+                            Point Number: 
+                            <input className = {styles.input} type="text" id="point_number" value = {this.state.point_number} onChange={(e) => this.handleChange(e)}/>
+                        </label><br/>
+                        <label>
+                            Marks: 
+                            <input className = {styles.input} type="text" id="marks" value = {this.state.marks} onChange={(e) => this.handleChange(e)}/>
+                        </label><br/>
+                        <label>
+                            Ans: 
+                            <TextEditor parentCallback={(ans) => this.handleRubric(ans)}/>
+                        </label><br/>
+        
+                        {/* <input type="button" value="Add subpart" onClick={'#'}/><br/> */}
+                    </form >
+                    <button className = {styles.button} onClick={this.handleSave}>Save</button>
+                </div>
+            </div>
         )
     }
 }

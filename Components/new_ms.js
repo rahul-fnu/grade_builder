@@ -1,5 +1,5 @@
 import React, { Component, useState} from 'react';
-import styles from '../styles/Admin.module.css';
+import styles from '../styles/AddPaper.module.css';
 import TextEditor from '../Components/text_editor';
 import MSRubric from './ms_rubric';
 // import ImageUploader from './images_upload';
@@ -52,26 +52,24 @@ export default class AddMS extends Component {
     render() {
         return (
             <>
-                <div className = {styles.question_card}>
-                    <form>
-                        <label>
-                            Question No.
-                            <input type="text" id="question_number"  value = {this.state.question_number} onChange={(e) => this.handleChange(e)}/>
-                        </label><br/>
-                        <label>
-                            Marks: 
-                            <input type="text" id="marks"  value = {this.state.marks} onChange={(e) => this.handleChange(e)}/>
-                        </label><br/>
-
-                    </form>
-                    <label>
-                        Ans: 
-                        {this.state.interim}
-                        <button onClick={this.addRubric}>Add Rubric</button>
-                    </label><br/>
-                    {this.state.content}
-                    <button onClick={this.addPart}>Add Subpart</button>
-                    <button onClick={this.temp}>kvjhifv</button>
+                <div className = {styles.container}>
+                    <div className = {styles.question_card}>
+                        <form>
+                            <label>Question No.  </label>
+                                <input className = {styles.input} type="text" id="question_number"  value = {this.state.question_number} onChange={(e) => this.handleChange(e)}/>
+                            <br/>
+                            <label>Marks: </label>
+                                <input className = {styles.input} type="text" id="marks"  value = {this.state.marks} onChange={(e) => this.handleChange(e)}/>
+                            <br/>
+                        </form>
+                        <label>Ans: </label>
+                            {this.state.interim}
+                            <button className = {styles.button} onClick={this.addRubric}>Add Rubric</button>
+                        <br/>
+                        {this.state.content}
+                        <button className = {styles.button} onClick={this.addPart}>Add Subpart</button>
+                        <button className = {styles.rightButton} onClick={this.temp}>Delete</button>
+                    </div>
                 </div>
             </>
         )

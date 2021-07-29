@@ -1,7 +1,7 @@
 import React from 'react';
 import {Component} from 'react';
 import TextEditor from '../Components/text_editor';
-import styles from '../styles/Admin.module.css';
+import styles from '../styles/AddPaper.module.css';
 const uuidv4 = require("uuid/v4");
 export default class AddSubpart extends Component {
     constructor(props) {
@@ -54,30 +54,29 @@ export default class AddSubpart extends Component {
     }
     render(){
         return (
-          <div className={styles.question_card}>
-              <form>
-                  <label>
-                      Part:
-                      <input type="text" id="part" value = {this.state.part} onChange={(e) => this.handleChange(e)}/>
-                  </label><br/>
-  
-                  <label>
-                      Marks: 
-                      <input type="text" id="marks" value = {this.state.marks} onChange={(e) => this.handleChange(e)}/>
-                  </label><br/>
-  
-                  <label>
-                      Prompt: 
-                      <TextEditor parentCallback={(part) => this.handlePrompt(part)}/>
-                  </label><br/>
-  
-                  {/* <input type="button" value="Add subpart" onClick={'#'}/><br/> */}
-              </form >
-              {this.state.interim}
-              <button onClick={this.handleSubpart}>Add Subpart</button>
-              <button onClick={this.save}>Save</button>
-              <button onClick={this.handleDelete}>Delete</button>
-          </div>
+            <div className = {styles.container}>
+                <div className={styles.question_card}>
+                    <form>
+                        <label>Part:  </label>
+                            <input className = {styles.input} type="text" id="part" value = {this.state.part} onChange={(e) => this.handleChange(e)}/>
+                        <br/>
+        
+                        <label>Marks:  </label>
+                            <input className = {styles.input} type="text" id="marks" value = {this.state.marks} onChange={(e) => this.handleChange(e)}/>
+                        <br/>
+        
+                        <label>Prompt: </label> 
+                            <TextEditor parentCallback={(part) => this.handlePrompt(part)}/>
+                        <br/>
+        
+                        {/* <input type="button" value="Add subpart" onClick={'#'}/><br/> */}
+                    </form >
+                    {this.state.interim}
+                    <button className = {styles.button} onClick={this.handleSubpart}>Add Subpart</button>
+                    <button className = {styles.button} onClick={this.save}>Save</button>
+                    <button className = {styles.rightButton}onClick={this.handleDelete}>Delete</button>
+                </div>
+            </div>
         );
     }
 }

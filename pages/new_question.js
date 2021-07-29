@@ -2,7 +2,7 @@ import React from 'react';
 import {Component} from 'react';
 import Multiselect from 'multiselect-react-dropdown';
 import TextEditor from '../Components/text_editor';
-import styles from '../styles/Admin.module.css';
+import styles from '../styles/AddPaper.module.css';
 import AddSubpart from './add_subpart'
 const uuidv4 = require("uuid/v4");
 // import ImageUploader from '../Components/images_upload';
@@ -90,15 +90,13 @@ export default class AddQuestionPage extends Component {
         <>
             <div className={styles.question_card}>
                 <form>
-                    <label>
-                        Question No.
-                        <input type="text" id="question_number"  value = {this.state.question_number} onChange={(e) => this.handleChange(e)}/>
-                    </label><br/>
+                    <label>Question No.  </label>
+                        <input className = {styles.input} type="text" id="question_number"  value = {this.state.question_number} onChange={(e) => this.handleChange(e)}/>
+                    <br/>
 
-                    <label>
-                        Marks: 
-                        <input type="text" id="marks"  value = {this.state.marks} onChange={(e) => this.handleChange(e)}/>
-                    </label><br/>
+                    <label>Marks:  </label>
+                        <input className = {styles.input} type="text" id="marks"  value = {this.state.marks} onChange={(e) => this.handleChange(e)}/>
+                    <br/>
                     
                     <label>
                         Topics: 
@@ -122,8 +120,8 @@ export default class AddQuestionPage extends Component {
                     </label><br/> */}
                 </form >
                 {this.state.interim}
-                <button onClick={this.addPart}>Add Subpart</button>
-                <button onClick={this.temp}>Add to the database has to be connected to the API</button>
+                <button className = {styles.button} onClick={this.addPart}>Add Subpart</button>
+                <button className = {styles.rightButton} onClick={this.temp}>Add to the database has to be connected to the API</button>
             </div>
 
             
