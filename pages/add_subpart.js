@@ -14,31 +14,39 @@ export default class AddSubpart extends Component {
             interim:[]
         }
     }
+    // getRandomInt = (max) => {
+    //     return Math.floor(Math.random() * max);
+    // }
     handleChange = (e) => {
         this.setState({[e.target.id]: e.target.value});
     }
     handlePrompt = (part) => {
         this.setState({prompt: part});
     }
+    // ab = new Set();
     handleSubpart = () => {
-        var id = uuidv4()
+        // var id = this.getRandomInt(200)
+        // while (this.ab.has(id)) {
+        //     id = this.getRandomInt(200)
+        // }
         this.setState({
             interim: [...this.state.interim, 
-            <AddSubpart id = {id} parentCallback = {(part) => this.addSubpart(part)} onDelete = {(id) => this.handleDelete(id)}/>
+            <AddSubpart /*id = {id}*/parentCallback = {(part) => this.addSubpart(part)} /*onDelete = {(id) => this.handleDelete(id)} *//>
         ]
         })
     }
     addSubpart = (sub) => {
         this.state.subparts[sub.part] = sub;
     }
-    handleDelete = (id) => {
-        console.log(id)
-        var abc = this.state.interim.filter(function(obj) {
-            console.log(obj.props.id)
-            return obj.props.id != id;
-        })
-        this.setState({interim:abc})
-    }
+    // handleDelete = (id) => {
+    //     console.log(id)
+    //     var abc = this.state.interim.filter(function(obj) {
+    //         console.log(obj.props.id)
+    //         return obj.props.id != id;
+    //     })
+    //     this.ab.delete(id)
+    //     this.setState({interim:abc})
+    // }
     save = () => {
         const ret = {
             part : this.state.part,
@@ -49,9 +57,9 @@ export default class AddSubpart extends Component {
         console.log(ret);
         this.props.parentCallback(ret)
     }
-    handleDelete = () => {
-        this.props.onDelete(this.props.id);
-    }
+    // handleDelete = () => {
+    //     this.props.onDelete(this.props.id);
+    // }
     render(){
         return (
             <div className = {styles.container}>

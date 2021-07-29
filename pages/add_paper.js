@@ -16,20 +16,23 @@ export default class AddPaperPage extends Component {
             session : "",
             year : "",
             mcq: false,
-            questions: []
+            questions: {},
+            ms_final : {}
 
         }
     }
-    handleChang = (e) => {
+
+    handleChange = (e) => {
         this.setState({[e.target.id]: e.target.value});
     }
     mcqHandler = () => {
         this.state.mcq = !this.state.mcq;
     }
+    // ab = new Set();
     addQuestion = () => {
         this.setState({
             content: [...this.state.content, 
-            <AddQuestionPage subject = {this.state.subject} board_level ={this.state.board_level} exam_period = {this.state.session + this.state.year} component_region = {this.state.component_region} parentCallback = {(ques) => this.updateQuestion(ques)}/>
+            <AddQuestionPage subject = {this.state.subject} board_level ={this.state.board_level} exam_period = {this.state.session + this.state.year} component_region = {this.state.component_region} parentCallback = {(ques) => this.updateQuestion(ques)} /*onDelete = {() => this.handleDelete(id)}*//>
         ]
         })
     }
@@ -42,51 +45,59 @@ export default class AddPaperPage extends Component {
         })
     }
     allValid = () => {
-        return this.state.board_level && this.state.subject && this.state.session && this.state.year && this.state.component_region;
+        // console.log(this.state.)
+        return (this.state.subject && this.state.board_level && this.state.session && this.state.year && this.state.component_region);
     }
     updateQuestion = (ques) => {
         this.state.questions[ques.question_number] = ques
         // this.setState({questions: [...this.state.questions, ques]})
     }
     updateMS = (ms) => {
-        console.log(this.state);
-        console.log(ms);
+        this.state.ms_final[ms.question_number] = ms;
     }
     temp = () => {
+        var obj = Object.keys(this.state.questions)
+        for (var a of obj) {
+            if (a in this.state.ms_final && a in this.state.questions) {
+                this.state.questions[a].marking_scheme = this.state.ms_final[a];
+            }
+        }
         console.log(this.state);
     }
     render(){
       return (
-        <>
-        <div className={styles.container}>
+          <>
+          <div className={styles.container}>
             <div class = {styles.page_card}>
                 <form>
-                    <label>Board Level: </label>
-                        <select className={styles.options} id="board_level" value = {this.state.board_level} onChange={(e) => this.handleChang(e)}>
+                    <label>
+                        Board Level:
+                        <select className={styles.options} id="board_level" value = {this.state.board_level} onChange={(e) => this.handleChange(e)}>
                             <option value="" disabled selected>Select board level</option>
                             <option value="caie-a-level">A levels</option>
                         </select>
-                    <br/>
+                    </label><br/>
 
-                    <label>Subject: </label>
-                        <select className={styles.options} id="subject" value = {this.state.subject} onChange={(e) => this.handleChang(e)}>
+                    <label>
+                        Subject:
+                        <select className={styles.options} id="subject" value = {this.state.subject} onChange={(e) => this.handleChange(e)}>
                             <option value="" disabled selected>Select Subject</option>
                             <option value="physics">Physics</option>
                             <option value="chemistry">Chemistry</option>
                             <option value="mathematics">Maths</option>
                             <option value="economics">Economics</option>
                         </select>         
-                    <br/>
+                    </label><br/>
 
-                    <label>Exam Session: </label>
-                        <select className={styles.options} id="session" value = {this.state.session} onChange={(e) => this.handleChang(e)}>
+                    <label>
+                        Exam Session:
+                        <select className={styles.options} id="session" value = {this.state.session} onChange={(e) => this.handleChange(e)}>
                             <option value="" disabled selected>Select Exam Period</option>
                             <option value="March ">March</option>
                             <option value="May ">May</option>
                             <option value="October">October</option>
                         </select>  
-                    <br/>
-
+                    </label><br/>
                     <label>Year: </label>
                         <select className={styles.options} id="year" value = {this.state.year} onChange={(e) => this.handleChang(e)}>
                             <option value="" disabled selected>Select Year</option>

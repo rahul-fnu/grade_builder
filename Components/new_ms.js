@@ -46,8 +46,15 @@ export default class AddMS extends Component {
     handleRubric = (rub) => {
         this.state.answer[rub.point_number] = rub;
     }
-    temp = () => {
-        console.log(this.state)
+    Save = () => {
+        const ret = {
+            question_number: this.state.question_number,
+            marks: this.state.marks,
+            answer: this.state.answer,
+            subpart: this.state.subpart,
+            image: this.state.image
+        }
+        this.props.parentCallback(ret);
     }
     render() {
         return (
@@ -55,20 +62,24 @@ export default class AddMS extends Component {
                 <div className = {styles.container}>
                     <div className = {styles.question_card}>
                         <form>
-                            <label>Question No.  </label>
+                            <label>
+                                Question No.
                                 <input className = {styles.input} type="text" id="question_number"  value = {this.state.question_number} onChange={(e) => this.handleChange(e)}/>
-                            <br/>
-                            <label>Marks: </label>
+                            </label><br/>
+                            <label>
+                                Marks: 
                                 <input className = {styles.input} type="text" id="marks"  value = {this.state.marks} onChange={(e) => this.handleChange(e)}/>
-                            <br/>
+                            </label><br/>
+
                         </form>
-                        <label>Ans: </label>
+                        <label>
+                            Ans: 
                             {this.state.interim}
                             <button className = {styles.button} onClick={this.addRubric}>Add Rubric</button>
-                        <br/>
+                        </label><br/>
                         {this.state.content}
                         <button className = {styles.button} onClick={this.addPart}>Add Subpart</button>
-                        <button className = {styles.rightButton} onClick={this.temp}>Delete</button>
+                        <button className = {styles.rightButton} onClick={this.Save}>Save</button>
                     </div>
                 </div>
             </>
