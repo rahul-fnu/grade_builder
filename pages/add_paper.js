@@ -99,7 +99,7 @@ export default class AddPaperPage extends Component {
                         </select>  
                     </label><br/>
                     <label>Year: </label>
-                        <select className={styles.options} id="year" value = {this.state.year} onChange={(e) => this.handleChang(e)}>
+                        <select className={styles.options} id="year" value = {this.state.year} onChange={(e) => this.handleChange(e)}>
                             <option value="" disabled selected>Select Year</option>
                             <option value="2020">2020</option>
                             <option value="2019">2019</option>
@@ -117,7 +117,7 @@ export default class AddPaperPage extends Component {
                         </select>  
                     <br/>
                     <label>Component Region: </label>
-                        <select className={styles.options} id="component_region" value = {this.state.component_region} onChange={(e) => this.handleChang(e)}>
+                        <select className={styles.options} id="component_region" value = {this.state.component_region} onChange={(e) => this.handleChange(e)}>
                             <option value="" disabled selected>Component Region</option>
                             <option value="11">11</option>
                             <option value="12">12</option>
