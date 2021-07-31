@@ -20,3 +20,17 @@ const drive = google.drive({
     version:'v3',
     auth: oauth2Client
 })
+
+export async function uploadFile(file_path, name) {
+    const response = await drive.files.create({
+        requestBody: {
+            name: name,
+            mimeType: "image/png"
+        },
+        media: {
+            mimeType: "image/png",
+            body: fs.createReadStream(file_path)
+        }
+    })
+    return response.data
+}

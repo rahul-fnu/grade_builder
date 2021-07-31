@@ -2,10 +2,12 @@ import React, { Component, useState } from 'react';
 import axios from 'axios';
 //const ImgurClient = require('../../node_modules/imgur-api.js');
 import ImageList from './image_list';
+
 function ImageUploader (props) {
     const [selectedFile, setSelectedFile] = useState();
 	const [isSelected, setIsSelected] = useState(false);
     const changeHandler = (event) => {
+        console.log(event)
         setSelectedFile(event.target.files[0]);
         setIsSelected(true);
     };
@@ -15,7 +17,7 @@ function ImageUploader (props) {
     // } 
     // states
     const [images, setImages] = useState({}); 
-    const upload = async (e) =>{
+    const upload = async (e) => {
         e.preventDefault()
         const formData = new FormData();
         formData.append('image', selectedFile);
