@@ -138,12 +138,12 @@ export default class AddPaperPage extends Component {
                 <div className = {styles.question_card}>
                     <p>Add Questions</p>
                     {this.state.content}
-                    <button className = {styles.button} disabled = {!this.allValid} onClick={this.addQuestion}>New Question</button>
+                    <button className = {styles.button} disabled = {!this.allValid()} onClick={this.addQuestion}>New Question</button>
                 </div>
                 <div className = {styles.question_card}>
                     <p>Add Marking Scheme</p>
                     {this.state.ms}
-                    <button className = {styles.button} disabled = {!this.allValid} onClick={this.addMS}>New MS Question</button>
+                    <button className = {styles.button} disabled = {!this.allValid()} onClick={this.addMS}>New MS Question</button>
                 </div>
                 <button className = {styles.button} onClick={this.temp}>Submit</button>
             </div>
