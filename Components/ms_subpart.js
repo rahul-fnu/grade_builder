@@ -14,15 +14,13 @@ export default class AddMSSubpart extends Component {
             interim:[],
             content: [],
             ms: [],
+            temp:[],
             images: {}
         }
     }
     handleChange = (e) => {
         this.setState({[e.target.id]: e.target.value});
     }
-    // handleAnswer = (ans) => {
-    //     this.setState({answer : ans});
-    // }
     addPart = () => {
         this.setState({
             content: [...this.state.content, 
@@ -42,6 +40,16 @@ export default class AddMSSubpart extends Component {
         this.state.subpart[part.part] = part;
         console.log(this.state)
     }
+    addImage = () => {
+        this.setState({
+            temp: [...this.state.temp, <ImageUploader parentCallback = {(image) => this.handleImage(image)}/>]
+        })
+    }
+    handleImage = (image) => {
+        console.log(image)
+        this.state.images[image.name] = image.link;
+        console.log(this.state)
+    }
     handleSave = () => {
         console.log(this.state)
         const ret = {
@@ -49,7 +57,7 @@ export default class AddMSSubpart extends Component {
             marks: this.state.marks,
             answer: this.state.answer,
             subpart: this.state.subpart,
-            images: this.state.images
+            images: Object.values(this.state.images)
         }
         this.props.parentCallback(ret);
     }
@@ -74,6 +82,9 @@ export default class AddMSSubpart extends Component {
                     {this.state.interim}
                     <button className = {styles.button} onClick={this.addRubric}>Add Rubric</button>
                     <br/>
+                    {this.state.temp}
+                    <button onClick={styles.button} onClick = {this.addImage}>Add Image</button>
+                    <br />
                     {this.state.content}
                     <button className = {styles.button} onClick={this.addPart}>Add Subpart</button>
                     <button className = {styles.rightButton} onClick={this.handleSave}>save</button>

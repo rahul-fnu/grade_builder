@@ -2,7 +2,7 @@ import React, { Component, useState} from 'react';
 import styles from '../styles/AddPaper.module.css';
 import TextEditor from '../Components/text_editor';
 import MSRubric from './ms_rubric';
-// import ImageUploader from './images_upload';
+import ImageUploader from './images_upload';
 import AddMSSubpart from './ms_subpart';
 export default class AddMS extends Component {
     constructor(props) {
@@ -15,7 +15,8 @@ export default class AddMS extends Component {
             interim:[],
             ms: [],
             subpart:{},
-            images: {}
+            images:{},
+            temp:[]
         }
     }
     handleChange = (e) => {
@@ -23,10 +24,6 @@ export default class AddMS extends Component {
     }
     handleAnswer = (ans) => {
         this.setState({answer : ans});
-    }
-    handleImages = (image) => {
-        var key = this.state.images ? this.state.images.length + 1 : 1;
-        this.state.images[key] = image;
     }
     addPart = () => {
         this.setState({
@@ -46,13 +43,23 @@ export default class AddMS extends Component {
     handleRubric = (rub) => {
         this.state.answer[rub.point_number] = rub;
     }
+    addImage = () => {
+        this.setState({
+            temp: [...this.state.temp, <ImageUploader parentCallback = {(image) => this.handleImage(image)}/>]
+        })
+    }
+    handleImage = (image) => {
+        console.log(image)
+        this.state.images[image.name] = image.link;
+        console.log(this.state)
+    }
     Save = () => {
         const ret = {
             question_number: this.state.question_number,
             marks: this.state.marks,
             answer: this.state.answer,
             subpart: this.state.subpart,
-            image: this.state.image
+            images: Object.values(this.state.images)
         }
         this.props.parentCallback(ret);
     }
@@ -77,6 +84,8 @@ export default class AddMS extends Component {
                             {this.state.interim}
                             <button className = {styles.button} onClick={this.addRubric}>Add Rubric</button>
                         </label><br/>
+                        {this.state.temp}
+                        <button onClick={styles.button} onClick = {this.addImage}>Add Image</button>
                         {this.state.content}
                         <button className = {styles.button} onClick={this.addPart}>Add Subpart</button>
                         <button className = {styles.rightButton} onClick={this.Save}>Save</button>

@@ -18,6 +18,7 @@ function ImageUploader(props) {
         };
         reader.readAsDataURL(selectedFile)
     }
+    const [file_name, setName] = useState();
     async function uploadFile(name, file) {
         console.log(122)
         const drive_res = await axios({
@@ -28,14 +29,13 @@ function ImageUploader(props) {
                 file: file
             }
         })
-        console.log(drive_res.data.data)
-        link = drive_res.data.data.webViewLink;
-        props.parentCallback({name:link})
+        const image = {}
+        image.name = file_name;
+        image.link = drive_res.data.data.webViewLink
+        props.parentCallback(image)
     }
-    var name = "";
-    var link = "";
     function handleName (e) {
-        name = e.target.value;
+        setName(e.target.value);
     }
     return (
         <div className="upload_image">

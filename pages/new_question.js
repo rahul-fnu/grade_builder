@@ -27,14 +27,15 @@ export default class AddQuestionPage extends Component {
             board_level: this.props.board_level,
             subject: this.props.subject,
             component_region: this.props.component_region,
+            is_mcq: this.props.is_mcq,
             topics:[],
             options: {},
             content:{},
-            marking_scheme:{'dnejude':"dbeujbde"},
+            marking_scheme:{},
             interim:[],
-            images:{},
-            temp:[],
             options:[],
+            temp:[],
+            images: {}
         };
     }
     handleChange = (e) => {
@@ -51,6 +52,9 @@ export default class AddQuestionPage extends Component {
         ]
         })
     }
+    addSubpart = (subpart) => {
+        this.state.content[subpart.part] = subpart
+    }
     addImage = () => {
         this.setState({
             temp: [...this.state.temp, <ImageUploader parentCallback = {(image) => this.handleImage(image)}/>]
@@ -59,23 +63,8 @@ export default class AddQuestionPage extends Component {
     handleImage = (image) => {
         console.log(image)
         this.state.images[image.name] = image.link;
+        console.log(this.state)
     }
-    addSubpart = (subpart) => {
-        this.state.content[subpart.part] = subpart
-        // this.setState({content: [...this.state.content, subpart]})
-    }
-    // handleDelete = (id) => {
-    //     console.log(id)
-    //     var abc = this.state.interim.filter(function(obj) {
-    //         console.log(obj.props.id)
-    //         return obj.props.id != id;
-    //     })
-    //     this.setState({interim:abc})
-    // }
-    // del = () => {
-    //     this.props.onDelete(this.props.id);
-    // }
-
     temp = () => {
         const ret = {
             question_number: this.state.question_number,
@@ -85,20 +74,16 @@ export default class AddQuestionPage extends Component {
             marking_scheme: this.state.marking_scheme,
             marks: this.state.marks,
             text: this.state.text,
-            images: this.state.images,
+            images: Object.values(this.state.images),
             topics: this.state.topics,
             component_region: this.state.component_region,
             options: this.state.options,
             subject: this.state.subject,
-
+            is_mcq: this.state.is_mcq
         }
-        console.log(this.state)
+        console.log(ret)
         this.props.parentCallback(ret);
     }
-    // handleImagae = (image) => {
-    //     var key = this.state.images ? this.state.images + 1 : 1;
-    //     this.state.images[key] = image;
-    // }
     render(){
       return (
         <>

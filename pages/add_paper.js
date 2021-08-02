@@ -30,7 +30,7 @@ export default class AddPaperPage extends Component {
     addQuestion = () => {
         this.setState({
             content: [...this.state.content, 
-            <AddQuestionPage subject = {this.state.subject} board_level ={this.state.board_level} exam_period = {this.state.session + this.state.year} component_region = {this.state.component_region} parentCallback = {(ques) => this.updateQuestion(ques)} /*onDelete = {() => this.handleDelete(id)}*//>
+            <AddQuestionPage subject = {this.state.subject} board_level ={this.state.board_level} exam_period = {this.state.session + this.state.year} component_region = {this.state.component_region} mcq = {this.state.mcq} parentCallback = {(ques) => this.updateQuestion(ques)} /*onDelete = {() => this.handleDelete(id)}*//>
         ]
         })
     }

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Component} from 'react';
+import ImageUploader from '../Components/images_upload';
 import TextEditor from '../Components/text_editor';
 import styles from '../styles/AddPaper.module.css';
 const uuidv4 = require("uuid/v4");
@@ -11,7 +12,9 @@ export default class AddSubpart extends Component {
             prompt: "",
             marks: "",
             subparts:{},
-            interim:[]
+            interim:[],
+            images:{},
+            temp:[]
         }
     }
     // getRandomInt = (max) => {
@@ -23,43 +26,37 @@ export default class AddSubpart extends Component {
     handlePrompt = (part) => {
         this.setState({prompt: part});
     }
-    // ab = new Set();
     handleSubpart = () => {
-        // var id = this.getRandomInt(200)
-        // while (this.ab.has(id)) {
-        //     id = this.getRandomInt(200)
-        // }
         this.setState({
             interim: [...this.state.interim, 
-            <AddSubpart /*id = {id}*/parentCallback = {(part) => this.addSubpart(part)} /*onDelete = {(id) => this.handleDelete(id)} *//>
+            <AddSubpart parentCallback = {(part) => this.addSubpart(part)} /*onDelete = {(id) => this.handleDelete(id)} *//>
         ]
         })
     }
     addSubpart = (sub) => {
         this.state.subparts[sub.part] = sub;
     }
-    // handleDelete = (id) => {
-    //     console.log(id)
-    //     var abc = this.state.interim.filter(function(obj) {
-    //         console.log(obj.props.id)
-    //         return obj.props.id != id;
-    //     })
-    //     this.ab.delete(id)
-    //     this.setState({interim:abc})
-    // }
+    addImage = () => {
+        this.setState({
+            temp: [...this.state.temp, <ImageUploader parentCallback = {(image) => this.handleImage(image)}/>]
+        })
+    }
+    handleImage = (image) => {
+        console.log(image)
+        this.state.images[image.name] = image.link;
+        console.log(this.state)
+    }
     save = () => {
         const ret = {
             part : this.state.part,
             prompt: this.state.prompt,
             marks: this.state.marks,
-            subparts: this.state.subparts
+            subparts: this.state.subparts,
+            images: Object.values(this.state.images)
         }
         console.log(ret);
         this.props.parentCallback(ret)
     }
-    // handleDelete = () => {
-    //     this.props.onDelete(this.props.id);
-    // }
     render(){
         return (
             <div className = {styles.container}>
@@ -79,6 +76,8 @@ export default class AddSubpart extends Component {
         
                         {/* <input type="button" value="Add subpart" onClick={'#'}/><br/> */}
                     </form >
+                    {this.state.temp}
+                    <button onClick={styles.button} onClick = {this.addImage}>Add Image</button>
                     {this.state.interim}
                     <button className = {styles.button} onClick={this.handleSubpart}>Add Subpart</button>
                     <button className = {styles.button} onClick={this.save}>Save</button>
