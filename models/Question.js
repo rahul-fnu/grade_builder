@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
-const Subject = require('../models/Subject');
+const Subpart = require('./Subpart').schema
 
 const question_schema = new Schema({
     board_level: {
@@ -32,8 +32,8 @@ const question_schema = new Schema({
         required: true
     },
     content: {
-        type: [String], 
-        required: true
+        type: [Subpart],
+        required: false
     },
     topics: {
         type: [String],
@@ -53,6 +53,10 @@ const question_schema = new Schema({
     },
     images: {
         type: [String],
+        required: false
+    },
+    text: {
+        type: String,
         required: false
     }
 });
