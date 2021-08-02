@@ -18,10 +18,8 @@ export default class AddPaperPage extends Component {
             mcq: false,
             questions: {},
             ms_final : {}
-
         }
     }
-
     handleChange = (e) => {
         this.setState({[e.target.id]: e.target.value});
     }

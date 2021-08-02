@@ -50,6 +50,10 @@ const question_schema = new Schema({
     answer: {
         type: [String],
         required: true
+    },
+    images: {
+        type: [String],
+        required: false
     }
 });
 

@@ -29,10 +29,11 @@ export default class AddQuestionPage extends Component {
             component_region: this.props.component_region,
             topics:[],
             options: {},
-            content:[],
+            content:{},
             marking_scheme:{'dnejude':"dbeujbde"},
             interim:[],
             images:{},
+            temp:[],
             options:[],
         };
     }
@@ -50,21 +51,31 @@ export default class AddQuestionPage extends Component {
         ]
         })
     }
+    addImage = () => {
+        this.setState({
+            temp: [...this.state.temp, <ImageUploader parentCallback = {(image) => this.handleImage(image)}/>]
+        })
+    }
+    handleImage = (image) => {
+        console.log(image)
+        this.state.images[image.name] = image.link;
+    }
     addSubpart = (subpart) => {
         this.state.content[subpart.part] = subpart
         // this.setState({content: [...this.state.content, subpart]})
     }
-    handleDelete = (id) => {
-        console.log(id)
-        var abc = this.state.interim.filter(function(obj) {
-            console.log(obj.props.id)
-            return obj.props.id != id;
-        })
-        this.setState({interim:abc})
-    }
+    // handleDelete = (id) => {
+    //     console.log(id)
+    //     var abc = this.state.interim.filter(function(obj) {
+    //         console.log(obj.props.id)
+    //         return obj.props.id != id;
+    //     })
+    //     this.setState({interim:abc})
+    // }
     // del = () => {
     //     this.props.onDelete(this.props.id);
     // }
+
     temp = () => {
         const ret = {
             question_number: this.state.question_number,
@@ -117,11 +128,9 @@ export default class AddQuestionPage extends Component {
                         Text: 
                         <TextEditor parentCallback = {(part) => this.handlePrompt(part)} />
                     </label><br/>
-                    <label>
-                        Upload image: 
-                        <ImageUploader parentCallback = {(image) => this.handleImagae(image)} />
-                    </label><br/>
                 </form >
+                {this.state.temp}
+                <button onClick={styles.button} onClick = {this.addImage}>Add Image</button>
                 {this.state.interim}
                 <button className = {styles.button} onClick={this.addPart}>Add Subpart</button>
                 <button className = {styles.rightButton} onClick={this.temp}>Add to the database has to be connected to the API</button>
