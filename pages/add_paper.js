@@ -58,17 +58,19 @@ export default class AddPaperPage extends Component {
     }
 
     submitAll = async () => {
-        Object.values(this.state.questions).forEach(question => {
+        const allQuestions = Object.values(this.state.questions)
+        console.log(allQuestions)
+        for (let question of allQuestions) {
             try {
-            const response = await axios({
-                method: 'POST',
-                url: '/api/questions',
-                data: question
-            })
-        } catch (err) {
-            console.log(err);
+                const response = await axios({
+                    method: 'POST',
+                    url: '/api/questions',
+                    data: question
+                })
+            } catch (err) {
+                console.log(err);
+            }
         }
-        });
     }
     updateMS = (ms) => {
         this.state.ms_final[ms.question_number] = ms;
