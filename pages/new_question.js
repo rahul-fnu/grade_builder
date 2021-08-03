@@ -1,24 +1,25 @@
 import React from 'react';
 import {Component} from 'react';
-import Multiselect from 'multiselect-react-dropdown';
-import TextEditor from '../Components/text_editor';
+// import Multiselect from 'multiselect-react-dropdown';
+import TextEditor from '../components/text_editor';
 import styles from '../styles/AddPaper.module.css';
 import AddSubpart from './add_subpart'
+import DropdownSelect from '../components/dropdown_select'
 const uuidv4 = require("uuid/v4");
 import ImageUploader from '../Components/images_upload';
 export default class AddQuestionPage extends Component {
     constructor(props) {
         super(props);   
         this.state = {
-            subjects: {physics: [{name: 'Physical quantities and units', id: 'Physical quantities and units'},
-                                {name: 'Measurement techniques', id: 'Measurement techniques'}, {name: 'Kinematics', id: 'Kinematics'},
-                                {name: 'Dynamics', id: 'Dynamics'}, {name: 'Forces, density and pressure', id: 'Forces, density and pressure'}],
-                        chemistry: [{name: 'Atoms, molecules and stoichiometry', id: 'Atoms, molecules and stoichiometry'},
-                                    {name: 'Atomic structure', id: 'Atomic structure'}, {name: 'States of matter', id: 'States of matter'},
-                                    {name: 'Chemical energetics', id: 'Chemical energetics'}, {name: 'Electrochemistry', id: 'Electrochemistry'}],
-                        mathematics: [{name: 'Quadratics', id: 'Quadratics'},
-                                    {name: 'Functions', id: 'Functions'}, {name: 'Coordinate geometry', id: 'Coordinate geometry'},
-                                    {name: 'Circular measure', id: 'Circular measure'}, {name: 'Trigonometry', id: 'Trigonometry'}]
+            subjects: {physics: [{value: 'Physical quantities and units', label: 'Physical quantities and units'},
+                                {value: 'Measurement techniques', label: 'Measurement techniques'}, {value: 'Kinematics', label: 'Kinematics'},
+                                {value: 'Dynamics', label: 'Dynamics'}, {value: 'Forces, density and pressure', label: 'Forces, density and pressure'}],
+                        chemistry: [{value: 'Atoms, molecules and stoichiometry', label: 'Atoms, molecules and stoichiometry'},
+                                    {value: 'Atomic structure', label: 'Atomic structure'}, {value: 'States of matter', label: 'States of matter'},
+                                    {value: 'Chemical energetics', label: 'Chemical energetics'}, {value: 'Electrochemistry', label: 'Electrochemistry'}],
+                        mathematics: [{value: 'Quadratics', label: 'Quadratics'},
+                                    {value: 'Functions', label: 'Functions'}, {value: 'Coordinate geometry', label: 'Coordinate geometry'},
+                                    {value: 'Circular measure', label: 'Circular measure'}, {value: 'Trigonometry', label: 'Trigonometry'}]
             },
             question_number: "",
             text: "",
@@ -99,16 +100,11 @@ export default class AddQuestionPage extends Component {
                     
                     <label>
                         Topics: 
-                        <Multiselect
-                            options={this.state.subjects[this.props.subject]} // Options to display in the dropdown
-                            selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
-                            onSelect={this.onSelect} // Function will trigger on select event
-                            onRemove={this.onRemove} // Function will trigger on remove event
-                            displayValue="name" // Property name to display in the dropdown options
-                            isObject = {true}
-                        />
+                        <DropdownSelect
+                            options = {this.state.subjects[this.props.subject]}
+                            parentCallback = {(data) => this.setState({topics: data})}
+                        />    
                     </label><br/>
-
                     <label>
                         Text: 
                         <TextEditor parentCallback = {(part) => this.handlePrompt(part)} />
