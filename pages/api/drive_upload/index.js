@@ -28,11 +28,9 @@ export default async (req, res) => {
             try {
                 const fileName = req.body.name;
                 const file = req.body.file.split(/,(.+)/)[1];
-
                 const buf = new Buffer.from(file, "base64");
                 const bs = new Readable.PassThrough();
                 bs.end(buf);
-
                 const response = await drive.files.create({
                     requestBody: {
                         name: file.name,

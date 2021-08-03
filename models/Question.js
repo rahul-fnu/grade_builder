@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 const Subpart = require('./Subpart').schema
-
+const Option = require('./Option').schema
+const MarkingScheme = require('./MarkingScheme').schema
 const question_schema = new Schema({
     board_level: {
         type: String,
@@ -24,7 +25,7 @@ const question_schema = new Schema({
         required: true   
     },
     marks: {
-        type: Number,
+        type: String,
         required: true
     },
     is_MCQ: {
@@ -40,11 +41,11 @@ const question_schema = new Schema({
         required: true
     },
     options: {
-        type: [String],
+        type: [Option],
         required: false
     },
     marking_scheme: {
-        type: [String],
+        type: [MarkingScheme],
         required: true
     },
     images: {

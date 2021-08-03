@@ -31,7 +31,7 @@ export default class AddPaperPage extends Component {
     addQuestion = () => {
         this.setState({
             content: [...this.state.content,
-            <AddQuestionPage subject={this.state.subject} board_level={this.state.board_level} exam_period={this.state.session + this.state.year} component_region={this.state.component_region} mcq={this.state.mcq} parentCallback={(ques) => this.updateQuestion(ques)} /*onDelete = {() => this.handleDelete(id)}*/ />
+            <AddQuestionPage mcq = {this.state.mcq} subject={this.state.subject} board_level={this.state.board_level} exam_period={this.state.session + this.state.year} component_region={this.state.component_region} mcq={this.state.mcq} parentCallback={(ques) => this.updateQuestion(ques)} /*onDelete = {() => this.handleDelete(id)}*/ />
             ]
         })
     }
@@ -49,11 +49,11 @@ export default class AddPaperPage extends Component {
     }
     updateQuestion = async (ques) => {
         this.state.questions[ques.question_number] = ques
-        const response = await axios({
-            method: 'POST',
-            url: '/api/questions',
-            data: ques
-        })
+        // const response = await axios({
+        //     method: 'POST',
+        //     url: '/api/questions',
+        //     data: ques
+        // })
         // this.setState({questions: [...this.stateFF.questions, ques]})
     }
 

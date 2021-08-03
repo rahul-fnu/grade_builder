@@ -28,7 +28,7 @@ export default class AddQuestionPage extends Component {
             board_level: this.props.board_level,
             subject: this.props.subject,
             component_region: this.props.component_region,
-            is_mcq: this.props.is_mcq,
+            is_mcq: this.props.mcq,
             topics:[],
             options: {},
             content:{},
@@ -80,7 +80,7 @@ export default class AddQuestionPage extends Component {
             component_region: this.state.component_region,
             options: this.state.options,
             subject: this.state.subject,
-            is_mcq: this.state.is_mcq
+            is_MCQ: this.state.is_mcq
         }
         console.log(ret)
         this.props.parentCallback(ret);

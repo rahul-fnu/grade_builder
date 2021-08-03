@@ -11,12 +11,12 @@ const subpart_schema = new Schema({
         required: false
     },
     marks: {
-        type: Number,
-        required: true
+        type: String,
+        required: false
     },
     subparts: {
         type: [this],
-        required: false
+        required: true
     },
     images: {
         type: [String],
