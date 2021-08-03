@@ -57,7 +57,7 @@ export default class AddMS extends Component {
         const ret = {
             question_number: this.state.question_number,
             marks: this.state.marks,
-            answer: this.state.answer,
+            answer: Object.values(this.state.answer),
             subpart: this.state.subpart,
             images: Object.values(this.state.images)
         }

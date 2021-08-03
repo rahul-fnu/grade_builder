@@ -55,7 +55,7 @@ export default class AddMSSubpart extends Component {
         const ret = {
             part: this.state.part,
             marks: this.state.marks,
-            answer: this.state.answer,
+            answer: Object.values(this.state.answer),
             subpart: this.state.subpart,
             images: Object.values(this.state.images)
         }
