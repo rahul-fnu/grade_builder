@@ -58,8 +58,6 @@ export default class MSRubric extends Component {
                             <TextEditor parentCallback={(ans) => this.handleRubric(ans)}/>
                         </label>
                         <br/>
-        
-                        {/* <input type="button" value="Add subpart" onClick={'#'}/><br/> */}
                     </form >
                     {this.state.temp}
                     <button onClick={styles.button} onClick = {this.addImage}>Add Image</button>

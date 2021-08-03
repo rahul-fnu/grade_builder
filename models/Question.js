@@ -8,7 +8,7 @@ const question_schema = new Schema({
         required: true
     },
     exam_period: {
-        type: Date,
+        type: String,
         required: true
     },
     component_region: { 
@@ -44,10 +44,6 @@ const question_schema = new Schema({
         required: false
     },
     marking_scheme: {
-        type: [String],
-        required: true
-    },
-    answer: {
         type: [String],
         required: true
     },
