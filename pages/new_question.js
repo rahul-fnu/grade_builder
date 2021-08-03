@@ -70,9 +70,9 @@ export default class AddQuestionPage extends Component {
         const ret = {
             question_number: this.state.question_number,
             board_level: this.state.board_level,
-            content: this.state.content,
+            content: Object.values(this.state.content),
             exam_period: this.state.exam_period,
-            marking_scheme: this.state.marking_scheme,
+            marking_scheme: Object.values(this.state.marking_scheme),
             marks: this.state.marks,
             text: this.state.text,
             images: Object.values(this.state.images),

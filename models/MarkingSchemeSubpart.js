@@ -4,11 +4,11 @@ const Rubric = require('./Rubric').schema
 const marking_scheme_subpart_schema = new Schema({
     part: {
         type: String,
-        required: true
+        required: false
     },
     marks: {
         type: String,
-        required: true
+        required: false
     },
     subpart: {
         type: [this],

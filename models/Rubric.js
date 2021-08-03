@@ -3,11 +3,11 @@ const Schema = mongoose.Schema;
 const rubric_schema = new Schema({
     point_numer: {
         type: Number,
-        required: true
+        required: false
     },
     marks: {
         type: Number,
-        required: true
+        required: false
     },
     answer: {
         type: String,

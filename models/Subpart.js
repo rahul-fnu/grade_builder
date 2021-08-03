@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const subpart_schema = new Schema({
     part: {
         type: String,
-        required: true
+        required: false
     },
     prompt: {
         type: String,
