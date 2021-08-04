@@ -1,18 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import GoogleLogin from 'react-google-login';
 import {Component} from 'react';
-
-
-const responseGoogle = (response) => {
-  console.log(response);
-}
-
+import Route from 'react-router';
 
 class Login extends Component {
     constructor(props) {
         super(props);
-    }    
+        this.state =  {
+          credentials:{}
+        }
+    }  
+    responseGoogle = (response) => {
+      this.setState({credentials: response});
+    }  
 
     render(){
       return (
@@ -24,10 +24,12 @@ class Login extends Component {
             buttonText="Login"
             uxMode='redirect'
             redirectUri="http://localhost:3000/dashboard"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
+            onSuccess={(response) => this.responseGoogle(response)}
+            onFailure={(response) => this.responseGoogle(response)}
             cookiePolicy={'single_host_origin'}
           />
+          <Route path = "/dashboard/:credentials"
+              render = {() => <HomePage credentials = {this.state.credentials} />} />
         </div>
       );
     }

@@ -11,6 +11,7 @@ export class HomePage extends Component {
         this.chem = this.props.q.filter(e => e.subject === 'chemistry');
         this.phy = this.props.q.filter(e => e.subject === 'physics');
         this.econ = this.props.q.filter(e => e.subject === 'economics');
+
     }
     
     render(){
