@@ -58,7 +58,7 @@ export default class AddMS extends Component {
             question_number: this.state.question_number,
             marks: this.state.marks,
             answer: Object.values(this.state.answer),
-            subpart: this.state.subpart,
+            subpart: Object.values(this.state.subpart),
             images: Object.values(this.state.images)
         }
         this.props.parentCallback(ret);

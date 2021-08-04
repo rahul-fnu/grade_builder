@@ -51,7 +51,7 @@ export default class AddSubpart extends Component {
             part : this.state.part,
             prompt: this.state.prompt,
             marks: this.state.marks,
-            subparts: this.state.subparts,
+            subparts: Object.values(this.state.subparts),
             images: Object.values(this.state.images)
         }
         console.log(ret);
