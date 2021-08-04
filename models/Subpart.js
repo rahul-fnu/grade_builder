@@ -1,10 +1,11 @@
+import { truncate } from 'fs/promises';
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const subpart_schema = new Schema({
     part: {
         type: String,
-        required: false
+        required: true
     },
     prompt: {
         type: String,
@@ -12,11 +13,11 @@ const subpart_schema = new Schema({
     },
     marks: {
         type: String,
-        required: false
+        required: true
     },
     subparts: {
         type: [this],
-        required: true
+        required: false
     },
     images: {
         type: [String],

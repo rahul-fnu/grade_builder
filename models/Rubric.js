@@ -7,7 +7,7 @@ const rubric_schema = new Schema({
     },
     marks: {
         type: Number,
-        required: false
+        required: true
     },
     answer: {
         type: String,

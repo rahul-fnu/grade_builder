@@ -83,6 +83,13 @@ export default class AddQuestionPage extends Component {
             is_MCQ: this.state.is_mcq
         }
         console.log(ret)
+        if (ret.content.length == 0) {
+            console.log(1)
+            delete ret.content;
+        }
+        if (ret.images.length == 0) {
+            delete ret.images;
+        }
         this.props.parentCallback(ret);
     }
     render(){

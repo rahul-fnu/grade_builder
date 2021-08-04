@@ -59,6 +59,16 @@ export default class AddMSSubpart extends Component {
             subpart: Object.values(this.state.subpart),
             images: Object.values(this.state.images)
         }
+        if (ret.subpart.length == 0) {
+            console.log(1)
+            delete ret.subpart;
+        }
+        if (ret.images.length == 0) {
+            delete ret.images;
+        }
+        if (ret.answer.length == 0) {
+            delete ret.answer;
+        }
         this.props.parentCallback(ret);
     }
     render() {

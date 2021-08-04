@@ -54,6 +54,13 @@ export default class AddSubpart extends Component {
             subparts: Object.values(this.state.subparts),
             images: Object.values(this.state.images)
         }
+        if (ret.subparts.length == 0) {
+            console.log(1)
+            delete ret.subparts;
+        }
+        if (ret.images.length == 0) {
+            delete ret.images;
+        }
         console.log(ret);
         this.props.parentCallback(ret)
     }
