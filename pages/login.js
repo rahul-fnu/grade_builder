@@ -2,7 +2,7 @@ import React from 'react';
 import GoogleLogin from 'react-google-login';
 import {Component} from 'react';
 import Route from 'react-router';
-
+import axios from 'axios';
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -14,9 +14,22 @@ class Login extends Component {
       //console.log(response)
       this.setState({credentials: response});
       console.log(this.state.credentials)
+      const userData = {};
+      userData.email = credentials.email;
+      userData.google_ID = credentials.googleID;
+      userData.first_name = credentials.givenName;
+      userData.last_name = credentials.familyName;
+      this.setState({userData: userData});
+      validateUser(userData)
     }
-
-    userData = {};
+    validateUser = async (user) => {
+      const response = await axios({
+        method: 'POST',
+        url: '/api/users',
+        data: user
+      })
+      console.log(response)
+    }
 
     render(){
       return (
