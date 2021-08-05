@@ -10,6 +10,7 @@ export default class MarkSchemeComponent extends Component {
             <div className = {styles.container}>
                 <div className = {styles.prompt_card}>
                     <p>{this.props.msq.part}</p>
+                    {/* {console.log(this.props.ms)} */}
                     {(!this.props.msq.subparts) == 0 ? 
                         <div>
                             {this.props.msq.subparts.map(abcd => <MarkSchemeComponent msq={abcd} />)}

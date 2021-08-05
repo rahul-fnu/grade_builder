@@ -108,7 +108,6 @@ export default class QuestionC extends Component {
         // this.setState({filteredMS : mark(this.state.marking_scheme)});
         this.state.ans = true;
         //return <Modal ms = {this.state.filteredMS} part = {1} ans = {this.filterAnswer()}/>
-        console.log(this.state)
         return this.state.filteredMS
     }
     render() {

@@ -109,7 +109,7 @@ export default function NavTabs(props) {
         {gra}
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <MarkingScheme q = {props.ques}></MarkingScheme>
+        <MarkingScheme q = {ms}></MarkingScheme>
       </TabPanel>
     </div>
   );
