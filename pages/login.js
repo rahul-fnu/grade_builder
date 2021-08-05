@@ -15,21 +15,32 @@ class Login extends Component {
       this.setState({credentials: response});
       console.log(this.state.credentials)
       const userData = {};
-      userData.email = credentials.email;
-      userData.google_ID = credentials.googleID;
-      userData.first_name = credentials.givenName;
-      userData.last_name = credentials.familyName;
+      userData.email = this.state.credentials.profileObj.email;
+      userData.google_ID = this.state.credentials.profileObj.googleId;
+      userData.first_name = this.state.credentials.profileObj.givenName;
+      userData.last_name = this.state.credentials.profileObj.familyName;
       this.setState({userData: userData});
-      validateUser(userData)
+      this.validateUser(userData)
     }
+
     validateUser = async (user) => {
+      const checkIfExists = await axios({
+      method: 'GET',
+      url: '/api/users',
+      data: user
+      })
+      if (checkIfExists.status == 200) {
+      console.log('user exists');
+      console.log(checkIfExists);
+      } else {
       const response = await axios({
-        method: 'POST',
-        url: '/api/users',
-        data: user
+      method: 'POST',
+      url: '/api/users',
+      data: user
       })
       console.log(response)
-    }
+      }
+      }
 
     render(){
       return (
