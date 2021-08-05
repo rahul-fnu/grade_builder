@@ -2,7 +2,6 @@ import React from 'react';
 import {Component} from 'react';
 import { PieChart } from 'react-minimal-pie-chart';
 import NavigationBar from '../Components/navigation_bar.js';
-import  {  StyleSheet,  Text,  View}  from  'react-native';
 
 export class HomePage extends Component {
     constructor(props) {
@@ -18,7 +17,6 @@ export class HomePage extends Component {
       return (
         <div>
             <NavigationBar></NavigationBar>
-            <View  style={styles.container}>
             {(this.math.length > 0) ?
             <div>
                 <PieChart
@@ -48,7 +46,6 @@ export class HomePage extends Component {
             </div>
             : null
             }
-            </View>
             
 
             <section>

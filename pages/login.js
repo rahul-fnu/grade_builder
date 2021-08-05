@@ -11,8 +11,12 @@ class Login extends Component {
         }
     }  
     responseGoogle = (response) => {
+      //console.log(response)
       this.setState({credentials: response});
-    }  
+      console.log(this.state.credentials)
+    }
+
+    userData = {};
 
     render(){
       return (
@@ -22,14 +26,12 @@ class Login extends Component {
           <GoogleLogin
             clientId= "1070055233643-68seh13ja0pr5ddo7sb5g9futj71ivoe.apps.googleusercontent.com"
             buttonText="Login"
-            uxMode='redirect'
-            redirectUri="http://localhost:3000/dashboard"
-            onSuccess={(response) => this.responseGoogle(response)}
-            onFailure={(response) => this.responseGoogle(response)}
+            onSuccess={this.responseGoogle}
+            onFailure={this.responseGoogle}
             cookiePolicy={'single_host_origin'}
           />
-          <Route path = "/dashboard/:credentials"
-              render = {() => <HomePage credentials = {this.state.credentials} />} />
+          {/* <Route path = "/dashboard/:credentials"
+              render = {() => <HomePage credentials = {this.state.credentials.googleID} />} /> */}
         </div>
       );
     }

@@ -9,7 +9,7 @@ const user_data_schema = new Schema({
         unique: true,
         required: true
     },
-    password_hash: {
+    google_ID: {
         type: String,
         required: true
     },
