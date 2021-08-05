@@ -49,38 +49,32 @@ function index(index) {
 export default function NavTabs(props) {
   //const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  var ms = props.ques.marking_scheme
+  var ms = props.ques.marking_scheme[0].subpart;
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const filterMarkingScheme = () => {
-    const filtered_ans = {};
-    var i = 0;
-    function mark(data) {
-        var list = {};
-        for (let item of data) {
-            if (item['answer'].length) {
-                list[item['part']] = item['answer']
-            } else {
-                list[item['part']] = item.subparts;
-            }
+  const filter = () => {
+    function filtered(data) {
+      // console.log(data)
+      const list = {}
+      for (let item of data) {
+        if (item.subpart) {
+          list[item.part] = filtered(item.subpart);
+        } else if (item.answer) {
+          list[item.part] = item.answer;
+        } else {
+          list[item.part] = [];
         }
-        var keys  = Object.keys(list);
-        for (let i of keys) {
-            if (list[i] && (typeof list[i][0] == 'string')) {
-                list[i] = list[i]
-            } else {
-                list[i] = mark(list[i]);
-            }
-        }
-        return list;
+      }
+      return list
     }
-    var abc = mark(ms)
+    var abc = filtered(ms)
     ms = abc;
     // this.setState({filteredMS : mark(this.state.marking_scheme)});
+    console.log(ms)
     return abc;
   }
-  filterMarkingScheme()
+  filter()
   // console.log(ms)
   const cur = {ans : {}, ms: ms, part: {}, done:false}
   const [val, setVal] = useState(cur);
@@ -89,15 +83,9 @@ export default function NavTabs(props) {
     const temp = {...cur};
     temp.ans = ans.ans
     temp.done = true;
-    // done = true;
-    // console.log(temp.ans)
     setVal(temp)
-    // console.log(val.ans)
-    //gra = <GradingPanel ans = {state.ans} ms = {state.ms} part = {1} />
   }
-  // useEffect(() => {
-  //   gra = <GradingPanel ans = {state.ans} ms = {state.ms} part = {1} />
-  // })
+
   let gra = val.done ? <GradingPage ans = {val.ans} ms = {val.ms}/> : <p>Please submit your answers first</p>
   return (
     <div>
