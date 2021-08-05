@@ -71,7 +71,7 @@ export default function NavTabs(props) {
     var abc = filtered(ms)
     ms = abc;
     // this.setState({filteredMS : mark(this.state.marking_scheme)});
-    console.log(ms)
+
     return abc;
   }
   filter()

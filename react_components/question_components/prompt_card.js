@@ -42,13 +42,15 @@ export default class Prompt extends Component {
                                   
                     </div>
                     <NewTextRenderer content={this.props.p.prompt}/>
-                    {(this.props.p.subparts.length) == 0 ?
+                    {console.log(this.props.p)}
+                    {(!this.props.p.subparts) == 0 ?
+                        // {console.log(1)}
                         <div>
-                            <TextEditor part = {this.props.p.part} parentCallback = {(part) => this.updateAnswer(part)} />
+                            {this.props.p.subparts.map(prompt => <Subpart parentCallback = {(part) => this.updateAnswer(part)} s={prompt}/>)}
                         </div>
                         :
                         <div>
-                            {this.props.p.subparts.map(prompt => <Subpart parentCallback = {(part) => this.updateAnswer(part)} s={prompt}/>)}
+                            <TextEditor part = {this.props.p.part} parentCallback = {(part) => this.updateAnswer(part)} />
                         </div>
                     }
                     <button className={styles.button} onClick = {this.onTrigger}>Save</button>

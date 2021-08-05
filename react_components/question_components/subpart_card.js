@@ -30,13 +30,13 @@ export default class Subpart extends Component {
                     </div><br/><br/>
 
                     <NewTextRenderer content={this.props.s.prompt}/><br/>
-                    {(this.props.s.subparts.length) == 0 ?
+                    {(!this.props.s.subparts) == 0 ?
                         <div>
-                            <TextEditor part = {this.props.s.part} parentCallback = {this.updateAns} />
+                            {this.props.s.subparts.map(prompt => <Subpart parentCallback = {this.updateAns} s={prompt}/>)}
                         </div>
                         : 
                         <div>
-                            {this.props.s.subparts.map(prompt => <Subpart parentCallback = {this.updateAns} s={prompt}/>)}
+                            <TextEditor part = {this.props.s.part} parentCallback = {this.updateAns} />
                         </div>
                     }
                 </div>

@@ -50,14 +50,12 @@ export default class QuestionC extends Component {
             }
             var map = {}
             for (let item of list) {
-                // cons
                 if (typeof item == 'string') {
                     map = list[list.length - 1];
                     break
                 }
                 var key = Object.keys(item);
                 map[key[0]] = item[key[0]];
-                // Array.isArray(variable)
                 if (Array.isArray(map[key[0]])) {
                     map[key[0]] = convertAnswers(map[key[0]])
                 }
@@ -116,9 +114,6 @@ export default class QuestionC extends Component {
     render() {
         this.state.marking_scheme = this.props.q.marking_scheme;
         this.state.prompts = this.props.q.content.map(prompt => <Prompt parentCallback = {this.answers} p = {prompt}/>);
-        //onst [open, setIsOpen] = useState(false);
-        //const modal = new Modal(open, setIsOpen);
-        const { open } = this.state;
         return (
             <>
                 <div>
@@ -127,7 +122,6 @@ export default class QuestionC extends Component {
                 </div>
                 <button className={styles.button} onClick= {this.onTrigger}>Save</button>
             </>
-            // <div>{JSON.stringify(this.props.q)}</div>
         )
     }
 }
