@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import Prompt from './prompt_card';
-import TextRenderer from './text_renderer';
-import Modal from 'react-responsive-modal';
-import GradingPanel from './grading_panel'
-import Popup from '../../node_modules/reactjs-popup'
+import NewTextRenderer from './text_renderer_new';
+import ImageRender from './image_render'
 import '../../node_modules/reactjs-popup/dist/index.css'
 import styles from '../../styles/Question.module.css'
 // import { useSelector, useDispatch } from 'react-redux';
@@ -18,12 +16,6 @@ export default class QuestionC extends Component {
             filteredMS: {},
             open: false
         }
-    }
-    onOpenModal = () => {
-        this.setState({open: true});
-    }
-    onCloseModal = () => {
-        this.setState({open: false});
     }
     answers = (ans) => {
         this.state.answers[ans.part] = ans.answer
@@ -105,9 +97,7 @@ export default class QuestionC extends Component {
             return list;
         }
         this.state.filteredMS = mark(this.state.marking_scheme)
-        // this.setState({filteredMS : mark(this.state.marking_scheme)});
         this.state.ans = true;
-        //return <Modal ms = {this.state.filteredMS} part = {1} ans = {this.filterAnswer()}/>
         return this.state.filteredMS
     }
     render() {
@@ -116,7 +106,9 @@ export default class QuestionC extends Component {
         return (
             <>
                 <div>
-                    {(this.props.q.text) ? <TextRenderer text={this.props.q.text}/> : ""}
+                    <br/>
+                    {(this.props.q.text) ? <NewTextRenderer content={this.props.q.text}/> : ""}
+                    {(!this.props.q.images)  == 0 ? <ImageRender images={this.props.q.images}/>:null}
                     {this.state.prompts}
                 </div>
                 <button className={styles.button} onClick= {this.onTrigger}>Save</button>

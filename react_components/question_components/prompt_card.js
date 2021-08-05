@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import styles from '../../styles/Question.module.css';
 import Subpart from './subpart_card';
-import TextRenderer from './text_renderer';
+import ImageRender from './image_render'
 //import Editor from './text_editor';
-import ImageUploader from '../image_upload/image_upload'
 import TextEditor from '../text_editor/text_editor';
 import NewTextRenderer from './text_renderer_new'
-import cookies from 'next-cookies'
-import { keys } from '@material-ui/core/styles/createBreakpoints';
 export default class Prompt extends Component {
     constructor(props) {
         super(props);
@@ -38,11 +35,10 @@ export default class Prompt extends Component {
                     <span > {`Part ${this.props.p.part}`}</span>   
                     <div className={`pull-right ${styles['right']}`}>
                         <span> {`Points: ${this.props.p.marks}`}</span>
-                    </div><br/><br/>
-                                  
+                    </div><br/><br/>      
                     </div>
                     <NewTextRenderer content={this.props.p.prompt}/>
-                    {console.log(this.props.p)}
+                    {(!this.props.p.images)  == 0 ? <ImageRender images={this.props.p.images}/>:null}
                     {(!this.props.p.subparts) == 0 ?
                         // {console.log(1)}
                         <div>
