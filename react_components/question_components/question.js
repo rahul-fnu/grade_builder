@@ -4,8 +4,6 @@ import NewTextRenderer from './text_renderer_new';
 import ImageRender from './image_render'
 import '../../node_modules/reactjs-popup/dist/index.css'
 import styles from '../../styles/Question.module.css'
-// import { useSelector, useDispatch } from 'react-redux';
-// import { saveInput } from '../../store/user_input/action';
 export default class QuestionC extends Component {
     constructor(props) {
         super(props);

@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
 import styles from '../../styles/Question.module.css';
-
-
 export default class ImageRender extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         images = this.props.images,
-    //     }
-    // }
     validateImageUrl = (url) => {
         return "https://drive.google.com/uc?export=view&id=" + url.split('/')[5];
     }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styles from '../../styles/Question.module.css';
-import TextRenderer from './text_renderer'
 import ImageRender from './image_render'
 import TextEditor from '../text_editor/text_editor';
 import NewTextRenderer from './text_renderer_new';
@@ -19,8 +18,6 @@ export default class Subpart extends Component {
         this.props.parentCallback(this.state) 
     };
     render() {
-        const {data} = this.state;
-        var ans = 0;
         return (
             <div className = {styles.container}>
                 <div className={styles.subpart_card}>

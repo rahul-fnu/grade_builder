@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import styles from '../../styles/Question.module.css';
 import Subpart from './subpart_card';
 import ImageRender from './image_render'
-//import Editor from './text_editor';
 import TextEditor from '../text_editor/text_editor';
 import NewTextRenderer from './text_renderer_new'
 export default class Prompt extends Component {
@@ -12,13 +11,11 @@ export default class Prompt extends Component {
             answers: {}
         }
     }
-
     updateAnswer = (part) => {
         if (!this.state.answers[this.props.p.part]) {
             this.state.answers[this.props.p.part] = []
         }
         this.state.answers[this.props.p.part].push(part);
-        // document.cookie  = JSON.stringify(this.state.answers)
     }
     onTrigger = (event) => {
         this.props.parentCallback({part: this.props.p.part, answer: this.state.answers})
@@ -40,7 +37,6 @@ export default class Prompt extends Component {
                     <NewTextRenderer content={this.props.p.prompt}/>
                     {(!this.props.p.images)  == 0 ? <ImageRender images={this.props.p.images}/>:null}
                     {(!this.props.p.subparts) == 0 ?
-                        // {console.log(1)}
                         <div>
                             {this.props.p.subparts.map(prompt => <Subpart parentCallback = {(part) => this.updateAnswer(part)} s={prompt}/>)}
                         </div>
