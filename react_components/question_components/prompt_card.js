@@ -34,7 +34,7 @@ export default class Prompt extends Component {
                         <span> {`Points: ${this.props.p.marks}`}</span>
                     </div><br/><br/>      
                     </div>
-                    <NewTextRenderer content={this.props.p.prompt}/>
+                    {(this.props.p.prompt.length > 0) ? <NewTextRenderer content={this.props.p.prompt}/> : ""}
                     {(!this.props.p.images)  == 0 ? <ImageRender images={this.props.p.images}/>:null}
                     {(!this.props.p.subparts) == 0 ?
                         <div>

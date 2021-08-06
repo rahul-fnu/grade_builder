@@ -25,7 +25,7 @@ export default class Subpart extends Component {
                     <div className={`pull-right ${styles['right']}`}>
                         <span> {`Points: ${this.props.s.marks}`}</span>
                     </div><br/><br/>
-                    <NewTextRenderer content={this.props.s.prompt}/><br/>
+                    {(this.props.s.prompt.length > 0) ? <NewTextRenderer content={this.props.s.prompt}/> : ""}
                     {(!this.props.s.images)  == 0 ? <ImageRender images={this.props.s.images}/>:null}
                     {(!this.props.s.subparts) == 0 ?
                         <div>

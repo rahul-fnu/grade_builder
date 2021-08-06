@@ -106,7 +106,9 @@ export default class QuestionC extends Component {
                 <div>
                     <br/>
                     {(this.props.q.text) ? <NewTextRenderer content={this.props.q.text}/> : ""}
+                    <br />
                     {(!this.props.q.images)  == 0 ? <ImageRender images={this.props.q.images}/>:null}
+                    <br />
                     {this.state.prompts}
                 </div>
                 <button className={styles.button} onClick= {this.onTrigger}>Save</button>
