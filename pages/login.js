@@ -25,22 +25,26 @@ class Login extends Component {
 
     validateUser = async (user) => {
       const checkIfExists = await axios({
-      method: 'GET',
-      url: '/api/users',
-      data: user
+        method: 'GET',
+        url: '/api/users',
+        data: user.google_ID
       })
-      if (checkIfExists.status == 200) {
-      console.log('user exists');
-      console.log(checkIfExists);
-      } else {
-      const response = await axios({
-      method: 'POST',
-      url: '/api/users',
-      data: user
-      })
-      console.log(response)
+
+      const filtered = checkIfExists.data.data.filter(e => e.google_ID === user.google_ID);
+
+      if (filtered.length == 1) {
+        console.log('user exists');
+        console.log(filtered);
+      } 
+      else {
+        const response = await axios({
+          method: 'POST',
+          url: '/api/users',
+          data: user
+        })
+        console.log(response)
       }
-      }
+    }
 
     render(){
       return (
