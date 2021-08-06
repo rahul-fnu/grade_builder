@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
 import Prompt from './prompt_card';
-import TextRenderer from './text_renderer';
-import Modal from 'react-responsive-modal';
-import GradingPanel from './grading_panel'
-import Popup from '../../node_modules/reactjs-popup'
+import NewTextRenderer from './text_renderer_new';
+import ImageRender from './image_render'
 import '../../node_modules/reactjs-popup/dist/index.css'
 import styles from '../../styles/Question.module.css'
-// import { useSelector, useDispatch } from 'react-redux';
-// import { saveInput } from '../../store/user_input/action';
 export default class QuestionC extends Component {
     constructor(props) {
         super(props);
@@ -18,12 +14,6 @@ export default class QuestionC extends Component {
             filteredMS: {},
             open: false
         }
-    }
-    onOpenModal = () => {
-        this.setState({open: true});
-    }
-    onCloseModal = () => {
-        this.setState({open: false});
     }
     answers = (ans) => {
         this.state.answers[ans.part] = ans.answer
@@ -50,14 +40,12 @@ export default class QuestionC extends Component {
             }
             var map = {}
             for (let item of list) {
-                // cons
                 if (typeof item == 'string') {
                     map = list[list.length - 1];
                     break
                 }
                 var key = Object.keys(item);
                 map[key[0]] = item[key[0]];
-                // Array.isArray(variable)
                 if (Array.isArray(map[key[0]])) {
                     map[key[0]] = convertAnswers(map[key[0]])
                 }
@@ -107,27 +95,24 @@ export default class QuestionC extends Component {
             return list;
         }
         this.state.filteredMS = mark(this.state.marking_scheme)
-        // this.setState({filteredMS : mark(this.state.marking_scheme)});
         this.state.ans = true;
-        //return <Modal ms = {this.state.filteredMS} part = {1} ans = {this.filterAnswer()}/>
-        console.log(this.state)
         return this.state.filteredMS
     }
     render() {
         this.state.marking_scheme = this.props.q.marking_scheme;
         this.state.prompts = this.props.q.content.map(prompt => <Prompt parentCallback = {this.answers} p = {prompt}/>);
-        //onst [open, setIsOpen] = useState(false);
-        //const modal = new Modal(open, setIsOpen);
-        const { open } = this.state;
         return (
             <>
                 <div>
-                    {(this.props.q.text) ? <TextRenderer text={this.props.q.text}/> : ""}
+                    <br/>
+                    {(this.props.q.text) ? <NewTextRenderer content={this.props.q.text}/> : ""}
+                    <br />
+                    {(!this.props.q.images)  == 0 ? <ImageRender images={this.props.q.images}/>:null}
+                    <br />
                     {this.state.prompts}
                 </div>
                 <button className={styles.button} onClick= {this.onTrigger}>Save</button>
             </>
-            // <div>{JSON.stringify(this.props.q)}</div>
         )
     }
 }

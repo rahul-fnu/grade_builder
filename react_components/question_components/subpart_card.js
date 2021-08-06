@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styles from '../../styles/Question.module.css';
-import TextRenderer from './text_renderer'
-//import Editor from './text_editor';
+import ImageRender from './image_render'
 import TextEditor from '../text_editor/text_editor';
 import NewTextRenderer from './text_renderer_new';
 export default class Subpart extends Component {
@@ -19,8 +18,6 @@ export default class Subpart extends Component {
         this.props.parentCallback(this.state) 
     };
     render() {
-        const {data} = this.state;
-        var ans = 0;
         return (
             <div className = {styles.container}>
                 <div className={styles.subpart_card}>
@@ -28,15 +25,15 @@ export default class Subpart extends Component {
                     <div className={`pull-right ${styles['right']}`}>
                         <span> {`Points: ${this.props.s.marks}`}</span>
                     </div><br/><br/>
-
-                    <NewTextRenderer content={this.props.s.prompt}/><br/>
-                    {(this.props.s.subparts.length) == 0 ?
+                    {(this.props.s.prompt.length > 0) ? <NewTextRenderer content={this.props.s.prompt}/> : ""}
+                    {(!this.props.s.images)  == 0 ? <ImageRender images={this.props.s.images}/>:null}
+                    {(!this.props.s.subparts) == 0 ?
                         <div>
-                            <TextEditor part = {this.props.s.part} parentCallback = {this.updateAns} />
+                            {this.props.s.subparts.map(prompt => <Subpart parentCallback = {this.updateAns} s={prompt}/>)}
                         </div>
                         : 
                         <div>
-                            {this.props.s.subparts.map(prompt => <Subpart parentCallback = {this.updateAns} s={prompt}/>)}
+                            <TextEditor part = {this.props.s.part} parentCallback = {this.updateAns} />
                         </div>
                     }
                 </div>

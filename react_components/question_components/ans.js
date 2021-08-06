@@ -10,13 +10,16 @@ export default class MarkSchemeComponent extends Component {
             <div className = {styles.container}>
                 <div className = {styles.prompt_card}>
                     <p>{this.props.msq.part}</p>
-                    {(this.props.msq.subparts.length) == 0 ? 
-                        <div> 
-                            {this.props.msq.answer.map(ans => <NewTextRenderer content={ans}/>)}
+                    {/* {console.log(this.props.ms)} */}
+                    {(!this.props.msq.subparts) == 0 ? 
+                        <div>
+                            {this.props.msq.subparts.map(abcd => <MarkSchemeComponent msq={abcd} />)}
                         </div> 
                         :
                         <div>
-                            {this.props.msq.subparts.map(abcd => <MarkSchemeComponent msq={abcd} />)}
+                            {
+                            this.props.msq.answer ? this.props.msq.answer.map(ans => <NewTextRenderer content={ans}/>) : null
+                            }
                         </div>
                     }
                 </div>
