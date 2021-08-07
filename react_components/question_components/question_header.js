@@ -86,7 +86,7 @@ export default function NavTabs(props) {
     setVal(temp)
   }
 
-  let gra = val.done ? <GradingPage ans = {val.ans} ms = {val.ms}/> : <p>Please submit your answers first</p>
+  let grading_component = val.done ? <GradingPage ans = {val.ans} ms = {val.ms}/> : <p>Please submit your answers first</p>
   return (
     <div>
       <AppBar position="static">
@@ -106,7 +106,7 @@ export default function NavTabs(props) {
         <QuestionC q = {props.ques} parentCallback = {grade}></QuestionC>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {gra}
+        {grading_component}
       </TabPanel>
       <TabPanel value={value} index={2}>
         <MarkingScheme q = {ms}></MarkingScheme>

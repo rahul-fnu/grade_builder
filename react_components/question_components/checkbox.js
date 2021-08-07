@@ -11,14 +11,13 @@ export default class Checkbox extends Component {
     }
     handleClick(event) {
         this.state.checked = !this.state.checked;
-
-        this.props.parentCallback(this.state.checked ? 1 : 0);
+        this.props.parentCallback(this.state.checked ? this.props.marks : 0);
         event.preventDefault();
     }
     
     render() {
         // this.state.checkList= this.props.list;
-        let text = <NewTextRenderer content = {this.props.message} />
+        let text = <NewTextRenderer content = {this.props.answer} />
         return (
             <div className = "row">
                 <div className = "col-md-12">

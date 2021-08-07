@@ -17,7 +17,7 @@ export default class GradingPage extends Component {
         event.preventDefault();
     }
     render() {
-        const keys = Object.keys(this.props.ms);
+        const keys = Object.keys(this.props.ms).sort();
         return (
             <>
                 <div>

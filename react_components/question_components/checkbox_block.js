@@ -16,7 +16,7 @@ export default class CheckboxBlock extends Component {
     render() {
         return (
             <div className = {styles.subpart_card}>
-                {Array.isArray(this.props.ans) ? this.props.ans.map((ans) => <Checkbox container={ans} parentCallback = {score=> this.updateScore(score)}/>) : <NewTextRenderer content = {"fe"} />}
+                {Array.isArray(this.props.ans) ? this.props.ans.map((ans) => <Checkbox answer={ans.answer} parentCallback = {score=> this.updateScore(score)}/>) : <NewTextRenderer content = {"fe"} />}
             </div>
         )
     }
