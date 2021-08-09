@@ -7,19 +7,20 @@ const user_data_schema = new Schema({
     email: {
         type: String,
         unique: true,
-        required: true
+        required: false
     },
-    google_ID: {
+    client_id: {
         type: String,
+        unique: true,
         required: true
     },
     first_name: {
         type: String,
-        required: true
+        required: false
     },
     last_name: {
         type: String,
-        required: true
+        required: false
     },
     questions_solved: {
         type: [String],

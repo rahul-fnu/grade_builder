@@ -1,0 +1,12 @@
+.nav{
+    font-family: "Times New Roman", Times, serif;
+    display: inline;
+    border-color: 'white';
+}
+.inline{
+    display: inline-flex;
+}
+
+.right_nav{
+    float: right;
+}

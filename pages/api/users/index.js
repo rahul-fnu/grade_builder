@@ -1,4 +1,4 @@
-import db_connect from '../../../utils/dbConnect';
+import db_connect from '../../../utils/db_connect';
 import UserData from '../../../models/UserData';
 
 db_connect();
