@@ -3,16 +3,17 @@ import React, {Component} from 'react';
 import NewTextRenderer from './text_renderer_new';
 export default class Checkbox extends Component {
     constructor(props) {
-        super();
+        super(props);
         this.state = {
             checked: false
         };
         this.handleClick = this.handleClick.bind(this);
     }
     handleClick(event) {
-        this.state.checked = !this.state.checked;
-        this.props.parentCallback(this.state.checked ? this.props.marks : 0);
+        this.setState({checked: !this.state.checked});
+        this.props.parentCallback({correct: this.state.checked, point_number : this.props.point_number, marks : this.props.marks});
         event.preventDefault();
+
     }
     
     render() {

@@ -14,6 +14,7 @@ export default class GradingPanel extends Component {
     }
     onTrigger = (event) => {
         this.props.parentCallback(this.state.score);
+        console.log(this.state.score)
         event.preventDefault();
     }
     render() {
@@ -23,7 +24,7 @@ export default class GradingPanel extends Component {
                         <p>{`Part ${this.props.part}`}</p>
                         {typeof this.props.ans == 'string' ?
                             <div>
-                                <GradingBlock ans = {this.props.ans} ms ={this.props.ms} parentCallback = {this.score}/>
+                                <GradingBlock part = {this.props.part} ans = {this.props.ans} ms ={this.props.ms} parentCallback = {this.score}/>
                             </div>
                             :
                             <div className={styles.container}>
