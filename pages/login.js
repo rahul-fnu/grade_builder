@@ -19,6 +19,9 @@ function withAuth(Component) {
 class Login extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+          userData: {}
+        }
         this.auth = props.auth,
         this.login = props.login,
         this.logout = props.logout
@@ -26,12 +29,10 @@ class Login extends Component {
 
     response = () => {
       const userData = {};
-      userData.email = '';
-      userData.google_ID = this.auth.accessTokenData.client_id;
-      userData.first_name = '';
-      userData.last_name = '';
+      userData.email = this.auth.idTokenData.email;
       this.setState({userData: userData});
-      this.validateUser(userData)
+      this.validateUser(this.state.userData)
+      console.log(userData)
     }
 
     validateUser = async (user) => {
@@ -40,7 +41,8 @@ class Login extends Component {
         url: '/api/users',
         data: user
       })
-      const filtered = checkIfExists.data.data.filter(e => e.client_id === user.client_id);
+      console.log(checkIfExists)
+      const filtered = checkIfExists.data.data.filter(e => e.email === user.email);
       if (filtered.length == 1) {
         console.log('user exists');
         console.log(filtered);
