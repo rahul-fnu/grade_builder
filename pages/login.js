@@ -31,8 +31,8 @@ class Login extends Component {
       const userData = {};
       userData.email = this.auth.idTokenData.email;
       this.setState({userData: userData});
-      this.validateUser(this.state.userData)
-      console.log(userData)
+      // this.validateUser(this.state.userData)
+      console.log(35);
     }
 
     validateUser = async (user) => {
@@ -41,20 +41,20 @@ class Login extends Component {
         url: '/api/users',
         data: user
       })
-      console.log(checkIfExists)
+      console.log(123)
       const filtered = checkIfExists.data.data.filter(e => e.email === user.email);
       if (filtered.length == 1) {
         console.log('user exists');
         console.log(filtered);
       } 
-      else {
-        const response = await axios({
-          method: 'POST',
-          url: '/api/users',
-          data: user
-        })
-        console.log(response)
-      }
+      // else {
+      //   const response = await axios({
+      //     method: 'POST',
+      //     url: '/api/users',
+      //     data: user
+      //   })
+      //   console.log(response)
+      // }
     }
 
     render(){
@@ -85,6 +85,7 @@ const loginWithAuth = withAuth(Login)
 
 export const getServerSideProps = async (context) => {
   const initialAuth = getServerSideAuth(context.req);
+  console.log(initialAuth)
   return { props: { initialAuth } };
 };
 
