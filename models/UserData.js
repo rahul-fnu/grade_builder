@@ -7,7 +7,7 @@ const user_data_schema = new Schema({
     email: {
         type: String,
         unique: true,
-        required: false
+        required: true
     },
     questions_solved: {
         type: [Object],

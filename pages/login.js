@@ -25,14 +25,16 @@ class Login extends Component {
         this.auth = props.auth,
         this.login = props.login,
         this.logout = props.logout
+        if (props.auth) {
+          this.response()
+        }
     }
 
     response = () => {
       const userData = {};
       userData.email = this.auth.idTokenData.email;
       this.setState({userData: userData});
-      // this.validateUser(this.state.userData)
-      console.log(35);
+      this.validateUser(userData)
     }
 
     validateUser = async (user) => {
@@ -41,20 +43,17 @@ class Login extends Component {
         url: '/api/users',
         data: user
       })
-      console.log(123)
-      const filtered = checkIfExists.data.data.filter(e => e.email === user.email);
+      const filtered = checkIfExists.data.data.filter(e => e.email && e.email === user.email);
       if (filtered.length == 1) {
         console.log('user exists');
-        console.log(filtered);
       } 
-      // else {
-      //   const response = await axios({
-      //     method: 'POST',
-      //     url: '/api/users',
-      //     data: user
-      //   })
-      //   console.log(response)
-      // }
+      else {
+        const response = await axios({
+          method: 'POST',
+          url: '/api/users',
+          data: user
+        })
+      }
     }
 
     render(){
@@ -73,9 +72,6 @@ class Login extends Component {
                 </React.Fragment>
                 )}
               </React.Fragment>
-              {this.auth ? (
-                this.response()
-              ) : null}
         </div>
       );
     }
@@ -85,7 +81,6 @@ const loginWithAuth = withAuth(Login)
 
 export const getServerSideProps = async (context) => {
   const initialAuth = getServerSideAuth(context.req);
-  console.log(initialAuth)
   return { props: { initialAuth } };
 };
 
