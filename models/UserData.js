@@ -23,15 +23,15 @@ const user_data_schema = new Schema({
         required: false
     },
     questions_solved: {
-        type: [String],
+        type: [Object],
         required: false
     },
     years_solved: {
-        type: [String],
+        type: [Object],
         required: false
     },
     questions_todo: {
-        type : [String],
+        type : [Object],
         required: false
     }
 });

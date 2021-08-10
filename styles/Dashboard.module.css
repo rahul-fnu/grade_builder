@@ -1,0 +1,39 @@
+.container{
+    font-family: "Times New Roman", Times, serif;
+}
+
+.subjectView {
+    text-transform: uppercase;
+    text-align: center;
+    padding: 70px;
+    border-radius: 4px;
+    border: 1px solid #aa1717;
+    min-width: 500px;
+}
+.subjectView:hover {
+    height: 300px;
+    opacity: 0;
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease; /* Transition when the mouse enters the element */
+    width: 300px;
+  }
+
+.upperRight{
+    float: right;
+}
+
+.upperLeft{
+    float: left;
+}
+
+.space { 
+    margin-top: 230px; 
+}
+
+.lowerRight{
+    float: right;
+}
+
+.lowerLeft{
+    float: left;
+}

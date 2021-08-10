@@ -1,111 +1,54 @@
 import React from 'react';
 import {Component} from 'react';
-import { PieChart } from 'react-minimal-pie-chart';
 import NavigationBar from '../Components/navigation_bar.js';
+import styles from '../styles/Dashboard.module.css';
 
 export class HomePage extends Component {
     constructor(props) {
         super(props);
-        this.math = this.props.q.filter(e => e.subject === 'maths');
-        this.chem = this.props.q.filter(e => e.subject === 'chemistry');
-        this.phy = this.props.q.filter(e => e.subject === 'physics');
-        this.econ = this.props.q.filter(e => e.subject === 'economics');
+        
+    }
 
+    displaySubjectStats = (subject) => {
+        const userData = {};
+        userData.email = 'ali@outlook.com';
+        userData.client_id = 'FUFUFUFUFUFUF';
+        userData.first_name = 'Alyan';
+        userData.last_name = 'Qureshi';
+        userData.questions_solved = [
+              {"subject":"chemistry", "lastname":"Doe"}, 
+              {"subject":"chemistry", "lastName":"Smith"},
+              {"subject":"chemistry", "lastName":"Jones"},
+              {"subject":"economics", "lastname":"Doe"}, 
+              {"subject":"economics", "lastName":"Smith"},
+              {"subject":"physics", "lastName":"Jones"},
+              {"subject":"physics", "lastname":"Doe"}, 
+              {"subject":"maths", "lastName":"Smith"},
+              {"subject":"maths", "lastName":"Jones"}
+            ]
+        
+        const total = this.props.q.filter(e => e.subject === subject);
+        const solved = userData.questions_solved.filter(e => e.subject === subject);
+        console.log(userData);
+        //solved = this.props.u.solvedfilter()
+        return (
+            <div className= {styles.subjectView}>
+            <h3>{subject}</h3>
+            <h4> {solved.length}  / {total.length}</h4>
+            </div>
+        )
     }
     
     render(){
       return (
-        <div>
-            <NavigationBar></NavigationBar>
-            {(this.math.length > 0) ?
-            <div>
-                <PieChart
-                    position="center"
-                    title="math"
-                    animation
-                    animationDuration={500}
-                    animationEasing="ease-in"
-                    //center={[50, 50]}
-                    data={[
-                        {
-                        color: "#E38627",
-                        title: this.props.q.length, 
-                        value: this.props.q.length
-                        },
-                        {
-                        color: "#C13C37",
-                        title: this.math.length, 
-                        value: this.math.length,
-                        }
-                    ]}
-                    lengthAngle={360}
-                    lineWidth={15}
-                    radius={20}
-                    rounded
-                />
-            </div>
-            : null
-            }
-            
+        <div className= {styles.container}>
+            <NavigationBar></NavigationBar><br/>
 
-            <section>
-            <PieChart
-                title="chem"
-                animation
-                animationDuration={500}
-                animationEasing="ease-out"
-                center={[50, 50]}
-                data={[
-                    {
-                    color: "#D38147",
-                    title: this.props.q.length, 
-                    value: this.props.q.length
-                    },
-                    {
-                    color: "#B13117",
-                    title: this.chem.length, 
-                    value: this.chem.length,
-                    }
-                ]}
-                labelPosition={50}
-                lengthAngle={360}
-                lineWidth={15}
-                paddingAngle={0}
-                radius={20}
-                rounded
-                startAngle={0}
-                viewBoxSize={[100, 100]}
-            />
-            </section>
-
-            <PieChart
-                title="phy"
-                animation
-                animationDuration={500}
-                animationEasing="ease-out"
-                center={[50, 50]}
-                data={[
-                    {
-                    color: "#A38147",
-                    title: this.props.q.length, 
-                    value: this.props.q.length
-                    },
-                    {
-                    color: "#B13117",
-                    title: this.phy.length, 
-                    value: this.phy.length,
-                    }
-                ]}
-                labelPosition={50}
-                lengthAngle={360}
-                lineWidth={15}
-                paddingAngle={0}
-                radius={20}
-                rounded
-                startAngle={0}
-                viewBoxSize={[100, 100]}
-            />
-
+            <span className={styles.upperLeft}>{this.displaySubjectStats('physics')}</span>
+            <span className={styles.upperRight}>{this.displaySubjectStats('chemistry')}</span><br/>
+            <div className={styles.space}></div>
+            <span className={styles.lowerLeft}>{this.displaySubjectStats('maths')}</span>        
+            <span className={styles.lowerRight}>{this.displaySubjectStats('economics')}</span>
         </div>
       );
     }
