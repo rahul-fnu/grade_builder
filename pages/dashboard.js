@@ -2,14 +2,27 @@ import React from 'react';
 import {Component} from 'react';
 import NavigationBar from '../Components/navigation_bar.js';
 import styles from '../styles/Dashboard.module.css';
+import {
+    useAuth,
+    useAuthFunctions,
+    getServerSideAuth,
+  } from "../auth";
+  
+function withAuth(Component) {
+return function WrappedComponent(props) {
+    const auth = useAuth(props.initialAuth);
+    return <Component {...props} auth={auth}/>;
+}
+}
 
 export class HomePage extends Component {
     constructor(props) {
         super(props);
-        
+        this.auth = props.auth
     }
 
     displaySubjectStats = (subject) => {
+        console.log(this.auth)
         const userData = {};
         userData.email = 'ali@outlook.com';
         userData.client_id = 'FUFUFUFUFUFUF';
@@ -54,7 +67,14 @@ export class HomePage extends Component {
     }
 }
 
-export default function Home({data}){
+export const getServerSideProps = async (context) => {
+    const initialAuth = getServerSideAuth(context.req);
+    return { props: { initialAuth } };
+};
+
+const homePageWithAuth = withAuth(HomePage)
+
+export default function homePageAuth(data){
     return <HomePage q={data.questions} u= {data.users}></HomePage>
 }
 

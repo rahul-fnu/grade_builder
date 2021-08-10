@@ -2,6 +2,7 @@ import React from 'react';
 import {Component} from 'react';
 import Route from 'react-router';
 import axios from 'axios';
+import { useRouter } from "next/router";
 import {
   useAuth,
   useAuthFunctions,
@@ -10,9 +11,10 @@ import {
 
 function withAuth(Component) {
   return function WrappedComponent(props) {
+    const router = useRouter();
     const auth = useAuth(props.initialAuth);
     const {login, logout} = useAuthFunctions();
-    return <Component {...props} auth={auth} login = {login} logout={logout}/>;
+    return <Component {...props} auth={auth} login = {login} logout={logout} router = {router}/>;
   }
 }
 
@@ -22,9 +24,10 @@ class Login extends Component {
         this.state = {
           userData: {}
         }
-        this.auth = props.auth,
-        this.login = props.login,
+        this.auth = props.auth
+        this.login = props.login
         this.logout = props.logout
+        this.router = props.router
         if (props.auth) {
           this.response()
         }
@@ -54,6 +57,7 @@ class Login extends Component {
           data: user
         })
       }
+      this.router.replace("/dashboard");
     }
 
     render(){
