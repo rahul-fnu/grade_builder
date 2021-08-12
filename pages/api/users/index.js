@@ -16,7 +16,7 @@ export default async (req, res) => {
         //     break;
         case 'GET':
             try {
-                const users = await UserData.find({})
+                const users = await UserData.find({email : req.body.email})
                 res.status(200).json({success: true, data: users})
             } catch (error) {
                 res.status(400).json({success: false});

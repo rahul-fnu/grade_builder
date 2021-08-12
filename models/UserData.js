@@ -6,7 +6,6 @@ const Schema = mongoose.Schema;
 const user_data_schema = new Schema({
     email: {
         type: String,
-        unique: true,
         required: true
     },
     questions_solved: {

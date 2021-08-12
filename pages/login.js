@@ -1,6 +1,5 @@
 import React from 'react';
 import {Component} from 'react';
-import Route from 'react-router';
 import axios from 'axios';
 import { useRouter } from "next/router";
 import {
@@ -46,8 +45,7 @@ class Login extends Component {
         url: '/api/users',
         data: user
       })
-      const filtered = checkIfExists.data.data.filter(e => e.email && e.email === user.email);
-      if (filtered.length == 1) {
+      if (checkIfExists.data.success) {
         console.log('user exists');
       } 
       else {
