@@ -11,7 +11,8 @@ import {
 function withAuth(Component) {
 return function WrappedComponent(props) {
     const auth = useAuth(props.initialAuth);
-    return <Component {...props} auth={auth}/>;
+    const data = props.data
+    return <Component {...props} auth={auth} data={data}/>;
 }
 }
 
@@ -22,20 +23,25 @@ export class HomePage extends Component {
             email: props.auth.idTokenData.email,
             userData: {}
         }
+        if (this.props.auth) {
+            this.loadUserData(props.auth.idTokenData.email)
+        }
     }
-    // loadUserData = async (user) => {
-    //     const data = await axios({
-    //         method: 'GET',
-    //         url: '/api/users',
-    //         data: user
-    //     })
-    //     // console.log(data);
-    //     this.setState({userData : JSON.parse(data.config.data)});
-    // }
-    // loadUserData({user:this.state.email});
+    loadUserData = async (user) => {
+         const data = await axios({
+             method: 'POST',
+             url: '/api/users',
+             data: {
+                 data: user,
+                 operation: "GET"
+             }
+         })
+         this.setState({userData : data.data});
+     }
+
     displaySubjectStats = (subject) => {
         // const ab = this.loadUserData({email : this.state.email})
-        console.log(this.props)
+        console.log(this.state.userData)
         const userData = {}
         userData.email = 'ali@outlook.com';
         userData.questions_solved = [
@@ -77,7 +83,7 @@ export class HomePage extends Component {
 
 export const getServerSideProps = async (context) => {
     const initialAuth = getServerSideAuth(context.req);
-    return { props: { initialAuth }};
+    return { props: {initialAuth}};
 };
 
 const homePageWithAuth = withAuth(HomePage)

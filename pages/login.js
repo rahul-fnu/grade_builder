@@ -41,9 +41,12 @@ class Login extends Component {
 
     validateUser = async (user) => {
       const checkIfExists = await axios({
-        method: 'GET',
+        method: 'POST',
         url: '/api/users',
-        data: user
+        data: {
+          data: user.email,
+          operation: "GET"
+        }
       })
       if (checkIfExists.data.success) {
         console.log('user exists');
@@ -52,7 +55,10 @@ class Login extends Component {
         const response = await axios({
           method: 'POST',
           url: '/api/users',
-          data: user
+          data: {
+            data: user,
+            operation: "CREATE"
+          }
         })
       }
       this.router.replace("/dashboard");
@@ -82,7 +88,8 @@ class Login extends Component {
 const loginWithAuth = withAuth(Login)
 
 export const getServerSideProps = async (context) => {
-  const initialAuth = getServerSideAuth(context.req);
+  const initialAuth = getServerSideAuth(context.req)
+
   return { props: { initialAuth } };
 };
 
