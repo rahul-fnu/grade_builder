@@ -11,31 +11,38 @@ export default class CheckboxBlock extends Component {
         }
     }
 
-    updatePoints(score) {
-        if (score.correct) {
+    updateRubric(rubric) {
+        if (rubric.correct) {
+            // console.log(rubric)
             const obj = this.state.rubrics;
-            obj[score.point_number] = score.marks;
+            obj[rubric.point_number] = rubric.marks;
             this.setState({rubrics: obj});
-            this.setState({points: this.state.points + score.points});
-        } else {
+        } else {///
             const obj = this.state.rubrics;
-            obj[score.point_number] = null;
+            if (obj.point_number) {
+                delete obj.point_number;
+            }
             this.setState({rubrics: obj});
-            this.setState({points: this.state.points - score.points});
         }
-    }
-    returnPoints(event) {
+        // this.setState({points : this.calculatePoints(this.state.rubrics)})
+        const points = this.calculatePoints(this.state.rubrics);
+        console.log(points)
         this.props.parentCallback(this.state.points);
-        event.preventDefault();
-
+    }
+    calculatePoints(points) {
+        let sum = 0;
+        for (let val in Object.values(points)) {
+            console.log(val)
+            sum += parseInt(val)
+        }
+        return sum;
     }
     render() {
         return (
             <>
                 <div className = {styles.subpart_card}>
-                    {Array.isArray(this.props.ans) ? this.props.ans.map((ans) => <Checkbox answer={ans.answer} parentCallback = {score=> this.updatePoints(score)}/>) :  <p>cdbhbhdc</p>}
+                    {Array.isArray(this.props.ans) ? this.props.ans.map((ans) => <Checkbox answer={ans} parentCallback = {rubric=> this.updateRubric(rubric)}/>) :  <p>No answer in the database, we are sorry for the inconvenience</p>}
                 </div>
-                <button onClick={this.returnPoints()}>dededde</button>
             </>
         )
     }
