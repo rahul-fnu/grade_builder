@@ -1,7 +1,8 @@
 import React from 'react';
 import {Component} from 'react';
 import axios from 'axios';
-import NavigationBar from '../Components/navigation_bar.js';
+import { useRouter } from "next/router";
+
 import styles from '../styles/Dashboard.module.css';
 import {
     useAuth,
@@ -9,11 +10,12 @@ import {
   } from "../auth";
   
 function withAuth(Component) {
-return function WrappedComponent(props) {
-    const auth = useAuth(props.initialAuth);
-    const data = props.data
-    return <Component {...props} auth={auth} data={data}/>;
-}
+    return function WrappedComponent(props) {
+        const auth = useAuth(props.initialAuth);
+        const data = props.data
+        const router = useRouter();
+        return <Component {...props} auth={auth} data={data} router={router} />;
+    }   
 }
 
 export class HomePage extends Component {
@@ -21,20 +23,22 @@ export class HomePage extends Component {
         super(props);
         this.state = {
             email: props.auth.idTokenData.email,
-            userData: {}
+            userData: {},
         }
         if (this.props.auth) {
             this.loadUserData(props.auth.idTokenData.email)
         }
+        this.router = props.router;
     }
     loadUserData = async (user) => {
+        
          const data = await axios({
              method: 'POST',
              url: '/api/users',
              data: {
-                 data: user,
-                 operation: "GET"
-             }
+                data: user,
+                operation: "GET"
+              }
          })
          this.setState({userData : data.data});
      }
@@ -60,45 +64,50 @@ export class HomePage extends Component {
         const solved = userData.questions_solved.filter(e => e.subject === subject);
         return (
             <div className= {styles.subjectView}>
-            <h3>{subject}</h3>
-            <h4> {solved.length}  / {total.length}</h4>
+                <h3>{subject}</h3>
+                <h4> {solved.length}  / {total.length}</h4>
+                {/* <button onClick={this.loadSubjectPage(subject)}>Solve Question</button> */}
+                <button onClick={(e) => this.loadSubjectPage(e, subject)}>Solve Question</button>
             </div>
         )
     }
-    
+    loadSubjectPage(e, subject) {     
+        this.router.replace(`/caie-a-level/${subject}`)
+        e.preventDefault()   
+    }
     render(){
       return (
-        <div className= {styles.container}>
-            <NavigationBar></NavigationBar><br/>
+        <div className={styles.container}>
+            <main className={styles.main}>
+                {/* <NavigationBar></NavigationBar><br/> */}
+                <div className={styles.grid}>
+                    <a href="http://localhost:3000/dashboard" className={styles.card}>
+                        {this.displaySubjectStats('physics')}
+                    </a>
 
-            <span className={styles.upperLeft}>{this.displaySubjectStats('physics')}</span>
-            <span className={styles.upperRight}>{this.displaySubjectStats('chemistry')}</span><br/>
-            <div className={styles.space}></div>
-            <span className={styles.lowerLeft}>{this.displaySubjectStats('maths')}</span>        
-            <span className={styles.lowerRight}>{this.displaySubjectStats('economics')}</span>
+                    <a href="http://localhost:3000/dashboard" className={styles.card}>
+                        {this.displaySubjectStats('chemistry')}
+                    </a>
+
+                    <a href="http://localhost:3000/dashboard" className={styles.card}>
+                        {this.displaySubjectStats('maths')}
+                    </a>
+
+                    <a href="http://localhost:3000/dashboard" className={styles.card}>
+                        {this.displaySubjectStats('economics')}
+                    </a>
+                </div>
+            </main>
         </div>
       );
     }
 }
+
+const homePageWithAuth = withAuth(HomePage)
 
 export const getServerSideProps = async (context) => {
     const initialAuth = getServerSideAuth(context.req);
     return { props: {initialAuth}};
 };
 
-const homePageWithAuth = withAuth(HomePage)
-
-// export default function homePageAuth(data){
-//     return <HomePage q={data.questions} u= {data.users}></HomePage>
-// }
 export default homePageWithAuth;
-// homePageWithAuth.getInitialProps = async (context) => {
-//     console.log(1)
-//     // const res1 = await fetch('http://localhost:3000/api/questions');
-//     // const res2 = await fetch('http://localhost:3000/api/users');
-//     // const questions = (await res1.json()).data
-//     // const users = (await res2.json()).data
-//     return {
-//         data: JSON.parse(data.config.data) 
-//     }
-// }

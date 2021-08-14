@@ -34,7 +34,8 @@ export default async (req, res) => {
         //     break;
         case 'GET':
             try {
-                const users = await UserData.find({email : req.body})
+                console.log(req.body)
+                const users = await UserData.find(req.body)
                 res.status(200).json({success: true, data: users})
             } catch (error) {
                 res.status(400).json({success: false});
@@ -42,11 +43,12 @@ export default async (req, res) => {
             break;
         case 'POST':
             try {
-                if (req.body.operation == "CREATE") {
+                if (req.body.operation === "CREATE") {
                     const user = await UserData.create(req.body.data);
                     res.status(200).json({success: true, data: user});
-                } else if (req.body.operation == "GET") {
-                    const users = await UserData.find({email : req.body.data})
+                } else if (req.body.operation === "GET") {
+                    console.log(req.body)
+                    const users = await UserData.find({email : req.body.data.email})
                     res.status(200).json({success: true, data: users})
                 } else {
                     res.status(400).json({success: false});

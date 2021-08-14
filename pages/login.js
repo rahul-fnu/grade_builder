@@ -44,11 +44,12 @@ class Login extends Component {
         method: 'POST',
         url: '/api/users',
         data: {
-          data: user.email,
+          data: user,
           operation: "GET"
         }
       })
-      if (checkIfExists.data.success) {
+      if (checkIfExists.data.data.length > 0) {
+        console.log(checkIfExists)
         console.log('user exists');
       } 
       else {
