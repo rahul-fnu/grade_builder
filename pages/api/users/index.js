@@ -1,6 +1,24 @@
-import db_connect from '../../../utils/db_connect';
+// import db_connect from '/Users/rahulraiii/Downloads/utils/db_connect.js';
 import UserData from '../../../models/UserData';
 
+
+import mongoose from 'mongoose';
+const connection = {};
+const uri = process.env.MONGO_URI
+
+async function db_connect() {
+    if (connection.isConnected) {
+        return;
+    }
+    const db = await mongoose.connect("mongodb+srv://rahul:test1234@questions.p81ox.mongodb.net/GradeBuilder?retryWrites=true&w=majority", {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    });
+    connection.isConnected = db.connections[0].readyState;
+    
+}
+
+// export default db_connect;
 db_connect();
 
 export default async (req, res) => {
