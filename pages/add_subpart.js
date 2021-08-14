@@ -3,7 +3,6 @@ import {Component} from 'react';
 import ImageUploader from '../Components/images_upload';
 import TextEditor from '../Components/text_editor';
 import styles from '../styles/AddPaper.module.css';
-const uuidv4 = require("uuid/v4");
 export default class AddSubpart extends Component {
     constructor(props) {
         super(props);
@@ -12,14 +11,11 @@ export default class AddSubpart extends Component {
             prompt: "",
             marks: "",
             subparts:{},
-            interim:[],
+            tempParts:[],
             images:{},
-            temp:[]
+            tempImages:[]
         }
     }
-    // getRandomInt = (max) => {
-    //     return Math.floor(Math.random() * max);
-    // }
     handleChange = (e) => {
         this.setState({[e.target.id]: e.target.value});
     }
@@ -28,9 +24,9 @@ export default class AddSubpart extends Component {
     }
     handleSubpart = () => {
         this.setState({
-            interim: [...this.state.interim, 
-            <AddSubpart parentCallback = {(part) => this.addSubpart(part)} /*onDelete = {(id) => this.handleDelete(id)} *//>
-        ]
+            tempParts: [...this.state.tempParts, 
+                <AddSubpart parentCallback = {(part) => this.addSubpart(part)}/>
+            ]
         })
     }
     addSubpart = (sub) => {
@@ -38,31 +34,27 @@ export default class AddSubpart extends Component {
     }
     addImage = () => {
         this.setState({
-            temp: [...this.state.temp, <ImageUploader parentCallback = {(image) => this.handleImage(image)}/>]
+            tempImages: [...this.state.tempImages, <ImageUploader parentCallback = {(image) => this.handleImage(image)}/>]
         })
     }
     handleImage = (image) => {
-        console.log(image)
         this.state.images[image.name] = image.link;
-        console.log(this.state)
     }
     save = () => {
-        const ret = {
+        const subpart = {
             part : this.state.part,
             prompt: this.state.prompt,
             marks: this.state.marks,
             subparts: Object.values(this.state.subparts),
             images: Object.values(this.state.images)
         }
-        if (ret.subparts.length == 0) {
-            console.log(1)
+        if (subpart.subparts.length == 0) {
             delete ret.subparts;
         }
-        if (ret.images.length == 0) {
+        if (subpart.images.length == 0) {
             delete ret.images;
         }
-        console.log(ret);
-        this.props.parentCallback(ret)
+        this.props.parentCallback(subpart)
     }
     render(){
         return (
@@ -80,15 +72,12 @@ export default class AddSubpart extends Component {
                         <label>Prompt: </label> 
                             <TextEditor parentCallback={(part) => this.handlePrompt(part)}/>
                         <br/>
-        
-                        {/* <input type="button" value="Add subpart" onClick={'#'}/><br/> */}
                     </form >
-                    {this.state.temp}
+                    {this.state.tempParts}
                     <button onClick={styles.button} onClick = {this.addImage}>Add Image</button>
-                    {this.state.interim}
+                    {this.state.tempImages}
                     <button className = {styles.button} onClick={this.handleSubpart}>Add Subpart</button>
                     <button className = {styles.button} onClick={this.save}>Save</button>
-                    <button className = {styles.rightButton}onClick={this.handleDelete}>Delete</button>
                 </div>
             </div>
         );

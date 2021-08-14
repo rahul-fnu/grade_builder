@@ -26,12 +26,11 @@ export class HomePage extends Component {
             userData: {},
         }
         if (this.props.auth) {
-            this.loadUserData(props.auth.idTokenData.email)
+            this.loadUserData({email : props.auth.idTokenData.email})
         }
         this.router = props.router;
     }
     loadUserData = async (user) => {
-        
          const data = await axios({
              method: 'POST',
              url: '/api/users',
@@ -40,39 +39,27 @@ export class HomePage extends Component {
                 operation: "GET"
               }
          })
-         this.setState({userData : data.data});
+
+         this.setState({userData : data.data.data[0]});
      }
 
     displaySubjectStats = (subject) => {
         // const ab = this.loadUserData({email : this.state.email})
-        console.log(this.state.userData)
-        const userData = {}
-        userData.email = 'ali@outlook.com';
-        userData.questions_solved = [
-              {"subject":"chemistry", "lastname":"Doe"}, 
-              {"subject":"chemistry", "lastName":"Smith"},
-              {"subject":"chemistry", "lastName":"Jones"},
-              {"subject":"economics", "lastname":"Doe"}, 
-              {"subject":"economics", "lastName":"Smith"},
-              {"subject":"physics", "lastName":"Jones"},
-              {"subject":"physics", "lastname":"Doe"}, 
-              {"subject":"maths", "lastName":"Smith"},
-              {"subject":"maths", "lastName":"Jones"}
-            ]
-        
-        const total = this.props.q ? this.props.q.filter(e => e.subject === subject) : 0;
-        const solved = userData.questions_solved.filter(e => e.subject === subject);
+        this.state.userData.email ? console.log(this.state.userData) : null;
+        // const total = this.props.q ? this.props.q.filter(e => e.subject === subject) : 0;
+
+        const solved = this.state.userData.email && this.state.userData.questions_solved > 0 ? this.state.userData.questions_solvedquestions_solved.filter(e => e.subject === subject) : [];
         return (
             <div className= {styles.subjectView}>
                 <h3>{subject}</h3>
-                <h4> {solved.length}  / {total.length}</h4>
+                <h4> {solved.length}</h4>
                 {/* <button onClick={this.loadSubjectPage(subject)}>Solve Question</button> */}
                 <button onClick={(e) => this.loadSubjectPage(e, subject)}>Solve Question</button>
             </div>
         )
     }
     loadSubjectPage(e, subject) {     
-        this.router.replace(`/caie-a-level/${subject}`)
+        // this.router.replace(`/caie-a-level/${subject}`)
         e.preventDefault()   
     }
     render(){
@@ -88,7 +75,8 @@ export class HomePage extends Component {
                     <a href="http://localhost:3000/dashboard" className={styles.card}>
                         {this.displaySubjectStats('chemistry')}
                     </a>
-
+                </div>
+                <div className={styles.grid}>
                     <a href="http://localhost:3000/dashboard" className={styles.card}>
                         {this.displaySubjectStats('maths')}
                     </a>

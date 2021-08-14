@@ -27,11 +27,10 @@ export default class AddPaperPage extends Component {
     mcqHandler = () => {
         this.state.mcq = !this.state.mcq;
     }
-    // ab = new Set();
     addQuestion = () => {
         this.setState({
             content: [...this.state.content,
-            <AddQuestionPage mcq = {this.state.mcq} subject={this.state.subject} board_level={this.state.board_level} exam_period={this.state.session + this.state.year} component_region={this.state.component_region} mcq={this.state.mcq} parentCallback={(ques) => this.updateQuestion(ques)} /*onDelete = {() => this.handleDelete(id)}*/ />
+                <AddQuestionPage mcq = {this.state.mcq} subject={this.state.subject} board_level={this.state.board_level} exam_period={this.state.session + this.state.year} component_region={this.state.component_region} mcq={this.state.mcq} parentCallback={(ques) => this.updateQuestion(ques)} />
             ]
         })
     }
@@ -39,7 +38,7 @@ export default class AddPaperPage extends Component {
         console.log(this.state)
         this.setState({
             ms: [...this.state.ms,
-            <AddMS parentCallback={(ms) => this.updateMS(ms)} />
+                <AddMS parentCallback={(ms) => this.updateMS(ms)} />
             ]
         })
     }
