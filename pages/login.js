@@ -39,6 +39,7 @@ class Login extends Component {
     }
 
     validateUser = async (user) => {
+      if (!user) return; 
       const checkIfExists = await axios({
         method: 'POST',
         url: '/api/users',
