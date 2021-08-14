@@ -12,8 +12,8 @@ function withAuth(Component) {
   return function WrappedComponent(props) {
     const router = useRouter();
     const auth = useAuth(props.initialAuth);
-    const {login, logout} = useAuthFunctions();
-    return <Component {...props} auth={auth} login = {login} logout={logout} router = {router}/>;
+    const {login} = useAuthFunctions();
+    return <Component {...props} auth={auth} login = {login} router = {router}/>;
   }
 }
 
@@ -25,7 +25,6 @@ class Login extends Component {
         }
         this.auth = props.auth
         this.login = props.login
-        this.logout = props.logout
         this.router = props.router
         if (props.auth) {
           this.response()
@@ -69,11 +68,7 @@ class Login extends Component {
       return (
         <div>
               <React.Fragment>
-                {this.auth ? (
-                <button type="button" onClick={() => this.logout()}>
-                  sign out
-                </button>
-                ) : (
+                {this.auth ? <p>Loading...</p> : (
                 <React.Fragment>
                   <button type="button" onClick={() => this.login()}>
                     sign in

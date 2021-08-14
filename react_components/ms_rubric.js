@@ -9,7 +9,7 @@ export default class MSRubric extends Component {
             point_number:"",
             marks: "",
             answer: "",
-            temp:[],
+            tempImages:[],
             images: {}
         }
     }
@@ -30,13 +30,11 @@ export default class MSRubric extends Component {
     }
     addImage = () => {
         this.setState({
-            temp: [...this.state.temp, <ImageUploader parentCallback = {(image) => this.handleImage(image)}/>]
+            tempImages: [...this.state.tempImages, <ImageUploader parentCallback = {(image) => this.handleImage(image)}/>]
         })
     }
     handleImage = (image) => {
-        console.log(image)
         this.state.images[image.name] = image.link;
-        console.log(this.state)
     }
     render() {
         return (

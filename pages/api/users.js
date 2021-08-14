@@ -1,22 +1,42 @@
-// import db_connect from '/Users/rahulraiii/Downloads/utils/db_connect.js';
-import UserData from '../../../models/UserData';
+import UserData from '../../models/UserData';
+import db_connect from '../../utils/db_connect'
 
+// import mongoose from 'mongoose';
+// // import mongoose from 'mongoose'
+// const Schema = mongoose.Schema;
+// //const SolvedQuestion = require('SolvedQuestion');
+// //const Question = require('Question');
 
-import mongoose from 'mongoose';
-const connection = {};
-const uri = process.env.MONGO_URI
+// const user_data_schema = new Schema({
+//     email: {
+//         type: String,
+//         required: true
+//     },
+//     questions_solved: {
+//         type: [Object],
+//         required: false
+//     },
+//     questions_todo: {
+//         type : [Object],
+//         required: false
+//     }
+// });
 
-async function db_connect() {
-    if (connection.isConnected) {
-        return;
-    }
-    const db = await mongoose.connect("mongodb+srv://rahul:test1234@questions.p81ox.mongodb.net/GradeBuilder?retryWrites=true&w=majority", {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    });
-    connection.isConnected = db.connections[0].readyState;
+// const UserData = mongoose.models.UserData || mongoose.model('UserData', user_data_schema);
+// const connection = {};
+// const uri = process.env.MONGO_URI
+
+// async function db_connect() {
+//     if (connection.isConnected) {
+//         return;
+//     }
+//     const db = await mongoose.connect("mongodb+srv://rahul:test1234@questions.p81ox.mongodb.net/GradeBuilder?retryWrites=true&w=majority", {
+//         useNewUrlParser: true,
+//         useUnifiedTopology: true,
+//     });
+//     connection.isConnected = db.connections[0].readyState;
     
-}
+// }
 
 // export default db_connect;
 db_connect();

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Prompt from './prompt_card';
 import NewTextRenderer from './text_renderer_new';
 import ImageRender from './image_render'
-import '../../node_modules/reactjs-popup/dist/index.css'
 import styles from '../../styles/Question.module.css'
 export default class QuestionC extends Component {
     constructor(props) {

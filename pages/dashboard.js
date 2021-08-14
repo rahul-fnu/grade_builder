@@ -7,6 +7,7 @@ import styles from '../styles/Dashboard.module.css';
 import {
     useAuth,
     getServerSideAuth,
+    useAuthFunctions
   } from "../auth";
   
 function withAuth(Component) {
@@ -14,7 +15,9 @@ function withAuth(Component) {
         const auth = useAuth(props.initialAuth);
         const data = props.data
         const router = useRouter();
-        return <Component {...props} auth={auth} data={data} router={router} />;
+        const {logout} = useAuthFunctions();
+
+        return <Component {...props} auth={auth} data={data} router={router} logout={logout} />;
     }   
 }
 
@@ -28,6 +31,7 @@ export class HomePage extends Component {
         if (this.props.auth) {
             this.loadUserData({email : props.auth.idTokenData.email})
         }
+        this.logout = props.logout
         this.router = props.router;
     }
     loadUserData = async (user) => {
@@ -59,29 +63,32 @@ export class HomePage extends Component {
         )
     }
     loadSubjectPage(e, subject) {     
-        // this.router.replace(`/caie-a-level/${subject}`)
+        this.router.replace(`/caie-a-level/${subject}`)
         e.preventDefault()   
     }
     render(){
       return (
         <div className={styles.container}>
             <main className={styles.main}>
+                <button type="button" onClick={() => this.logout()}>
+                    sign out
+                  </button>
                 {/* <NavigationBar></NavigationBar><br/> */}
                 <div className={styles.grid}>
-                    <a href="http://localhost:3000/dashboard" className={styles.card}>
+                    <a className={styles.card}>
                         {this.displaySubjectStats('physics')}
                     </a>
 
-                    <a href="http://localhost:3000/dashboard" className={styles.card}>
+                    <a className={styles.card}>
                         {this.displaySubjectStats('chemistry')}
                     </a>
                 </div>
                 <div className={styles.grid}>
-                    <a href="http://localhost:3000/dashboard" className={styles.card}>
+                    <a className={styles.card}>
                         {this.displaySubjectStats('maths')}
                     </a>
 
-                    <a href="http://localhost:3000/dashboard" className={styles.card}>
+                    <a className={styles.card}>
                         {this.displaySubjectStats('economics')}
                     </a>
                 </div>
