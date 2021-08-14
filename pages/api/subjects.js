@@ -1,6 +1,6 @@
-import db_connect from '../../../utils/dbConnect';
-import Subject from '../../../models/Subject';
 
+import db_connect from '../../utils/db_connect';
+import Subject from '../../models/Subject';
 db_connect();
 
 export default async (req, res) => {

@@ -6,6 +6,10 @@ const question_schema = new Schema({
         type: String,
         required: true
     },
+    subject: {
+        type: String,
+        required: true
+    },
     exam_period: {
         type: String,
         required: true
@@ -14,20 +18,16 @@ const question_schema = new Schema({
         type: Number,
         required: true
     },
-    subject: {
-        type: String,
-        required: true
-    },
     question_number: { 
         type: Number,
         required: true   
     },
+    text: {
+        type: String,
+        required: false
+    },
     marks: {
         type: String,
-        required: true
-    },
-    is_MCQ: {
-        type: Boolean,
         required: true
     },
     content: {

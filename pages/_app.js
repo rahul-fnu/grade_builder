@@ -42,7 +42,12 @@ Auth.configure({
 });
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  // const store = useStore((state) => state);
+  return (
+    // <PersistGate persistor={store.__persistor} loading = {<div>Loading</div>}>
+      <Component {...pageProps} />
+    // </PersistGate>
+  )
 }
-
-export default MyApp
+export default MyApp;
+// export default wrapper.withRedux(MyApp)
