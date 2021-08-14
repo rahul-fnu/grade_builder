@@ -61,9 +61,7 @@ export default class QuestionC extends Component {
         for (var i = 0; i < this.state.prompts.length; i++) {
             this.state.prompts[i].props.p.answers = this.state.filteredAns[this.state.prompts[i].props.p.part];
         }
-        // document.cookie  = JSON.stringify(this.state.filteredAns)
         const attempt = {
-            //question: question_id,
             answer: this.state.answers,
             marks_obtained: -1,
             last_solved: Date.now()

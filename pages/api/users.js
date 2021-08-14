@@ -1,57 +1,11 @@
 import UserData from '../../models/UserData';
 import db_connect from '../../utils/db_connect'
 
-// import mongoose from 'mongoose';
-// // import mongoose from 'mongoose'
-// const Schema = mongoose.Schema;
-// //const SolvedQuestion = require('SolvedQuestion');
-// //const Question = require('Question');
-
-// const user_data_schema = new Schema({
-//     email: {
-//         type: String,
-//         required: true
-//     },
-//     questions_solved: {
-//         type: [Object],
-//         required: false
-//     },
-//     questions_todo: {
-//         type : [Object],
-//         required: false
-//     }
-// });
-
-// const UserData = mongoose.models.UserData || mongoose.model('UserData', user_data_schema);
-// const connection = {};
-// const uri = process.env.MONGO_URI
-
-// async function db_connect() {
-//     if (connection.isConnected) {
-//         return;
-//     }
-//     const db = await mongoose.connect("mongodb+srv://rahul:test1234@questions.p81ox.mongodb.net/GradeBuilder?retryWrites=true&w=majority", {
-//         useNewUrlParser: true,
-//         useUnifiedTopology: true,
-//     });
-//     connection.isConnected = db.connections[0].readyState;
-    
-// }
-
-// export default db_connect;
 db_connect();
 
 export default async (req, res) => {
     const { method } = req;
     switch (method) {
-        // case 'GET':
-        //     try {
-        //         const users = await UserData.find(req.body)
-        //         res.status(200).json({success: true, data: users})
-        //     } catch (error) {
-        //         res.status(400).json({success: false});
-        //     }
-        //     break;
         case 'GET':
             try {
                 console.log(req.body)

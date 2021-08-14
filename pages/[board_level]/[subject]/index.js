@@ -3,12 +3,28 @@ import styles from '../../../styles/Subject.module.css'
 import { useRouter } from 'next/router'
 import QuestionCard from './question_card';
 import { Component } from 'react';
-
+import axios from 'axios';
+import {
+    useAuth,
+    getServerSideAuth,
+    useAuthFunctions
+  } from "../../../auth";
+  function withAuth(Component) {
+    return function WrappedComponent(props) {
+      const router = useRouter();
+      const auth = useAuth(props.initialAuth);
+      const {logout} = useAuthFunctions();
+      return <Component {...props} auth={auth} login = {logout} router = {router}/>;
+    }
+  }
 export class SubjectPage extends Component {
     constructor(props) {
         super(props)
         this.questions = this.props.qs
         this.questionList = <Component></Component>
+        this.auth = props.auth
+        this.logout = props.logout
+        this.router = props.router
     }
 
     sortQuestions = (type) => {
@@ -48,6 +64,7 @@ export class SubjectPage extends Component {
                 <main className={styles.main}>
                     <h1 className={styles.title}>Subject page</h1>
                     <br />
+                    <button onClick={() => this.logout()}>Log out</button>
                     <span>
                         Sort by:&nbsp;
                         <button onClick={() => this.sortQuestions("date")}>Date</button>
@@ -61,51 +78,70 @@ export class SubjectPage extends Component {
         );
     }
 }
-
-export default function Subject({ questions }) {
+const subjectPageWithAuth = withAuth(SubjectPage)
+export const getServerSideProps = async (context) => {
+    const initialAuth = getServerSideAuth(context.req);
+    // const query = querify(ctx.query);
+    const { subject_name, board_level } = query;
+    console.log(subject_name)
+    console.log(board_level)
+    const question = await axios({
+        method: 'GET',
+        url: '/api/questions',
+        params: { subject : subject_name, board_level : board_level }
+    })
+    return { props: {auth : initialAuth, subject : subject_name, board_level :  board_level, question : question.data}};
+};
+function query() {
     const router = useRouter();
-    const { subject_name, board_level } = router.query;
-    return <SubjectPage blevel={board_level} sname={subject_name} qs={questions} />
+    const params = router.query;
+    return params;
 }
+export default subjectPageWithAuth;
+// export default function Subject({ questions }) {
+//     const router = useRouter();
+//     const { subject_name, board_level } = router.query;
+//     return <SubjectPage blevel={board_level} sname={subject_name} qs={questions} />
+// }
 
-Subject.getInitialProps = async (ctx) => {
-    const query = querify(ctx.query);
+// Subject.getInitialProps = async (ctx) => {
+//     const query = querify(ctx.query);
 
-    const res = await fetch(`http://${ctx.req.headers.host}/api/questions?${query}`);
-    const questions = (await res.json()).data
+//     const res = await fetch(`http://${ctx.req.headers.host}/api/questions?${query}`);
+//     const questions = (await res.json()).data
 
-    return {
-        questions: (questions ? questions : [])
-    }
-}
+//     return {
+//         questions: (questions ? questions : [])
+//     }
+// }
 
-/**
- * The following is a function that converts the arguments passed through
- * the next js dynamic path generator into a proper http query. This is
- * made mainly for interacting with the database api
- */
-export function querify(stuff) {
-    if (stuff.params) {
-        stuff.params.forEach(e => {
-            if (Number(e)) {
-                stuff.component_region = e;
-            } else if (/\d+/.test(e)) {
-                stuff.exam_period = e;
-            } else {
-                if (!stuff.topics) {
-                    stuff.topics = [];
-                }
-                stuff.topics.push(e);
-            }
-        });
-        delete stuff.params;
-    }
+// /**
+//  * The following is a function that converts the arguments passed through
+//  * the next js dynamic path generator into a proper http query. This is
+//  * made mainly for interacting with the database api
+//  */
+// export function querify(stuff) {
+//     if (stuff.params) {
+//         stuff.params.forEach(e => {
+//             if (Number(e)) {
+//                 stuff.component_region = e;
+//             } else if (/\d+/.test(e)) {
+//                 stuff.exam_period = e;
+//             } else {
+//                 if (!stuff.topics) {
+//                     stuff.topics = [];
+//                 }
+//                 stuff.topics.push(e);
+//             }
+//         });
+//         delete stuff.params;
+//     }
 
 
-    var esc = encodeURIComponent;
-    var query = Object.keys(stuff)
-        .map(k => esc(k) + '=' + esc(stuff[k]))
-        .join('&');
+//     var esc = encodeURIComponent;
+//     var query = Object.keys(stuff)
+//         .map(k => esc(k) + '=' + esc(stuff[k]))
+//         .join('&');
 
-    return query;
-}
+//     return query;
+// }
