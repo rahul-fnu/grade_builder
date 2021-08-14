@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 //import SunEditor from '../../node_modules/suneditor-react';
 import '../../node_modules/suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import dynamic from "next/dynamic";
@@ -12,9 +12,11 @@ const plugins = dynamic(import("../../node_modules/suneditor-react"),{
   });
 export default function TextEditor (props) {
     function onTrigger (event) {
+        setText(editor.current.getContents())
         props.parentCallback(editor.current.getContents());
         // event.preventDefault();
     }
+    const [text, setText] = useState("");
     const editor = useRef();
     // The sunEditor parameter will be set to the core suneditor instance when this function is called
     const getSunEditorInstance = (sunEditor) => {
@@ -24,7 +26,7 @@ export default function TextEditor (props) {
     return (
         <>
             <div>
-                <SunEditor getSunEditorInstance={getSunEditorInstance} setOptions={{
+                <SunEditor content = {text} getSunEditorInstance={getSunEditorInstance} setOptions={{
                     plugins: plugins,
                     height: 200,
                     katex: katex,

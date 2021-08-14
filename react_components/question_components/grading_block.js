@@ -5,9 +5,16 @@ import CheckboxBlock from './checkbox_block';
 export default class GradingBlock extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            score: 0,
+        }
     }
     score = (score) => {
-        this.props.parentCallback(score);
+        this.setState({score: score})
+        console.log(this.state)
+    }
+    returnScore = () => {
+        this.props.parentCallback(this.state.score)
     }
     render() {
         return (
@@ -17,8 +24,9 @@ export default class GradingBlock extends Component {
                         <NewTextRenderer content={this.props.ans} />
                     </div>
                     <div className = "col-6">
-                        <CheckboxBlock ans={this.props.ms} parentCallback = {this.score}/>
+                        <CheckboxBlock ans={this.props.ms} parentCallback = {score => this.returnScore(score)} />
                     </div>
+                    {/* <button onClick= {this.returnScore}>fjrffrkr </button> */}
                 </div>
             </div>
         )

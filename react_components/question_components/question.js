@@ -20,8 +20,7 @@ export default class QuestionC extends Component {
         this.filterAnswer();
     }
     onTrigger = (event) => {
-        this.filterMarkingScheme()
-        this.props.parentCallback({ms: this.state.filteredMS, ans: this.state.filteredAns})
+        this.props.parentCallback({ans: this.state.filteredAns})
         event.preventDefault();
     }
     filterAnswer = () => {
@@ -71,32 +70,6 @@ export default class QuestionC extends Component {
             last_solved: Date.now()
         }
         return this.state.filteredAns
-    }
-    filterMarkingScheme = () => {
-        const filtered_ans = {};
-        var i = 0;
-        function mark(data) {
-            var list = {};
-            for (let item of data) {
-                if (item['answer'].length) {
-                    list[item['part']] = item['answer']
-                } else {
-                    list[item['part']] = item.subparts;
-                }
-            }
-            var keys  = Object.keys(list);
-            for (let i of keys) {
-                if (list[i] && (typeof list[i][0] == 'string')) {
-                    list[i] = list[i]
-                } else {
-                    list[i] = mark(list[i]);
-                }
-            }
-            return list;
-        }
-        this.state.filteredMS = mark(this.state.marking_scheme)
-        this.state.ans = true;
-        return this.state.filteredMS
     }
     render() {
         this.state.marking_scheme = this.props.q.marking_scheme;

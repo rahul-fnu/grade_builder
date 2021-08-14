@@ -17,12 +17,10 @@ export default class GradingPage extends Component {
         event.preventDefault();
     }
     render() {
-        const keys = Object.keys(this.props.ms);
+        const keys = Object.keys(this.props.ms).sort();
         return (
             <>
                 <div>
-                    {console.log(this.props.ms)}
-                    {console.log(this.props.ans)}
                     {keys.map(key => <GradingPanel ms = {this.props.ms[key]} part={key} ans = {this.props.ans[key]} parentCallback = {this.score}/>)}
                 </div>
                 <button className = {styles.button} onClick= {this.onTrigger}>Save</button>

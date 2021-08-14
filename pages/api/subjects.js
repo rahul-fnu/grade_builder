@@ -1,7 +1,7 @@
-import dbConnect from '../../utils/dbConnect';
+import db_connect from '../../utils/db_connect';
 import Subject from '../../models/Subject';
 
-dbConnect();
+db_connect();
 
 export default async (req, res) => {
     const { method } = req;
