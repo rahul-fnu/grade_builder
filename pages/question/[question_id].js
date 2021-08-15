@@ -13,6 +13,7 @@ function withAuth(Component) {
     return function WrappedComponent(props) {
       const router = useRouter();
       const auth = useAuth(props.initialAuth);
+    //   console.log(auth)
       const question = props.question
       const {logout} = useAuthFunctions();
       return <Component {...props} auth={auth} logout = {logout} question = {question}  router = {router}/>;
@@ -22,7 +23,8 @@ export class Question extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            question: this.props.question
+            question: this.props.question,
+            email : this.props.email
         }
         this.auth = props.auth
         this.logout = props.logout
@@ -31,7 +33,6 @@ export class Question extends Component{
     render() {
         return (
             <>
-                {console.log(this.state.question)}
                 <NavigationBar logout = {this.logout}></NavigationBar>
                 <Header q = {this.state.question}></Header>
                 <NavTabs ques = {this.state.question}></NavTabs>
