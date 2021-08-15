@@ -35,7 +35,7 @@ export class SubjectPage extends Component {
             questions: this.questions,
             yearly : {},
             topical : {},
-            lists : []
+            groupBy: "YEAR"
         }
     }
     arrangeQuestions() {
@@ -100,11 +100,19 @@ export class SubjectPage extends Component {
                     <br />
                     <div class="container">
                         <div class = "row">
-                            <button onClick={() => this.state.lists = this.TopicalList}>Arrange Topically</button>
-                            <button onClick={() => this.state.lists = this.YearlyList}>Arrange Yearly</button>
+                            <button onClick={() => this.updateGroupBy("TOPIC")}>Arrange Topically</button>
+                            <button onClick={() => this.updateGroupBy("YEAR")}>Arrange Yearly</button>
                         </div>
                          <div class="row">
-                            {this.state.lists}
+                            {this.state.groupBy == "YEAR" ?
+                                Object.keys(this.state.yearly).map(key => 
+                                    <QuestionList key={key} title={key} question={this.state.yearly[key]} />
+                                )
+                                :
+                                Object.keys(this.state.topical).map(key => 
+                                    <QuestionList key={key} title={key} question={this.state.topical[key]} />
+                                )
+                            }
                         </div>
                     </div>
                 </main>
