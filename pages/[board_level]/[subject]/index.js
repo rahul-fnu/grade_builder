@@ -1,78 +1,119 @@
 import Head from 'next/head'
 import styles from '../../../styles/Subject.module.css'
 import { useRouter } from 'next/router'
-import QuestionCard from './question_card';
 import { Component } from 'react';
 import axios from 'axios';
+import QuestionList from '../../../react_components/subject_page_components/question_list';
+import Header from '../../../react_components/subject_page_components/header_card'
+// import GridList from '@material-ui/GridList';
 import {
     useAuth,
     getServerSideAuth,
     useAuthFunctions
   } from "../../../auth";
-  function withAuth(Component) {
+function withAuth(Component) {
     return function WrappedComponent(props) {
       const router = useRouter();
       const auth = useAuth(props.initialAuth);
+      const question = props.question
       const {logout} = useAuthFunctions();
-      return <Component {...props} auth={auth} login = {logout} router = {router}/>;
+      return <Component {...props} auth={auth} login = {logout} question = {question}  subject = {props.subject} board_level = {props.board_level} router = {router}/>;
     }
   }
 export class SubjectPage extends Component {
     constructor(props) {
         super(props)
-        this.questions = this.props.qs
+        this.questions = props.question
         this.questionList = <Component></Component>
         this.auth = props.auth
         this.logout = props.logout
         this.router = props.router
+        this.subject = props.subject
+        this.state = {
+            questions: this.questions,
+            yearly : {},
+            topical : {},
+            lists : []
+        }
     }
-
-    sortQuestions = (type) => {
-        this.questions = this.props.qs.sort((a, b) => {
-            if (a[type] > b[type]) {
-                return 1;
-            } else if (a[type] < b[type]) {
-                return -1;
+    // sortQuestions = (type) => {
+    //     this.questions = this.props.qs.sort((a, b) => {
+    //         if (a[type] > b[type]) {
+    //             return 1;
+    //         } else if (a[type] < b[type]) {
+    //             return -1;
+    //         } else {
+    //             return 0;
+    //         }
+    //     });
+    //     this.setState({state: this.state})  // This line forces React to rerender the page
+    // }
+    arrangeQuestions() {
+        const topics = {}
+        const sessions = {}
+        for (let question of this.state.questions) {
+            if ((Object.keys(sessions).length  > 0) && (Object.keys(sessions).includes(question.exam_period))) {
+                sessions[question.exam_period].add(question);
+            } else if ((Object.keys(sessions).length  > 0) && !(Object.keys(sessions).includes(question.exam_period))) {
+                sessions[question.exam_period] = new Set();
+                sessions[question.exam_period].add(question);
             } else {
-                return 0;
+                sessions[question.exam_period] = new Set();
+                sessions[question.exam_period].add(question);
             }
-        });
-
-        this.setState({state: this.state})  // This line forces React to rerender the page
+            for (let topic of question.topics) {
+                if ((Object.keys(topics).length  > 0) && (Object.keys(topics).includes(topic))) {
+                    topics[topic].add(question);
+                } else if ((Object.keys(topics).length  > 0) && !(Object.keys(topics).includes(topic))) {
+                    topics[topic] = new Set();
+                    topics[topic].add(question);
+                } else {
+                    topics[topic] = new Set();
+                    topics[topic].add(question);
+                }
+            }
+        }
+        this.state.topical = topics;
+        this.state.yearly = sessions;
     }
-
+    
     render() {
-        
-        this.questionList = <div className={styles.grid}>
-            {/* If question list is empty display not found message */}
-            {!this.questions ? 
-            <h2>No questions found</h2> : 
-            this.questions.map(question => {
-                return <a href={`/question/${question._id}`}>
-                    <QuestionCard q={question} key={question._id} />
-                </a>
-            })}
-        </div>
-
+        var subject = this.props.subject.charAt(0).toUpperCase() + this.props.subject.slice(1);
+        this.YearlyList = Object.keys(this.state.yearly).map(key => {
+            return (
+                <QuestionList title={key} question={this.state.yearly[key]} />
+            )
+        })
+        this.TopicalList = Object.keys(this.state.topical).map(key => {
+            return (
+                <QuestionList title={key} question={this.state.topical[key]} />
+            )
+        })
+        // this.setState({list : this.TopicalList})
+        this.state.lists = this.YearlyList
         return (
-            <div className={styles.container}>
+            <div className={styles}>
                 <Head>
-                    <title>{`${this.props.blevel} ${this.props.sname}`}</title>
+                    <title>{`${this.props.board_level} ${subject}`}</title>
                     <meta name='description' content='Generated by Saif the human' />
                     <link rel='icon' href='/favicon.ico' />
+                    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
+                    
                 </Head>
                 <main className={styles.main}>
-                    <h1 className={styles.title}>Subject page</h1>
+                    <Header subject = {subject} />
+                    {this.arrangeQuestions()}
                     <br />
                     <button onClick={() => this.logout()}>Log out</button>
-                    <span>
-                        Sort by:&nbsp;
-                        <button onClick={() => this.sortQuestions("date")}>Date</button>
-                        <button onClick={() => this.sortQuestions("subject")}>Subject</button>
-                        <button onClick={() => this.sortQuestions("difficulty")}>Difficulty</button>
-                        <button onClick={() => this.sortQuestions("question_number")}>Question Number</button>
-                    </span>
-                    {this.questionList}
+                    <div class="container">
+                        <div class = "row">
+                            <button onClick={() => this.state.lists = this.TopicalList}>Arrange Topically</button>
+                            <button onClick={() => this.state.lists = this.YearlyList}>Arrange Yearly</button>
+                        </div>
+                         <div class="row">
+                            {this.state.lists}
+                        </div>
+                    </div>
                 </main>
             </div>
         );
@@ -81,67 +122,22 @@ export class SubjectPage extends Component {
 const subjectPageWithAuth = withAuth(SubjectPage)
 export const getServerSideProps = async (context) => {
     const initialAuth = getServerSideAuth(context.req);
-    // const query = querify(ctx.query);
-    const { subject_name, board_level } = query;
+    const params = context.resolvedUrl.split('/')
+    const board_level = params[1];
+    const subject_name = params[2];
     console.log(subject_name)
-    console.log(board_level)
-    const question = await axios({
-        method: 'GET',
-        url: '/api/questions',
-        params: { subject : subject_name, board_level : board_level }
+    const questions = {
+        subject: subject_name
+    }
+    const data = await axios({
+        method: 'POST',
+        url: 'http://127.0.0.1:3000/api/questions',
+        data: {
+           data: questions,
+           operation: "GET"
+         }
     })
-    return { props: {auth : initialAuth, subject : subject_name, board_level :  board_level, question : question.data}};
+    return { props: {auth : initialAuth, subject : subject_name, board_level :  board_level, question : data.data.data}};
 };
-function query() {
-    const router = useRouter();
-    const params = router.query;
-    return params;
-}
+
 export default subjectPageWithAuth;
-// export default function Subject({ questions }) {
-//     const router = useRouter();
-//     const { subject_name, board_level } = router.query;
-//     return <SubjectPage blevel={board_level} sname={subject_name} qs={questions} />
-// }
-
-// Subject.getInitialProps = async (ctx) => {
-//     const query = querify(ctx.query);
-
-//     const res = await fetch(`http://${ctx.req.headers.host}/api/questions?${query}`);
-//     const questions = (await res.json()).data
-
-//     return {
-//         questions: (questions ? questions : [])
-//     }
-// }
-
-// /**
-//  * The following is a function that converts the arguments passed through
-//  * the next js dynamic path generator into a proper http query. This is
-//  * made mainly for interacting with the database api
-//  */
-// export function querify(stuff) {
-//     if (stuff.params) {
-//         stuff.params.forEach(e => {
-//             if (Number(e)) {
-//                 stuff.component_region = e;
-//             } else if (/\d+/.test(e)) {
-//                 stuff.exam_period = e;
-//             } else {
-//                 if (!stuff.topics) {
-//                     stuff.topics = [];
-//                 }
-//                 stuff.topics.push(e);
-//             }
-//         });
-//         delete stuff.params;
-//     }
-
-
-//     var esc = encodeURIComponent;
-//     var query = Object.keys(stuff)
-//         .map(k => esc(k) + '=' + esc(stuff[k]))
-//         .join('&');
-
-//     return query;
-// }

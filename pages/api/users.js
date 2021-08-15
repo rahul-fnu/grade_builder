@@ -17,6 +17,7 @@ export default async (req, res) => {
             break;
         case 'POST':
             try {
+                console.log(req)
                 if (req.body.operation === "CREATE") {
                     const user = await UserData.create(req.body.data);
                     res.status(200).json({success: true, data: user});

@@ -9,7 +9,7 @@ async function db_connect() {
     const db = await mongoose.connect("mongodb+srv://rahul:test1234@questions.p81ox.mongodb.net/GradeBuilder?retryWrites=true&w=majority", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        serverSelectionTimeoutMS: 1000, 
+        serverSelectionTimeoutMS: 1000000, 
     });
     connection.isConnected = db.connections[0].readyState;
     

@@ -3,7 +3,7 @@ import {Component} from 'react';
 import axios from 'axios';
 import { useRouter } from "next/router";
 
-import styles from '../styles/Dashboard.module.css';
+import styles from '../styles/Home.module.css';
 import {
     useAuth,
     getServerSideAuth,
@@ -69,31 +69,28 @@ export class HomePage extends Component {
     render(){
       return (
         <div className={styles.container}>
-            <main className={styles.main}>
-                <button type="button" onClick={() => this.logout()}>
-                    sign out
-                  </button>
-                {/* <NavigationBar></NavigationBar><br/> */}
-                <div className={styles.grid}>
-                    <a className={styles.card}>
-                        {this.displaySubjectStats('physics')}
-                    </a>
+<main className={styles.main}>
+{/* <NavigationBar></NavigationBar><br/> */}
+<button onClick={() => this.logout()} className  = "float-right">Sign out</button>
+<div className={styles.grid}>
+<a href="http://localhost:3000/dashboard" className={styles.card}>
+{this.displaySubjectStats('physics')}
+</a>
 
-                    <a className={styles.card}>
-                        {this.displaySubjectStats('chemistry')}
-                    </a>
-                </div>
-                <div className={styles.grid}>
-                    <a className={styles.card}>
-                        {this.displaySubjectStats('maths')}
-                    </a>
+<a href="http://localhost:3000/dashboard" className={styles.card}>
+{this.displaySubjectStats('chemistry')}
+</a>
 
-                    <a className={styles.card}>
-                        {this.displaySubjectStats('economics')}
-                    </a>
-                </div>
-            </main>
-        </div>
+<a href="http://localhost:3000/dashboard" className={styles.card}>
+{this.displaySubjectStats('maths')}
+</a>
+
+<a href="http://localhost:3000/dashboard" className={styles.card}>
+{this.displaySubjectStats('economics')}
+</a>
+</div>
+</main>
+</div>
       );
     }
 }

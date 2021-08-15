@@ -9,9 +9,9 @@ export default async (req, res) => {
         case 'GET':
             try {
                 let questions;
-                if (req.query) {
+                if (req.data) {
                     // TODO pre-process the query
-                    questions = await Question.find(req.query)
+                    questions = await Question.find(req.data)
                 } else {
                     questions = await Question.find({})
                 }
@@ -23,12 +23,22 @@ export default async (req, res) => {
             break;
         case 'POST':
             try {
-                if (req.body.length) {
-                    const questions = await Question.insertMany(req.body);
+                if (req.body.operation === 'CREATE') {
+                    if (req.body.length) {
+                        const questions = await Question.insertMany(req.body);
+                        res.status(200).json({success: true, data: questions});
+                    } else {
+                        const question = await Question.create(req.body);
+                        res.status(200).json({success: true, data: question});
+                    }
+                } else if (req.body.operation === 'GET') {
+                    console.log(req.body.data)
+                    const questions = await Question.find(req.data);
+                    console.log(questions)
+                    console.log("fbjnekrjbk")
                     res.status(200).json({success: true, data: questions});
                 } else {
-                    const question = await Question.create(req.body);
-                    res.status(200).json({success: true, data: question});
+                    res.status(400).json({success: false});
                 }
             } catch (error) {
                 console.log(error)
