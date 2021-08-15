@@ -45,7 +45,20 @@ export class HomePage extends Component {
          })
 
          this.setState({userData : data.data.data[0]});
-     }
+    }
+
+    // loadQuestionData = async () => {
+    //     const questions = {}
+    //     const data = await axios({
+    //         method: 'POST',
+    //         url: '/api/questions',
+    //         data: {
+    //            data: questions,
+    //            operation: "GET"
+    //          }
+    //     })
+    //     this.setState({questions : data});
+    // }
 
     displaySubjectStats = (subject) => {
         // const ab = this.loadUserData({email : this.state.email})
