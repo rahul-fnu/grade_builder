@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { Component } from 'react';
 import axios from 'axios';
 import QuestionList from '../../../react_components/subject_page_components/question_list';
+// import QuestionList from '../../../react_components/'
 import Header from '../../../react_components/subject_page_components/header_card'
 // import GridList from '@material-ui/GridList';
 import {

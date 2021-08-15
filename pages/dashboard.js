@@ -2,6 +2,7 @@ import React from 'react';
 import {Component} from 'react';
 import axios from 'axios';
 import { useRouter } from "next/router";
+import NavigationBar from '../react_components/navbar.js'
 
 import styles from '../styles/Home.module.css';
 import {
@@ -46,34 +47,10 @@ export class HomePage extends Component {
 
          this.setState({userData : data.data.data[0]});
     }
-
-    // loadQuestionData = async () => {
-    //     const questions = {}
-    //     const data = await axios({
-    //         method: 'POST',
-    //         url: '/api/questions',
-    //         data: {
-    //            data: questions,
-    //            operation: "GET"
-    //          }
-    //     })
-    //     this.setState({questions : data});
-    // }
-
     displaySubjectStats = (subject) => {
-        // const ab = this.loadUserData({email : this.state.email})
         this.state.userData.email ? console.log(this.state.userData) : null;
-        // const total = this.props.q ? this.props.q.filter(e => e.subject === subject) : 0;
-
         const solved = this.state.userData.email && this.state.userData.questions_solved > 0 ? this.state.userData.questions_solvedquestions_solved.filter(e => e.subject === subject) : [];
-        return (
-            <div className= {styles.subjectView}>
-                <h3>{subject}</h3>
-                <h4> {solved.length}</h4>
-                {/* <button onClick={this.loadSubjectPage(subject)}>Solve Question</button> */}
-                <button onClick={(e) => this.loadSubjectPage(e, subject)}>Solve Question</button>
-            </div>
-        )
+        return solved.length;
     }
     loadSubjectPage(e, subject) {     
         this.router.replace(`/caie-a-level/${subject}`)
@@ -82,29 +59,63 @@ export class HomePage extends Component {
     render(){
       return (
         <div className={styles.container}>
-<main className={styles.main}>
-{/* <NavigationBar></NavigationBar><br/> */}
-<button onClick={() => this.logout()} className  = "float-right">Sign out</button>
-<div className={styles.grid}>
-<a href="http://localhost:3000/dashboard" className={styles.card}>
-{this.displaySubjectStats('physics')}
-</a>
-
-<a href="http://localhost:3000/dashboard" className={styles.card}>
-{this.displaySubjectStats('chemistry')}
-</a>
-
-<a href="http://localhost:3000/dashboard" className={styles.card}>
-{this.displaySubjectStats('maths')}
-</a>
-
-<a href="http://localhost:3000/dashboard" className={styles.card}>
-{this.displaySubjectStats('economics')}
-</a>
-</div>
-</main>
-</div>
-      );
+          <NavigationBar className={styles.navbar} logout = {this.logout}></NavigationBar>
+          <main className={styles.main}>
+            <h4 className={styles.title}>
+              Welcome to <a style={{color: '#f38200'}}>GradeBuilder</a>
+            </h4>
+            <div className={styles.grid}>
+              <a className={styles.card} onClick={(e) => this.loadSubjectPage(e, "chemistry")}>
+                <h2>Chemistry &rarr;
+                <span className={styles.miniLogo}>
+                    <img src="/chemistry2.jpg"  width={120} height={60} />
+                  </span>
+                </h2>
+                <h4>{this.displaySubjectStats('chemistry')}</h4>
+              </a>
+    
+              <a className={styles.card} onClick={(e) => this.loadSubjectPage(e, "physics")}>
+                <h2>Physics &rarr;
+                <span className={styles.miniLogo}>
+                  <img src="/physics.jpg" alt="Vercel Logo" width={100} height={50} />
+                </span>
+                </h2>
+                <h4>{this.displaySubjectStats('physics')}</h4>
+              </a>
+    
+              <a className={styles.card} onClick={(e) => this.loadSubjectPage(e, "mathematics")}>
+                <h2>Maths &rarr;
+                  <span className={styles.miniLogo}>
+                    <img src="/maths4.jpg"  width={100} height={60} />
+                  </span>
+                </h2>
+                <h4>{this.displaySubjectStats('mathematics')}</h4>
+              </a>
+    
+              <a className={styles.card} onClick={(e) => this.loadSubjectPage(e, 'economics')}>
+                <h2>Economics &rarr;
+                  <span className={styles.miniLogo}>
+                    <img src="/economics.jpg" alt="Vercel Logo" width={100} height={50} />
+                  </span>
+                </h2>
+                <h4>{this.displaySubjectStats('econmics')}</h4>
+              </a>
+            </div>
+    
+            <p className={styles.description}>
+              We know how difficult and expensive it is for students who are studying for their <a className= {styles.link} href='https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-advanced/cambridge-international-as-and-a-levels/'>
+              CAIE A level examinations.</a>
+              Therefore, we have brought to you a platform where you can practice questions and keep track of past papers. 
+              Please make note that the website is still in the testing stage and has some bugs that are being worked out posthaste. 
+              Moreover, new, exciting features shall be added based on user reviews and recommendations.
+            </p>
+          </main>
+    
+          <footer className={styles.footer}>        
+            <a className= {styles.link} href="mailto: gradebuilder1@gmail.com">  Contact Us  </a>
+          </footer>
+        </div>
+      )
     }
 }
 

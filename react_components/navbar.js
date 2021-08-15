@@ -16,7 +16,7 @@ class NavigationBar extends Component {
                     <span className={styles.rightButton}>
                         <button>Home</button>
                         <span>  </span>
-                        <button>Signout</button>
+                        <button onClick={() => {this.props.logout()}}>Signout</button>
                     </span>
                 </a>
           </div>

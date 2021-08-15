@@ -83,7 +83,7 @@ class Login extends Component {
 
             <div className={styles.rightButton}>
                 <React.Fragment>
-                  {this.auth ? <p>Loading...</p> : (
+                  {this.auth ? <p>dghe</p>: (
                   <React.Fragment>
                     <button className= {styles.rectangleButton} type="button" onClick={() => this.login()}>
                       Sign In
@@ -94,7 +94,7 @@ class Login extends Component {
             </div>
           </div>
           <footer className={styles.footer}>
-            <p>Brought to you with ❤️ by Rahul, Alyan, Saif, Eleanor and Zareen.</p>
+            <p>Brought to you with ❤️  by Rahul, Alyan, Saif and Zareen.</p>
           </footer>
 
         </div>
