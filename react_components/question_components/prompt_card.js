@@ -26,8 +26,8 @@ export default class Prompt extends Component {
         var i = 0;
         var ans = "";
         return (
-            <div className = {styles.container}>
-                <div className={styles.prompt_card}> 
+            <div >
+                <div className={styles.card}> 
                     <div className = "row">
                     <span > {`Part ${this.props.p.part}`}</span>   
                     <div className={`pull-right ${styles['right']}`}>
@@ -45,7 +45,7 @@ export default class Prompt extends Component {
                             <TextEditor part = {this.props.p.part} parentCallback = {(part) => this.updateAnswer(part)} />
                         </div>
                     }
-                    <button className={styles.button} onClick = {this.onTrigger}>Save</button>
+                    <button className={styles.rightButton} onClick = {this.onTrigger}>Save</button>
                 </div>
             </div>
         );

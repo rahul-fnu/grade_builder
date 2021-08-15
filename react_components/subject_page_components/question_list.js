@@ -24,7 +24,7 @@ export default class QuestionList extends Component {
                     })
         return ( 
             <div className= {styles.list}>
-                <div id = "h3">
+                <div className= {styles.listHead}>
                     <strong>
                         <center> {this.state.title}</center>
                     </strong>

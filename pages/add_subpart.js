@@ -76,8 +76,8 @@ export default class AddSubpart extends Component {
                     {this.state.tempParts}
                     <button onClick={styles.button} onClick = {this.addImage}>Add Image</button>
                     {this.state.tempImages}
-                    <button className = {styles.button} onClick={this.handleSubpart}>Add Subpart</button>
-                    <button className = {styles.button} onClick={this.save}>Save</button>
+                    <button className = {styles.rightButton} onClick={this.handleSubpart}>Add Subpart</button>
+                    <button className = {styles.rightButton} onClick={this.save}>Save</button>
                 </div>
             </div>
         );

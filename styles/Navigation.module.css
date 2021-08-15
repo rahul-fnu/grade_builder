@@ -1,12 +1,45 @@
-.nav{
+.container {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    height: 100%;
+    background-color: #3E2C41;
+    color: white;
+    border: 1px solid transparent;
     font-family: "Times New Roman", Times, serif;
-    display: inline;
-    border-color: 'white';
-}
-.inline{
-    display: inline-flex;
-}
+    padding-bottom: 35px;
+  }
+  
 
-.right_nav{
+  .logo {
+    height: 1em;
+    float: left;
+  }
+  
+  
+  .miniLogo {
+    height: 1em;
     float: right;
-}
+    background-color: #261C2C;
+  }
+  
+  .rightButton {
+    float: right;
+    text-align: center;
+    padding: 5px;
+    border-radius: 20px;
+  }
+  
+  .navbar {
+    background-color: #261C2C;
+    padding: 0.5em;
+    align-items: center;
+  }
+  
+ 
+  
+ 
+  
+  
