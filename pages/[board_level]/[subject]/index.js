@@ -34,7 +34,7 @@ export class SubjectPage extends Component {
             questions: this.questions,
             yearly : {},
             topical : {},
-            lists : []
+            groupBy: "YEAR"
         }
     }
     // sortQuestions = (type) => {
@@ -77,21 +77,14 @@ export class SubjectPage extends Component {
         this.state.topical = topics;
         this.state.yearly = sessions;
     }
+
+    updateGroupBy(newState) {
+        this.setState({groupBy: newState})
+    }
     
     render() {
         var subject = this.props.subject.charAt(0).toUpperCase() + this.props.subject.slice(1);
-        this.YearlyList = Object.keys(this.state.yearly).map(key => {
-            return (
-                <QuestionList title={key} question={this.state.yearly[key]} />
-            )
-        })
-        this.TopicalList = Object.keys(this.state.topical).map(key => {
-            return (
-                <QuestionList title={key} question={this.state.topical[key]} />
-            )
-        })
-        // this.setState({list : this.TopicalList})
-        this.state.lists = this.YearlyList
+
         return (
             <div className={styles}>
                 <Head>
@@ -108,11 +101,19 @@ export class SubjectPage extends Component {
                     <button onClick={() => this.logout()}>Log out</button>
                     <div class="container">
                         <div class = "row">
-                            <button onClick={() => this.state.lists = this.TopicalList}>Arrange Topically</button>
-                            <button onClick={() => this.state.lists = this.YearlyList}>Arrange Yearly</button>
+                            <button onClick={() => this.updateGroupBy("TOPIC")}>Arrange Topically</button>
+                            <button onClick={() => this.updateGroupBy("YEAR")}>Arrange Yearly</button>
                         </div>
                          <div class="row">
-                            {this.state.lists}
+                            {this.state.groupBy == "YEAR" ?
+                                Object.keys(this.state.yearly).map(key => 
+                                    <QuestionList key={key} title={key} question={this.state.yearly[key]} />
+                                )
+                                :
+                                Object.keys(this.state.topical).map(key => 
+                                    <QuestionList key={key} title={key} question={this.state.topical[key]} />
+                                )
+                            }
                         </div>
                     </div>
                 </main>

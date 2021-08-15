@@ -32,8 +32,7 @@ export default async (req, res) => {
                         res.status(200).json({success: true, data: question});
                     }
                 } else if (req.body.operation === 'GET') {
-                    console.log(req.body.data)
-                    const questions = await Question.find(req.data);
+                    const questions = await Question.find(req.body.data);
                     console.log(questions)
                     console.log("fbjnekrjbk")
                     res.status(200).json({success: true, data: questions});
