@@ -3,7 +3,7 @@ import {Component} from 'react';
 import axios from 'axios';
 import { useRouter } from "next/router";
 
-import styles from '../styles/Dashboard.module.css';
+import styles from '../styles/Home.module.css';
 import {
     useAuth,
     getServerSideAuth,
@@ -45,7 +45,20 @@ export class HomePage extends Component {
          })
 
          this.setState({userData : data.data.data[0]});
-     }
+    }
+
+    // loadQuestionData = async () => {
+    //     const questions = {}
+    //     const data = await axios({
+    //         method: 'POST',
+    //         url: '/api/questions',
+    //         data: {
+    //            data: questions,
+    //            operation: "GET"
+    //          }
+    //     })
+    //     this.setState({questions : data});
+    // }
 
     displaySubjectStats = (subject) => {
         // const ab = this.loadUserData({email : this.state.email})
@@ -70,25 +83,21 @@ export class HomePage extends Component {
       return (
         <div className={styles.container}>
             <main className={styles.main}>
-                <button type="button" onClick={() => this.logout()}>
-                    sign out
-                  </button>
                 {/* <NavigationBar></NavigationBar><br/> */}
                 <div className={styles.grid}>
-                    <a className={styles.card}>
+                    <a href="http://localhost:3000/dashboard" className={styles.card}>
                         {this.displaySubjectStats('physics')}
                     </a>
 
-                    <a className={styles.card}>
+                    <a href="http://localhost:3000/dashboard" className={styles.card}>
                         {this.displaySubjectStats('chemistry')}
                     </a>
-                </div>
-                <div className={styles.grid}>
-                    <a className={styles.card}>
+
+                    <a href="http://localhost:3000/dashboard" className={styles.card}>
                         {this.displaySubjectStats('maths')}
                     </a>
 
-                    <a className={styles.card}>
+                    <a href="http://localhost:3000/dashboard" className={styles.card}>
                         {this.displaySubjectStats('economics')}
                     </a>
                 </div>

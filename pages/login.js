@@ -7,6 +7,9 @@ import {
   useAuthFunctions,
   getServerSideAuth,
 } from "../auth";
+import styles from '../styles/Home.module.css'
+import Image from 'next/image'
+
 
 function withAuth(Component) {
   return function WrappedComponent(props) {
@@ -46,7 +49,8 @@ class Login extends Component {
         data: {
           data: user,
           operation: "GET"
-        }
+        },
+        timeout: 1000000000
       })
       if (checkIfExists.data.data.length > 0) {
         console.log(checkIfExists)
@@ -67,16 +71,32 @@ class Login extends Component {
 
     render(){
       return (
-        <div>
-              <React.Fragment>
-                {this.auth ? <p>Loading...</p> : (
+        <div className={styles.container}>
+          <main className={styles.main}>
+            <span className={styles.mainLogo}>
+              <Image  src="/logo.png" width={200} height={200} />
+            </span>
+          </main>
+        
+          <div className={styles.leftPic}>
+            <Image   src="/Final.jpg" width={450} height={350} />
+
+            <div className={styles.rightButton}>
                 <React.Fragment>
-                  <button type="button" onClick={() => this.login()}>
-                    sign in
-                  </button>
-                </React.Fragment>
+                  {this.auth ? <p>Loading...</p> : (
+                  <React.Fragment>
+                    <button className= {styles.rectangleButton} type="button" onClick={() => this.login()}>
+                      Sign In
+                    </button>
+                  </React.Fragment>
                 )}
-              </React.Fragment>
+                </React.Fragment>
+            </div>
+          </div>
+          <footer className={styles.footer}>
+            <p>Brought to you with ❤️ by Rahul, Alyan, Saif, Eleanor and Zareen.</p>
+          </footer>
+
         </div>
       );
     }
