@@ -22,7 +22,6 @@ export default async (req, res) => {
                     const user = await UserData.create(req.body.data);
                     res.status(200).json({success: true, data: user});
                 } else if (req.body.operation === "GET") {
-                    console.log(req.body)
                     const users = await UserData.find({email : req.body.data.email})
                     res.status(200).json({success: true, data: users})
                 } else {

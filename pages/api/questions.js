@@ -10,12 +10,10 @@ export default async (req, res) => {
             try {
                 let questions;
                 if (req.data) {
-                    // TODO pre-process the query
                     questions = await Question.find(req.data)
                 } else {
                     questions = await Question.find({})
                 }
-                // console.log(req.query)
                 res.status(200).json({success: true, data: questions})
             } catch (error) {
                 res.status(400).json({success: false});
@@ -32,7 +30,6 @@ export default async (req, res) => {
                         res.status(200).json({success: true, data: question});
                     }
                 } else if (req.body.operation === 'GET') {
-                    console.log(req.body)
                     const questions = await Question.find(req.body.data);
                     res.status(200).json({success: true, data: questions});
                 } else {
