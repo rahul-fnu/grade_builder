@@ -13,7 +13,6 @@ function withAuth(Component) {
     return function WrappedComponent(props) {
       const router = useRouter();
       const auth = useAuth(props.initialAuth);
-    //   console.log(auth)
       const question = props.question
       const {logout} = useAuthFunctions();
       return <Component {...props} auth={auth} logout = {logout} question = {question}  router = {router}/>;
@@ -30,12 +29,19 @@ export class Question extends Component{
         this.logout = props.logout
         this.router = props.router
     }
+    updateScore = async (score) => {
+        // const request = await axios({
+        //     url: 'http://127.0.0.1:3000/api/users',
+        //     method: 'POST',
+
+        // })
+    }
     render() {
         return (
             <>
                 <NavigationBar logout = {this.logout}></NavigationBar>
                 <Header q = {this.state.question}></Header>
-                <NavTabs ques = {this.state.question}></NavTabs>
+                <NavTabs ques = {this.state.question} parentCallback = {(score) => this.updateScore(score)}></NavTabs>
             </>
         );
     }

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Checkbox from './checkbox';
 import styles from '../../styles/Question.module.css'
-import NewTextRenderer from './text_renderer_new';
 export default class CheckboxBlock extends Component {
     constructor(props) {
         super(props);
@@ -10,32 +9,30 @@ export default class CheckboxBlock extends Component {
             rubrics: {}
         }
     }
-
     updateRubric(rubric) {
+        const obj = this.state.rubrics;
         if (rubric.correct) {
-            const obj = this.state.rubrics;
             obj[rubric.point_number] = parseInt(rubric.marks);
-            const points = this.calculatePoints(obj);
             this.setState({rubrics: obj});
-            this.setState({points: points});
         } else {
-            const obj = this.state.rubrics;
-            const keys = Object.keys(obj)
             if (Object.keys(obj).includes(rubric.point_number)) {
                 obj[rubric.point_number] = 0;
+                this.setState({rubrics: obj});
             }
-            const points = this.calculatePoints(obj);
-            this.setState({rubrics: obj});
-            this.setState({points: points});
         }
-        this.props.parentCallback(this.state.points);
+        const points = this.calculatePoints(obj) 
+        this.setState({points: points}, () => {
+            const val = this.state.points;
+            this.props.parentCallback(val)
+        })
+
     }
     calculatePoints(points) {
         var sum = 0;
-        for (let val in Object.keys(points)) {
-            sum += parseInt(points[val]);
+        for (let val of Object.values(points)) {
+            sum += parseInt(val);
         }
-        return sum;
+        return sum
     }
     render() {
         return (

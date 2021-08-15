@@ -85,7 +85,7 @@ export default function NavTabs(props) {
     temp.done = true;
     setVal(temp)
   }
-  let grading_component = val.done  ? <GradingPage ans = {val.ans} ms = {val.ms}/> : <p>Please submit your answers</p>
+  let grading_component = val.done  ? <GradingPage ans = {val.ans} ms = {val.ms} parentCallback = {(score) => props.parentCallback(score)} /> : <p>Please submit your answers</p>
   return (
     <div>
       <>

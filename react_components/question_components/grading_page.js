@@ -1,19 +1,37 @@
 import React, {Component} from 'react';
 import GradingPanel from './grading_panel';
 import styles from '../../styles/Question.module.css';
-
 export default class GradingPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            score : 0
+            score : {},
+            points : 0
         }
     }
-    score = (score) => {
-        this.setState({score: this.state.score + score.score})
+    updateScore = (key, value) => {
+        const newScore = this.state.score
+        newScore[key] = value
+        this.setState({score: newScore}, () => {
+            const points = this.calculatePoints(this.state.score);
+            this.setState({points: points}, () => {
+            })
+        });
+    }
+    calculatePoints = (score) => {
+        var total = 0;
+        const keys = Object.keys(score);
+        for (var key of keys) {
+            if (typeof score[key] === 'number') {
+                total += score[key];
+            } else {
+                total += this.calculatePoints(score[key]);
+            }
+        }
+        return total;
     }
     onTrigger = (event) => {
-        console.log(this.state.score);
+        console.log(this.props.parentCallback(event));
         event.preventDefault();
     }
     render() {
@@ -21,7 +39,7 @@ export default class GradingPage extends Component {
         return (
             <>
                 <div>
-                    {keys.map(key => <GradingPanel ms = {this.props.ms[key]} part={key} ans = {this.props.ans[key]} parentCallback = {this.score}/>)}
+                    {keys.map(key => <GradingPanel ms = {this.props.ms[key]} part={key} ans = {this.props.ans[key]} parentCallback = {(score) => this.updateScore(key, score)}/>)}
                 </div>
                 <button className = {styles.button} onClick= {this.onTrigger}>Save</button>
             </>
