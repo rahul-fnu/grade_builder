@@ -73,15 +73,15 @@ export default class QuestionC extends Component {
         this.state.prompts = this.props.q.content.map(prompt => <Prompt parentCallback = {this.answers} p = {prompt}/>);
         return (
             <>
-                <div>
+                <div className= {styles.paper}>
                     <br/>
-                    {(this.props.q.text) ? <NewTextRenderer content={this.props.q.text}/> : ""}
+                    {(this.props.q.text) ? <NewTextRenderer className= {styles.paper}  content={this.props.q.text}/> : ""}
                     <br />
-                    {(!this.props.q.images)  == 0 ? <ImageRender images={this.props.q.images}/>:null}
+                    {(!this.props.q.images)  == 0 ? <ImageRender className= {styles.paper} images={this.props.q.images}/>:null}
                     <br />
                     {this.state.prompts}
+                    <button className={styles.rightButton} onClick= {this.onTrigger}>Save</button>
                 </div>
-                <button className={styles.button} onClick= {this.onTrigger}>Save</button>
             </>
         )
     }

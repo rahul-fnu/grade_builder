@@ -72,18 +72,28 @@ class Login extends Component {
     render(){
       return (
         <div className={styles.container}>
-          <main className={styles.main}>
-            <span className={styles.mainLogo}>
+          <span className={styles.mainLogo}>
               <Image  src="/logo.png" width={200} height={200} />
             </span>
-          </main>
         
           <div className={styles.leftPic}>
-            <Image   src="/Final.jpg" width={450} height={350} />
-
+          <br/>
+               <br/>
+               <br/>
+               <br/>
+               <br/>
+               <br/>
+            <Image   src="/1.png" width={550} height={450} />
             <div className={styles.rightButton}>
+               <br/>
+               <br/>
+               <br/>
+               <br/>
+               <br/>
+               <br/>
+
                 <React.Fragment>
-                  {this.auth ? <p>dghe</p>: (
+                  {this.auth ? <p></p>: (
                   <React.Fragment>
                     <button className= {styles.rectangleButton} type="button" onClick={() => this.login()}>
                       Sign In
@@ -94,9 +104,8 @@ class Login extends Component {
             </div>
           </div>
           <footer className={styles.footer}>
-            <p>Brought to you with ❤️  by Rahul, Alyan, Saif and Zareen.</p>
+            <a>Brought to you with ❤️  by Rahul, Alyan, Saif and Zareen.</a><br/>
           </footer>
-
         </div>
       );
     }

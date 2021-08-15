@@ -23,7 +23,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
+        <Box  p={3}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -89,13 +89,13 @@ export default function NavTabs(props) {
   let grading_component = val.done ? <GradingPage ans = {val.ans} ms = {val.ms}/> : <p>Please submit your answers first</p>
   return (
     <div>
-      <AppBar position="static">
+      <AppBar  position="static">
         <Tabs
           variant="fullWidth"
           value={value}
           onChange={handleChange}
           aria-label="nav tabs example"
-          //className={styles.tab}
+          className={styles.colour}
         >
           <Tab style={{border: "1.5px solid black"} } label="Question"{...index(0)} />
           <Tab style={{border: "1.5px solid black"} } label="Grade Here" {...index(1)} />

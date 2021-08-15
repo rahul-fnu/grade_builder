@@ -10,6 +10,8 @@ import {
     getServerSideAuth,
     useAuthFunctions
   } from "../../auth";
+import styles from '../../styles/Question.module.css';
+
 function withAuth(Component) {
     return function WrappedComponent(props) {
       const router = useRouter();
@@ -32,9 +34,11 @@ export class Question extends Component{
     render() {
         return (
             <>
+                <div className={styles.container}>
                 <NavigationBar logout = {this.logout}></NavigationBar>
                 <Header q = {this.state.question}></Header>
                 <NavTabs ques = {this.state.question}></NavTabs>
+                </div>
             </>
         );
     }

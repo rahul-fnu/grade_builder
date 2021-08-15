@@ -19,8 +19,8 @@ export default class Subpart extends Component {
     };
     render() {
         return (
-            <div className = {styles.container}>
-                <div className={styles.subpart_card}>
+            <div>
+                <div className={styles.card}>
                     <span>{`Part ${this.props.s.part}:`}</span>
                     <div className={`pull-right ${styles['right']}`}>
                         <span> {`Points: ${this.props.s.marks}`}</span>
