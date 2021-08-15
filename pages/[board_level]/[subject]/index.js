@@ -72,6 +72,9 @@ export class SubjectPage extends Component {
         console.log(this.router.query)
         this.router.replace(`question/${question_id}`);
     }
+    updateGroupBy(newState) {
+        this.setState({groupBy: newState})
+    }
     render() {
         var subject = this.props.subject.charAt(0).toUpperCase() + this.props.subject.slice(1);
         
@@ -114,12 +117,10 @@ export class SubjectPage extends Component {
 const subjectPageWithAuth = withAuth(SubjectPage)
 export const getServerSideProps = async (context) => {
     const initialAuth = getServerSideAuth(context.req);
-    const params = context.resolvedUrl.split('/')
-    const board_level = params[1];
-    const subject_name = params[2];
-    console.log(subject_name)
+    const {board_level, subject} = context.query
+    console.log(subject)
     const questions = {
-        subject: subject_name
+        subject: subject
     }
     const data = await axios({
         method: 'POST',
@@ -129,7 +130,7 @@ export const getServerSideProps = async (context) => {
            operation: "GET"
          }
     })
-    return { props: {auth : initialAuth, subject : subject_name, board_level :  board_level, question : data.data.data}};
+    return { props: {auth : initialAuth, subject : subject, board_level :  board_level, question : data.data.data}};
 };
 
 export default subjectPageWithAuth;
