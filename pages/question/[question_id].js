@@ -1,7 +1,6 @@
 import Header from '../../react_components/question_components/header_card';
 import NavTabs from '../../react_components/question_components/question_header';
 import { Component } from 'react';
-
 import { useRouter } from 'next/router'
 import axios from 'axios';
 import NavigationBar from '../../react_components/navbar'
@@ -32,6 +31,7 @@ export class Question extends Component{
     render() {
         return (
             <>
+                {console.log(this.state.question)}
                 <NavigationBar logout = {this.logout}></NavigationBar>
                 <Header q = {this.state.question}></Header>
                 <NavTabs ques = {this.state.question}></NavTabs>
@@ -43,10 +43,10 @@ export class Question extends Component{
 const questionWithAuth = withAuth(Question)
 export const getServerSideProps = async (context) => {
     const initialAuth = getServerSideAuth(context.req);
-    const {type, id} = context.query
-    console.log(id)
+    const {type, question_id} = context.query
+    console.log(type)
     const question = {
-        _id: id
+       _id: question_id
     }
     const data = await axios({
         method: 'POST',
@@ -56,6 +56,7 @@ export const getServerSideProps = async (context) => {
            operation: "GET"
          }
     })
+    console.log(data)
     return { props: {auth : initialAuth, question : data.data.data[0]}};
 };
 

@@ -69,6 +69,7 @@ export default class QuestionC extends Component {
         return this.state.filteredAns
     }
     render() {
+        
         this.state.marking_scheme = this.props.q.marking_scheme;
         this.state.prompts = this.props.q.content.map(prompt => <Prompt parentCallback = {this.answers} p = {prompt}/>);
         return (
@@ -86,14 +87,3 @@ export default class QuestionC extends Component {
         )
     }
 }
-
-// QuestionC.getInitialProps = async (ctx) => {
-//     const res = await fetch(`http://${ctx.req.headers.host}/api/attempts?_id=${ctx.query.question_id}`);
-//     const question = (await res.json()).data[0] // Make this an array in the future for better functionality
-//     const initAns = cookies(res).answers;
-//     console.log(12333)
-//     return {
-//         question: question,
-//         answers: initAns || {}
-//     }
-// }
