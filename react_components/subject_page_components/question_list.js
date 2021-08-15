@@ -10,11 +10,16 @@ export default class QuestionList extends Component {
         }
     }
     render() {
+    const loadQuestionPage = (e, question_id) => {
+        this.props.parentCallback(question_id)
+        console.log(question_id)
+        e.preventDefault()
+    }
         this.questionList = !this.state.questions ? 
             <h2>No questions found</h2> : Array.from(this.state.questions).map(
                 question => {
-                        return <a href={`/question/${question._id}`}>
-                            <QuestionCard q={question} key={question._id} />
+                        return <a onClick={(e) => loadQuestionPage(e, question._id)}>
+                            <QuestionCard q={question} />
                         </a>
                     })
         return ( 
