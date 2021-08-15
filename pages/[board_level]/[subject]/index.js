@@ -74,16 +74,7 @@ export class SubjectPage extends Component {
     }
     render() {
         var subject = this.props.subject.charAt(0).toUpperCase() + this.props.subject.slice(1);
-        this.YearlyList = Object.keys(this.state.yearly).map(key => {
-            return (
-                <QuestionList title={key} question={this.state.yearly[key]} parentCallback = {(question_id) => this.loadQuestionPage(question_id)} />
-            )
-        })
-        this.TopicalList = Object.keys(this.state.topical).map(key => {
-            return (
-                <QuestionList title={key} question={this.state.topical[key]} parentCallback = {(question_id) => this.loadQuestionPage(question_id)} />
-            )
-        })
+        
         this.state.lists = this.YearlyList
         return (
             <div className={styles}>
@@ -106,11 +97,11 @@ export class SubjectPage extends Component {
                          <div class="row">
                             {this.state.groupBy == "YEAR" ?
                                 Object.keys(this.state.yearly).map(key => 
-                                    <QuestionList key={key} title={key} question={this.state.yearly[key]} />
+                                    <QuestionList key={key} title={key} question={this.state.yearly[key]}  parentCallback = {(question_id) => this.loadQuestionPage(question_id)} />
                                 )
                                 :
                                 Object.keys(this.state.topical).map(key => 
-                                    <QuestionList key={key} title={key} question={this.state.topical[key]} />
+                                    <QuestionList key={key} title={key} question={this.state.topical[key]}  parentCallback = {(question_id) => this.loadQuestionPage(question_id)}  />
                                 )
                             }
                         </div>
