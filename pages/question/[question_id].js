@@ -37,6 +37,7 @@ export class Question extends Component{
         //     method: 'POST',
 
         // })
+
     }
     render() {
         return (
@@ -67,6 +68,7 @@ export const getServerSideProps = async (context) => {
            operation: "GET"
          }
     })
+    // git
     console.log(data)
     return { props: {auth : initialAuth, question : data.data.data[0]}};
 };
