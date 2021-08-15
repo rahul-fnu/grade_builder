@@ -1,20 +1,63 @@
 import Header from '../../react_components/question_components/header_card';
 import NavTabs from '../../react_components/question_components/question_header';
+import { Component } from 'react';
 
-export default function Question({ question }) {
-    return (
-        <>
-            <Header q = {question}></Header>
-            <NavTabs ques = {question}></NavTabs>
-        </>
-    );
-}
-
-
-Question.getInitialProps = async (ctx) => {
-    const res = await fetch(`http://${ctx.req.headers.host}/api/questions?_id=${ctx.query.question_id}`);
-    const question = (await res.json()).data[0] // Make this an array in the future for better functionality
-    return {
-        question: question
+import { useRouter } from 'next/router'
+import axios from 'axios';
+import NavigationBar from '../../react_components/navbar'
+import {
+    useAuth,
+    getServerSideAuth,
+    useAuthFunctions
+  } from "../../auth";
+function withAuth(Component) {
+    return function WrappedComponent(props) {
+      const router = useRouter();
+      const auth = useAuth(props.initialAuth);
+      const question = props.question
+      const {logout} = useAuthFunctions();
+      return <Component {...props} auth={auth} logout = {logout} question = {question}  router = {router}/>;
+    }
+  }
+export class Question extends Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            question: this.props.question
+        }
+        this.auth = props.auth
+        this.logout = props.logout
+        this.router = props.router
+    }
+    render() {
+        return (
+            <>
+                <NavigationBar logout = {this.logout}></NavigationBar>
+                <Header q = {this.state.question}></Header>
+                <NavTabs ques = {this.state.question}></NavTabs>
+            </>
+        );
     }
 }
+
+const questionWithAuth = withAuth(Question)
+export const getServerSideProps = async (context) => {
+    const initialAuth = getServerSideAuth(context.req);
+    const {type, id} = context.query
+    console.log(id)
+    const question = {
+        _id: id
+    }
+    const data = await axios({
+        method: 'POST',
+        url: 'http://127.0.0.1:3000/api/questions',
+        data: {
+           data: question,
+           operation: "GET"
+         }
+    })
+    return { props: {auth : initialAuth, question : data.data.data[0]}};
+};
+
+export default questionWithAuth;
+

@@ -53,7 +53,7 @@ export class HomePage extends Component {
         return solved.length;
     }
     loadSubjectPage(e, subject) {     
-        this.router.replace(`/caie-a-level/${subject}`)
+        this.router.push(`/caie-a-level/${subject}`)
         e.preventDefault()   
     }
     render(){
