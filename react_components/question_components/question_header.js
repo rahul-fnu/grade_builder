@@ -57,6 +57,7 @@ export default function NavTabs(props) {
     function filtered(data) {
       // console.log(data)
       const list = {}
+      if (!data) return list;
       for (let item of data) {
         if (item.subpart) {
           list[item.part] = filtered(item.subpart);
@@ -71,7 +72,6 @@ export default function NavTabs(props) {
     var abc = filtered(ms)
     ms = abc;
     // this.setState({filteredMS : mark(this.state.marking_scheme)});
-
     return abc;
   }
   filter()
@@ -85,32 +85,33 @@ export default function NavTabs(props) {
     temp.done = true;
     setVal(temp)
   }
-
-  let grading_component = val.done ? <GradingPage ans = {val.ans} ms = {val.ms}/> : <p>Please submit your answers first</p>
+  let grading_component = val.done  ? <GradingPage ans = {val.ans} ms = {val.ms}/> : <p>Please submit your answers</p>
   return (
     <div>
-      <AppBar  position="static">
-        <Tabs
-          variant="fullWidth"
-          value={value}
-          onChange={handleChange}
-          aria-label="nav tabs example"
-          className={styles.colour}
-        >
-          <Tab style={{border: "1.5px solid black"} } label="Question"{...index(0)} />
-          <Tab style={{border: "1.5px solid black"} } label="Grade Here" {...index(1)} />
-          <Tab style={{border: "1.5px solid black"} } label="Marking Scheme"{...index(2)} />
-        </Tabs>
-      </AppBar>
-      <TabPanel value={value} index={0}>
-        <QuestionC q = {props.ques} parentCallback = {grade}></QuestionC>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        {grading_component}
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <MarkingScheme q = {ms}></MarkingScheme>
-      </TabPanel>
-    </div>
-  );
+      <>
+          <AppBar position="static">
+          <Tabs
+            variant="fullWidth"
+            value={value}
+            onChange={handleChange}
+            aria-label="nav tabs example"
+            className={styles.colour}
+          >
+            <Tab style={{border: "1.5px solid black"} } label="Question"{...index(0)} />
+            <Tab style={{border: "1.5px solid black"} } label="Grade Here" {...index(1)} />
+            <Tab style={{border: "1.5px solid black"} } label="Marking Scheme"{...index(2)} />
+          </Tabs>
+        </AppBar>
+        <TabPanel value={value} index={0}>
+          <QuestionC q = {props.ques} parentCallback = {grade}></QuestionC>
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          {grading_component}
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <MarkingScheme q = {ms}> </MarkingScheme>
+        </TabPanel>
+    </>
+  </div>
+  )
 }

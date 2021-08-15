@@ -13,27 +13,27 @@ export default class CheckboxBlock extends Component {
 
     updateRubric(rubric) {
         if (rubric.correct) {
-            // console.log(rubric)
             const obj = this.state.rubrics;
-            obj[rubric.point_number] = rubric.marks;
+            obj[rubric.point_number] = parseInt(rubric.marks);
+            const points = this.calculatePoints(obj);
             this.setState({rubrics: obj});
-        } else {///
+            this.setState({points: points});
+        } else {
             const obj = this.state.rubrics;
-            if (obj.point_number) {
-                delete obj.point_number;
+            const keys = Object.keys(obj)
+            if (Object.keys(obj).includes(rubric.point_number)) {
+                obj[rubric.point_number] = 0;
             }
+            const points = this.calculatePoints(obj);
             this.setState({rubrics: obj});
+            this.setState({points: points});
         }
-        // this.setState({points : this.calculatePoints(this.state.rubrics)})
-        const points = this.calculatePoints(this.state.rubrics);
-        console.log(points)
         this.props.parentCallback(this.state.points);
     }
     calculatePoints(points) {
-        let sum = 0;
-        for (let val in Object.values(points)) {
-            console.log(val)
-            sum += parseInt(val)
+        var sum = 0;
+        for (let val in Object.keys(points)) {
+            sum += parseInt(points[val]);
         }
         return sum;
     }

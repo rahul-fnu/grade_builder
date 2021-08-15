@@ -71,7 +71,7 @@ export class SubjectPage extends Component {
 
     }
     loadQuestionPage(question_id) {
-        console.log(this.router.query)
+        console.log(question_id)
         this.router.push(`/question/${question_id}`);
     }
     updateGroupBy(newState) {
