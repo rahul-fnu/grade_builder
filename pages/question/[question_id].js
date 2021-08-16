@@ -56,7 +56,7 @@ export class Question extends Component{
         const newData = {...this.userData, questions_solved : questions_solved}
         axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded'
         const request = await axios({
-            url: 'http://127.0.0.1:3000/api/users',
+            url: '../api/users',
             method: 'POST',
             data: {
                 operation: 'UPDATE',
@@ -105,7 +105,7 @@ export const getServerSideProps = async (context) => {
     }
     const userData = await axios({
         method: 'POST',
-        url: 'http://127.0.0.1:3000/api/users',
+        url: '../api/users',
         data: {
             data: userInfo,
             operation: 'GET'

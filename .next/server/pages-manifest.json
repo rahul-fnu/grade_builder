@@ -1,0 +1,14 @@
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
+  "/add_paper": "pages/add_paper.js",
+  "/token": "pages/token.js",
+  "/api/questions": "pages/api/questions.js",
+  "/dashboard": "pages/dashboard.js",
+  "/api/users": "pages/api/users.js",
+  "/[board_level]/[subject]": "pages/[board_level]/[subject].js",
+  "/login": "pages/login.js",
+  "/question/[question_id]": "pages/question/[question_id].js"
+}
