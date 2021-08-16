@@ -25,7 +25,6 @@ export class HomePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: props.auth.idTokenData.email,
             userData: {},
         }
         if (this.props.auth) {
@@ -60,14 +59,21 @@ export class HomePage extends Component {
         this.router.push(`/caie-a-level/${subject}`)
         e.preventDefault()   
     }
+    loadLoginPage(e) { 
+      this.router.replace('/');
+      e.preventDefault()
+    }
     render(){
       return (
+        <>
+        {!this.props.auth ? <p>Please Login First</p> :
         <div className={styles.container}>
           <NavigationBar className={styles.navbar} logout = {this.logout} parentCallback = {() => this.router.push('/dashboard')}></NavigationBar>
           <main className={styles.main}>
             <h4 className={styles.title}>
               Welcome to <a style={{color: '#f38200'}}>GradeBuilder</a>
             </h4>
+
             <div className={styles.grid}>
               <a className={styles.card} onClick={(e) => this.loadSubjectPage(e, "chemistry")}>
                 <h2>Chemistry &rarr;
@@ -118,7 +124,8 @@ export class HomePage extends Component {
           <footer className={styles.footer}>        
             <a className= {styles.link} href="mailto: gradebuilder1@gmail.com">  Contact Us  </a>
           </footer>
-        </div>
+        </div>}
+        </>
       )
     }
 }

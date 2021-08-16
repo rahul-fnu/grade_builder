@@ -73,11 +73,13 @@ export class Question extends Component{
     render() {
         return (
             <>
+            {!this.props.auth ? <p>Please Login First</p> :
                 <div className={styles.container}>
                     <NavigationBar logout = {this.logout} parentCallback = {() => this.router.push('/dashboard')}></NavigationBar>
                     <Header q = {this.state.question}></Header>
                     <NavTabs ques = {this.state.question} parentCallback = {(score) => this.updateScore(score)}></NavTabs>
                 </div>
+            }       
             </>
         );
     }
