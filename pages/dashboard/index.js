@@ -37,7 +37,7 @@ export class HomePage extends Component {
     loadUserData = async (user) => {
          const data = await axios({
              method: 'POST',
-             url: '/api/users',
+             url: 'http://localhost:3000/api/users',
              data: {
                 data: user,
                 operation: "GET"
@@ -63,7 +63,7 @@ export class HomePage extends Component {
     render(){
       return (
         <div className={styles.container}>
-          <NavigationBar className={styles.navbar} logout = {this.logout}></NavigationBar>
+          <NavigationBar className={styles.navbar} logout = {this.logout} parentCallback = {() => this.router.push('/dashboard')}></NavigationBar>
           <main className={styles.main}>
             <h4 className={styles.title}>
               Welcome to <a style={{color: '#f38200'}}>GradeBuilder</a>

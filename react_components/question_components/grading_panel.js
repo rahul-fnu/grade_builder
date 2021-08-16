@@ -34,8 +34,8 @@ export default class GradingPanel extends Component {
                             </div>
                             :
                             <div className={styles.container}>
-                                {this.state.keys = Object.keys(this.props.ans).sort()}
-                                {this.state.keys.map(key => <GradingPanel ans = {this.props.ans[key]} ms = {this.props.ms[key]}  part = {key} parentCallback = {(score) => this.updateScore(this.props.part, score)}/>)}
+                                {this.props.ans ? this.state.keys = Object.keys(this.props.ans).sort() : this.state.keys = []}
+                                {this.state.keys.length > 0 ? this.state.keys.map(key => <GradingPanel ans = {this.props.ans[key]} ms = {this.props.ms[key]}  part = {key} parentCallback = {(score) => this.updateScore(this.props.part, score)}/>) : <p>Please submit your answers again</p>}
                             </div>
                         }
                 </div>

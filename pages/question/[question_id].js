@@ -39,6 +39,7 @@ export class Question extends Component{
             subject : this.state.question.subject, 
             score : score
         }
+        // if (!this.userData) return;
         const questions_solved = this.userData.questions_solved
         for (let question of this.userData.questions_solved) {
             if (question._id === this.state.question._id) {
@@ -70,12 +71,10 @@ export class Question extends Component{
         console.log(request);
     }
     render() {
-        console.log(this.props.userData)
-
         return (
             <>
                 <div className={styles.container}>
-                    <NavigationBar logout = {this.logout}></NavigationBar>
+                    <NavigationBar logout = {this.logout} parentCallback = {() => this.router.push('/dashboard')}></NavigationBar>
                     <Header q = {this.state.question}></Header>
                     <NavTabs ques = {this.state.question} parentCallback = {(score) => this.updateScore(score)}></NavTabs>
                 </div>
@@ -101,18 +100,19 @@ export const getServerSideProps = async (context) => {
         }
     })
     const userInfo = {
-        email : initialAuth.idTokenData.email
+        email : initialAuth ? initialAuth.idTokenData.email : ""
     }
-    const userData = await axios({
+
+    const userData = userInfo.email ? await axios({
         method: 'POST',
-        url: '../api/users',
+        url: 'http://localhost:3000/api/users',
         data: {
             data: userInfo,
             operation: 'GET'
         }
-    })
+    }) : {};
     console.log(userData)
-    return { props: {auth : initialAuth, question : data.data.data[0], userData: userData.data.data[0]}};
+    return { props: {auth : initialAuth, question : data.data.data[0], userData: userData.data ? userData.data.data[0] : {} }};
 };
 
 export default questionWithAuth;

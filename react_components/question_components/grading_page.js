@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import GradingPanel from './grading_panel';
 import styles from '../../styles/Question.module.css';
+import PopupComponent from './submit_ans_popup';
 export default class GradingPage extends Component {
     constructor(props) {
         super(props);
@@ -33,6 +34,7 @@ export default class GradingPage extends Component {
     }
     onTrigger = (event) => {
         this.props.parentCallback(this.state.points);
+        console.log("flnern");
         event.preventDefault();
     }
     render() {
@@ -47,3 +49,4 @@ export default class GradingPage extends Component {
         )
     }
 }
+

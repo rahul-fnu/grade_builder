@@ -6,8 +6,8 @@ import {
   useAuth,
   useAuthFunctions,
   getServerSideAuth,
-} from "../../auth";
-import styles from '../../styles/Home.module.css'
+} from "../auth";
+import styles from '../styles/Home.module.css'
 import Image from 'next/image'
 
 
@@ -59,14 +59,14 @@ class Login extends Component {
       else {
         const response = await axios({
           method: 'POST',
-          url: '../api/users',
+          url: './api/users',
           data: {
             data: user,
             operation: "CREATE"
           }
         })
       }
-      this.router.push("../dashboard");
+      this.router.push("./dashboard");
     }
 
     render(){

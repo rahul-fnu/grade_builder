@@ -83,7 +83,7 @@ export class SubjectPage extends Component {
         this.state.lists = this.YearlyList
         return (
             <div className={styles.container}>
-                <NavigationBar className={styles.navbar} logout = {this.logout}></NavigationBar>
+                <NavigationBar className={styles.navbar} logout = {this.logout} parentCallback = {() => this.router.push('/dashboard')}></NavigationBar>
                 <Head>
                     <Image src="/logo.png" width={8} height={8} />
                     <title>{`${this.props.board_level} ${subject}`}</title>
