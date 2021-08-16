@@ -1,12 +1,11 @@
 import React from 'react';
 import {Component} from 'react';
-// import Multiselect from 'multiselect-react-dropdown';
-import TextEditor from '../components/text_editor';
+import TextEditor from '../react_components/text_editor';
 import styles from '../styles/AddPaper.module.css';
 import AddSubpart from './add_subpart'
-import DropdownSelect from '../components/dropdown_select'
+import DropdownSelect from '../react_components/dropdown_select'
 const uuidv4 = require("uuid/v4");
-import ImageUploader from '../Components/images_upload';
+import ImageUploader from '../react_components/images_upload';
 export default class AddQuestionPage extends Component {
     constructor(props) {
         super(props);   

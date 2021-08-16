@@ -1,6 +1,5 @@
 import React, { Component, useState} from 'react';
 import styles from '../styles/AddPaper.module.css';
-import TextEditor from '../Components/text_editor';
 import MSRubric from './ms_rubric';
 import ImageUploader from './images_upload';
 import AddMSSubpart from './ms_subpart';

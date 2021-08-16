@@ -2,7 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import AddQuestionPage from './new_question'
 import styles from '../styles/AddPaper.module.css';
-import AddMS from '../components/new_ms'
+import AddMS from '../react_components/new_ms'
 import axios from 'axios';
 export default class AddPaperPage extends Component {
     constructor(props) {

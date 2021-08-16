@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import TextEditor from '../Components/text_editor';
+import TextEditor from '../react_components/text_editor';
 import styles from '../styles/AddPaper.module.css';
 import ImageUploader from './images_upload';
 export default class MSRubric extends Component {

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Component} from 'react';
-import ImageUploader from '../Components/images_upload';
-import TextEditor from '../Components/text_editor';
+import ImageUploader from '../react_components/images_upload';
+import TextEditor from '../react_components/text_editor';
 import styles from '../styles/AddPaper.module.css';
 export default class AddSubpart extends Component {
     constructor(props) {
