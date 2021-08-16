@@ -2,14 +2,13 @@ import React from 'react';
 import {Component} from 'react';
 import axios from 'axios';
 import { useRouter } from "next/router";
-import NavigationBar from '../react_components/navbar.js'
-
-import styles from '../styles/Home.module.css';
+import NavigationBar from '../../react_components/navbar.js'
+import styles from '../../styles/Home.module.css';
 import {
     useAuth,
     getServerSideAuth,
     useAuthFunctions
-  } from "../auth";
+  } from "../../auth";
   
 function withAuth(Component) {
     return function WrappedComponent(props) {

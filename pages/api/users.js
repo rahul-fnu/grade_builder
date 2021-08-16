@@ -8,7 +8,6 @@ export default async (req, res) => {
     switch (method) {
         case 'GET':
             try {
-                // console.log(req.body)
                 const users = await UserData.find(req.body)
                 res.status(200).json({success: true, data: users})
             } catch (error) {
