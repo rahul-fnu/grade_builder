@@ -4,8 +4,8 @@ module.exports = {
         IDP_DOMAIN: "grade-builder.auth.us-east-2.amazoncognito.com",
         USER_POOL_ID: "us-east-2_98yQmo7sG",
         USER_POOL_CLIENT_ID: "62er3jbeahqrq49l9a0a7iknud",
-        REDIRECT_SIGN_IN: "http://ec2-3-131-137-184.us-east-2.compute.amazonaws.com:3000/token",
-        REDIRECT_SIGN_OUT: "http://ec2-3-131-137-184.us-east-2.compute.amazonaws.com:3000",
+        REDIRECT_SIGN_IN: "https://ec2-3-131-137-184.us-east-2.compute.amazonaws.com:3000/token",
+        REDIRECT_SIGN_OUT: "https://ec2-3-131-137-184.us-east-2.compute.amazonaws.com:3000",
         AUTH_COOKIE_DOMAIN: "ec2-3-131-137-184.us-east-2.compute.amazonaws.com"
     }
 }
