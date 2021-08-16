@@ -9,6 +9,7 @@ import {
     getServerSideAuth,
     useAuthFunctions
   } from "../../auth";
+import { Modal } from 'react-native';
   
 function withAuth(Component) {
     return function WrappedComponent(props) {
@@ -59,6 +60,9 @@ export class HomePage extends Component {
         this.router.push(`/caie-a-level/${subject}`)
         e.preventDefault()   
     }
+    laodModal(subject) {
+      return(<Modal>{`${subject} questions are not available`}</Modal>)
+    }
     loadLoginPage(e) { 
       this.router.replace('/');
       e.preventDefault()
@@ -75,13 +79,13 @@ export class HomePage extends Component {
             </h4>
 
             <div className={styles.grid}>
-              <a className={styles.card} onClick={(e) => this.loadSubjectPage(e, "chemistry")}>
+              <a className={styles.card} onClick={this.laodModal('Chemistry')}>
                 <h2>Chemistry &rarr;
                 <span className={styles.miniLogo}>
                     <img src="/chemistry2.jpg"  width={120} height={60} />
                   </span>
                 </h2>
-                <h4>{this.displaySubjectStats('chemistry')}</h4>
+                {/* <h4>{this.displaySubjectStats('chemistry')}</h4> */}
               </a>
     
               <a className={styles.card} onClick={(e) => this.loadSubjectPage(e, "physics")}>
@@ -93,22 +97,22 @@ export class HomePage extends Component {
                 <h4>{this.displaySubjectStats('physics')}</h4>
               </a>
     
-              <a className={styles.card} onClick={(e) => this.loadSubjectPage(e, "mathematics")}>
+              <a className={styles.card} onClick={() => this.laodModal("Mathematics")}>
                 <h2>Maths &rarr;
                   <span className={styles.miniLogo}>
                     <img src="/maths4.jpg"  width={100} height={60} />
                   </span>
                 </h2>
-                <h4>{this.displaySubjectStats('mathematics')}</h4>
+                {/* <h4>{this.displaySubjectStats('mathematics')}</h4> */}
               </a>
     
-              <a className={styles.card} onClick={(e) => this.loadSubjectPage(e, 'economics')}>
+              <a className={styles.card} onClick={() => this.laodModal('Economics')}>
                 <h2>Economics &rarr;
                   <span className={styles.miniLogo}>
                     <img src="/economics.jpg" alt="Vercel Logo" width={100} height={50} />
                   </span>
                 </h2>
-                <h4>{this.displaySubjectStats('econmics')}</h4>
+                {/* <h4>{this.displaySubjectStats('econmics')}</h4> */}
               </a>
             </div>
     
