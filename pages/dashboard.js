@@ -48,9 +48,14 @@ export class HomePage extends Component {
          this.setState({userData : data.data.data[0]});
     }
     displaySubjectStats = (subject) => {
+        if (!this.state.userData.questions_solved) return 0;
         this.state.userData.email ? console.log(this.state.userData) : null;
-        const solved = this.state.userData.email && this.state.userData.questions_solved > 0 ? this.state.userData.questions_solvedquestions_solved.filter(e => e.subject === subject) : [];
-        return solved.length;
+        console.log(this.state.userData)
+        var solved = 0;
+        for (var question of this.state.userData.questions_solved) {
+          if (question.subject === subject) solved++;;
+        }
+        return solved;
     }
     loadSubjectPage(e, subject) {     
         this.router.push(`/caie-a-level/${subject}`)

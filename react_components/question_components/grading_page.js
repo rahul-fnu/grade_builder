@@ -16,6 +16,7 @@ export default class GradingPage extends Component {
             const points = this.calculatePoints(this.state.score);
             this.setState({points: points}, () => {
             })
+
         });
     }
     calculatePoints = (score) => {
@@ -31,7 +32,7 @@ export default class GradingPage extends Component {
         return total;
     }
     onTrigger = (event) => {
-        console.log(this.props.parentCallback(event));
+        this.props.parentCallback(this.state.points);
         event.preventDefault();
     }
     render() {

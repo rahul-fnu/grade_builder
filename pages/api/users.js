@@ -22,8 +22,12 @@ export default async (req, res) => {
                     const user = await UserData.create(req.body.data);
                     res.status(200).json({success: true, data: user});
                 } else if (req.body.operation === "GET") {
-                    const users = await UserData.find({email : req.body.data})
+                    const users = await UserData.find({email : req.body.data.email})
                     res.status(200).json({success: true, data: users})
+                } else if (req.body.operation === "UPDATE") {
+                    console.log(req.body)
+                    const user = await UserData.replaceOne({_id : req.body.id}, req.body.user);
+                    res.status(200).json({success: true, data: user});
                 } else {
                     res.status(400).json({success: false});
                 }
@@ -34,9 +38,11 @@ export default async (req, res) => {
             break;
         case 'PUT':
             try {
-                const user = await UserData.updateOne(req.body.user, {"$set" : req.body.updated});
+                console.log(req.body)
+                const user = await UserData.updateOne(req.body.data.user, {"$set" : req.body.data.updated});
                 res.status(200).json({success: true, data: user});
             } catch (error) {
+                console.log(error)
                 res.status(400).json({success: false});
             }
             break;

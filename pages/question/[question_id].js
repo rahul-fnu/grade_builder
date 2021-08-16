@@ -25,20 +25,49 @@ export class Question extends Component{
         super(props);
         this.state = {
             question: this.props.question,
-            email : this.props.email
+            // userData : this.props.email
         }
         this.auth = props.auth
         this.logout = props.logout
         this.router = props.router
+        this.userData = props.userData
     }
     updateScore = async (score) => {
+        console.log(score)
+        const new_question = {
+            _id : this.state.question._id,
+            subject : this.state.question.subject, 
+            score : score
+        }
+        const questions_solved = this.userData.questions_solved
+        for (let question of this.userData.questions_solved) {
+            if (question._id === this.state.question._id) {
+                continue;
+            } else {
+                const obj = {
+                    _id : question._id,
+                    score : question.score,
+                    subject : question.subject
+                }
+                questions_solved.push(obj);
+            }
+        }
+        questions_solved.push(new_question)
+        const newData = {...this.userData, questions_solved : questions_solved}
+        axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded'
         const request = await axios({
             url: 'http://127.0.0.1:3000/api/users',
             method: 'POST',
             data: {
-                question_id: 12345
+                operation: 'UPDATE',
+                user : newData,
+                id : this.userData._id
+            },
+            headers: {
+                "Access-Control-Allow-Origin": "*"
             }
         })
+        console.log(request);
     }
     render() {
         console.log(this.props.userData)
@@ -71,20 +100,19 @@ export const getServerSideProps = async (context) => {
            operation: "GET"
         }
     })
-    // git
+    const userInfo = {
+        email : initialAuth.idTokenData.email
+    }
     const userData = await axios({
         method: 'POST',
         url: 'http://127.0.0.1:3000/api/users',
         data: {
-            data: initialAuth.idTokenData.email,
+            data: userInfo,
             operation: 'GET'
         }
     })
-    // console.log(initialAuth)
-    // console.log(data)
-    // console.log("User data:")
-    // console.log(userData.data.data)
-    return { props: {auth : initialAuth, question : data.data.data[0], userData: userData.data.data}};
+    console.log(userData)
+    return { props: {auth : initialAuth, question : data.data.data[0], userData: userData.data.data[0]}};
 };
 
 export default questionWithAuth;
