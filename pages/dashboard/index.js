@@ -69,7 +69,7 @@ export class HomePage extends Component {
       return (
         <>
         {!this.props.auth ? <p>Please Login First</p> :
-        <div className={styles.container}>
+        <div className={styles.main}>
           <NavigationBar className={styles.navbar} logout = {this.logout} parentCallback = {() => this.router.push('/dashboard')}></NavigationBar>
           <main className={styles.main}>
             <h4 className={styles.title}>
