@@ -6447,7 +6447,7 @@
   dependencies:
     "fast-base64-decode" "^1.0.0"
 
-"react-native@^0.64.2", "react-native@>=0.56", "react-native@>=0.64.0-rc.0 || 0.0.0-*":
+"react-native@>=0.56", "react-native@>=0.64.0-rc.0 || 0.0.0-*":
   "integrity" "sha512-Ty/fFHld9DcYsFZujXYdeVjEhvSeQcwuTGXezyoOkxfiGEGrpL/uwUZvMzwShnU4zbbTKDu2PAm/uwuOittRGA=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.64.2.tgz"
   "version" "0.64.2"

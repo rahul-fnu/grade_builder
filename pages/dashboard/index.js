@@ -9,7 +9,7 @@ import {
     getServerSideAuth,
     useAuthFunctions
   } from "../../auth";
-import { Modal } from 'react-native';
+// import { Modal } from 'react-native';
   
 function withAuth(Component) {
     return function WrappedComponent(props) {
@@ -47,21 +47,19 @@ export class HomePage extends Component {
          this.setState({userData : data.data.data[0]});
     }
     displaySubjectStats = (subject) => {
-        if (!this.state.userData.questions_solved) return 0;
+        if (!this.state.userData) return 0;
         this.state.userData.email ? console.log(this.state.userData) : null;
         console.log(this.state.userData)
         var solved = 0;
+        if (this.state.userData.questions_solved) {
         for (var question of this.state.userData.questions_solved) {
           if (question.subject === subject) solved++;;
-        }
+        }}
         return solved;
     }
     loadSubjectPage(e, subject) {     
         this.router.push(`/caie-a-level/${subject}`)
         e.preventDefault()   
-    }
-    laodModal(subject) {
-      return(<Modal>{`${subject} questions are not available`}</Modal>)
     }
     loadLoginPage(e) { 
       this.router.replace('/');
@@ -79,12 +77,13 @@ export class HomePage extends Component {
             </h4>
 
             <div className={styles.grid}>
-              <a className={styles.card} onClick={this.laodModal('Chemistry')}>
+              <a className={styles.card} >
                 <h2>Chemistry &rarr;
                 <span className={styles.miniLogo}>
                     <img src="/chemistry2.jpg"  width={120} height={60} />
                   </span>
                 </h2>
+                <h4>0</h4>
                 {/* <h4>{this.displaySubjectStats('chemistry')}</h4> */}
               </a>
     
@@ -97,21 +96,23 @@ export class HomePage extends Component {
                 <h4>{this.displaySubjectStats('physics')}</h4>
               </a>
     
-              <a className={styles.card} onClick={() => this.laodModal("Mathematics")}>
+              <a className={styles.card}>
                 <h2>Maths &rarr;
                   <span className={styles.miniLogo}>
                     <img src="/maths4.jpg"  width={100} height={60} />
                   </span>
                 </h2>
+                <h4>0</h4>
                 {/* <h4>{this.displaySubjectStats('mathematics')}</h4> */}
               </a>
     
-              <a className={styles.card} onClick={() => this.laodModal('Economics')}>
+              <a className={styles.card}>
                 <h2>Economics &rarr;
                   <span className={styles.miniLogo}>
                     <img src="/economics.jpg" alt="Vercel Logo" width={100} height={50} />
                   </span>
                 </h2>
+                <h4>0</h4>
                 {/* <h4>{this.displaySubjectStats('econmics')}</h4> */}
               </a>
             </div>

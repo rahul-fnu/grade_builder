@@ -17,7 +17,11 @@ function withAuth(Component) {
       const auth = useAuth(props.initialAuth);
       const question = props.question
       const {logout} = useAuthFunctions();
-      return <Component {...props} auth={auth} logout = {logout} question = {question}  userData = {props.userData} router = {router}/>;
+      const user = props.userData
+      console.log(user);
+      if (!user) {user = {}}
+
+      return <Component {...props} auth={auth} logout = {logout} question = {question}  userData = {user} router = {router}/>;
     }
   }
 export class Question extends Component{
@@ -30,7 +34,7 @@ export class Question extends Component{
         this.auth = props.auth
         this.logout = props.logout
         this.router = props.router
-        this.userData = props.userData
+        this.userData = props.userData ? props.userData : {}
     }
     updateScore = async (score) => {
         console.log(score)
@@ -105,7 +109,7 @@ export const getServerSideProps = async (context) => {
         email : initialAuth ? initialAuth.idTokenData.email : ""
     }
 
-    const userData = userInfo.email ? await axios({
+    const userData = userInfo.email.length ? await axios({
         method: 'POST',
         url: 'http://localhost:3000/api/users',
         data: {
@@ -113,8 +117,8 @@ export const getServerSideProps = async (context) => {
             operation: 'GET'
         }
     }) : {};
-    console.log(userData)
-    return { props: {auth : initialAuth, question : data.data.data[0], userData: userData.data ? userData.data.data[0] : {} }};
+    
+    return { props: {auth : initialAuth, question : data.data.data[0], userData: userData.data.data[0] ? userData.data.data[0] : {} }};
 };
 
 export default questionWithAuth;
