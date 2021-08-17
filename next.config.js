@@ -4,8 +4,8 @@ module.exports = {
         IDP_DOMAIN: "grade-builder.auth.us-east-2.amazoncognito.com",
         USER_POOL_ID: "us-east-2_98yQmo7sG",
         USER_POOL_CLIENT_ID: "62er3jbeahqrq49l9a0a7iknud",
-        REDIRECT_SIGN_IN: "https://gradebuilder.xyz/token",
-        REDIRECT_SIGN_OUT: "https://gradebuilder.xyz",
-        AUTH_COOKIE_DOMAIN: "gradebuilder"
+        REDIRECT_SIGN_IN: "https://localhost:3000/token",
+        REDIRECT_SIGN_OUT: "https://localhost:3000",
+        AUTH_COOKIE_DOMAIN: "localhost"
     }
 }
