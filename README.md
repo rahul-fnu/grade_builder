@@ -4,3 +4,6 @@ This is a repo for high school exam preperation site built using NextJS, React, 
 [Click here to view user dashboard.](https://drive.google.com/file/d/16cLvGLeCwDEtsnta6NTYWPHEh3ghM-2U/view?usp=sharing)
 [Click here to view subject page for the list of questions.](https://drive.google.com/file/d/1kp9RL5MTh_ttAc3IJlN7FC-rKsIHrimx/view?usp=sharing)
 [Click here to view question page for each individual question.](https://drive.google.com/file/d/1AbV8YYJbzE3X22CIBRYzAPsYGYsNCPnu/view?usp=sharing)
+Code for all the these pages can be found in this repo.
+
+-Rahul
