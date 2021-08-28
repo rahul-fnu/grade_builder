@@ -23,10 +23,10 @@ export default function TokenSetter() {
     // We are not using the router here, since the query object will be empty
     // during prerendering if the page is statically optimized.
     // So the router's location would return no search the first time.
-    // const redirectUriAfterSignIn =
-      // extractFirst(queryString.parse(window.location.search).to || "") || "../dashboard";
+     const redirectUriAfterSignIn =
+       extractFirst(queryString.parse(window.location.search).to || "") || "../dashboard";
 
-    router.push('/dashboard');
+    router.push(redirectUriAfterSignIn);
   });
 
   return <p>loading..</p>;
