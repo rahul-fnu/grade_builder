@@ -24,7 +24,7 @@ export default function TokenSetter() {
     // during prerendering if the page is statically optimized.
     // So the router's location would return no search the first time.
      const redirectUriAfterSignIn =
-       extractFirst(queryString.parse(window.location.search).to || "") || "../dashboard";
+       extractFirst(queryString.parse(window.location.search).to || "") || "/dashboard";
 
     router.push(redirectUriAfterSignIn);
   });
