@@ -6,6 +6,6 @@ module.exports = {
         USER_POOL_CLIENT_ID: "62er3jbeahqrq49l9a0a7iknud",
         REDIRECT_SIGN_IN: "https://www.gradebuilder.xyz/token",
         REDIRECT_SIGN_OUT: "https://www.gradebuilder.xyz",
-        AUTH_COOKIE_DOMAIN: "https://www.gradebuilder.xyz"
+        AUTH_COOKIE_DOMAIN: "www.gradebuilder.xyz"
     }
 }
