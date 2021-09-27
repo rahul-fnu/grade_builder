@@ -57,7 +57,7 @@ export class Question extends Component{
         const newData = {...this.userData, questions_solved : questions_solved}
         axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded'
         const request = await axios({
-            url: '../api/users',
+            url: 'https://www.gradebuilder.xyz/api/users',
             method: 'POST',
             data: {
                 operation: 'UPDATE',
