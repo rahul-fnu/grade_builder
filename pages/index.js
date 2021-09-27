@@ -45,7 +45,7 @@ class Login extends Component {
       if (!user) return; 
       const checkIfExists = await axios({
         method: 'POST',
-        url: 'http://127.0.0.1:3000/api/users',
+        url: 'https://localhost:3000/api/users',
         data: {
           data: user,
           operation: "GET"
@@ -59,7 +59,7 @@ class Login extends Component {
       else {
         const response = await axios({
           method: 'POST',
-          url: 'http://127.0.0.1:3000/api/users',
+          url: 'https://localhost:3000/api/users',
           data: {
             data: user,
             operation: "CREATE"

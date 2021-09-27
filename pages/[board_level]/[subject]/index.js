@@ -135,7 +135,7 @@ export const getServerSideProps = async (context) => {
     }
     const data = await axios({
         method: 'POST',
-        url: 'http://127.0.0.1:3000/api/questions',
+        url: 'https://localhost:3000/api/questions',
         data: {
            data: questions,
            operation: "GET"
