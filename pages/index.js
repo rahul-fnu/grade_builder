@@ -45,7 +45,7 @@ class Login extends Component {
       if (!user) return; 
       const checkIfExists = await axios({
         method: 'POST',
-        url: 'https://localhost:3000/api/users',
+        url: './api/users',
         data: {
           data: user,
           operation: "GET"
