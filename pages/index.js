@@ -59,7 +59,7 @@ class Login extends Component {
       else {
         const response = await axios({
           method: 'POST',
-          url: 'https://localhost:3000/api/users',
+          url: './api/users',
           data: {
             data: user,
             operation: "CREATE"
