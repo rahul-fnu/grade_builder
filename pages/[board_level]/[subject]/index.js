@@ -4,9 +4,7 @@ import { useRouter } from 'next/router'
 import { Component } from 'react';
 import axios from 'axios';
 import QuestionList from '../../../react_components/subject_page_components/question_list';
-// import QuestionList from '../../../react_components/'
 import Header from '../../../react_components/subject_page_components/header_card'
-// import GridList from '@material-ui/GridList';
 import NavigationBar from '../../../react_components/navbar'
 import {
     useAuth,
@@ -137,7 +135,7 @@ export const getServerSideProps = async (context) => {
     }
     const data = await axios({
         method: 'POST',
-        url: 'http://127.0.0.1:3000/api/questions',
+        url: '../../api/questions',
         data: {
            data: questions,
            operation: "GET"
