@@ -45,7 +45,7 @@ class Login extends Component {
       if (!user) return; 
       const checkIfExists = await axios({
         method: 'POST',
-        url: '../api/users',
+        url: 'https://www.gradebuilder.xyz/api/users',
         data: {
           data: user,
           operation: "GET"
@@ -59,7 +59,7 @@ class Login extends Component {
       else {
         const response = await axios({
           method: 'POST',
-          url: './api/users',
+          url: 'https://www.gradebuilder.xyz/api/users',
           data: {
             data: user,
             operation: "CREATE"

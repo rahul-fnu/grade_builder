@@ -36,7 +36,7 @@ export class HomePage extends Component {
     loadUserData = async (user) => {
          const data = await axios({
              method: 'POST',
-             url: '../api/users',
+             url: 'https://www.gradebuilder.xyz/api/users',
              data: {
                 data: user,
                 operation: "GET"

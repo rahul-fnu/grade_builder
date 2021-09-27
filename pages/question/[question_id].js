@@ -95,7 +95,7 @@ export const getServerSideProps = async (context) => {
     }
     const data = await axios({
         method: 'POST',
-        url: 'http://localhost:3000/api/questions',
+        url: 'https://www.gradebuilder.xyz/api/questions',
         data: {
            data: question,
            operation: "GET"
@@ -107,7 +107,7 @@ export const getServerSideProps = async (context) => {
 
     const userData = userInfo.email ? await axios({
         method: 'POST',
-        url: 'https://localhost:3000/api/users',
+        url: 'https://www.gradebuilder.xyz/api/users',
         data: {
             data: userInfo,
             operation: 'GET'
